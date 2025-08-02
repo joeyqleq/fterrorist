@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -22,7 +23,7 @@ export const metadata: Metadata = {
     title: "Freebie Terrorist - Breaking Educational Barriers",
     description: "Legitimate .edu accounts for students worldwide. Fighting against educational exclusivity.",
   },
-    generator: 'v0.dev'
+  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -32,19 +33,24 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-    <head>
-    <script async defer src="https://tianji.motherfucking.fun/tracker.js" data-website-id="cmcqrgs1m00ujrwk7oc3t5gwz"></script>
-  <!-- Matomo Tag Manager -->
-<script>
-  var _mtm = window._mtm = window._mtm || [];
-  _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
-  (function() {
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.async=true; g.src='https://matomo.motherfucking.fun/js/container_PpeT58PO.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Matomo Tag Manager -->
-    </head>
+      <head>
+        <Script
+          async
+          defer
+          src="https://tianji.motherfucking.fun/tracker.js"
+          data-website-id="cmcqrgs1m00ujrwk7oc3t5gwz"
+        />
+        <Script id="matomo-init" strategy="afterInteractive">
+          {`
+            var _mtm = window._mtm = window._mtm || [];
+            _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+            (function() {
+              var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+              g.async=true; g.src='https://matomo.motherfucking.fun/js/container_PpeT58PO.js'; s.parentNode.insertBefore(g,s);
+            })();
+          `}
+        </Script>
+      </head>
       <body className={inter.className}>{children}</body>
     </html>
   )
