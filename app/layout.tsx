@@ -34,6 +34,16 @@ export default function RootLayout({
     <html lang="en">
     <head>
     <script async defer src="https://tianji.motherfucking.fun/tracker.js" data-website-id="cmcqrgs1m00ujrwk7oc3t5gwz"></script>
+  <!-- Matomo Tag Manager -->
+<script>
+  var _mtm = window._mtm = window._mtm || [];
+  _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+  (function() {
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src='https://matomo.motherfucking.fun/js/container_PpeT58PO.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Tag Manager -->
     </head>
       <body className={inter.className}>{children}</body>
     </html>
