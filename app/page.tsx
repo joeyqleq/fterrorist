@@ -24,6 +24,7 @@ import CircuitBoardBackground from "@/components/ui/circuit-board-bg"
 import TerminalFAQ from "@/components/ui/terminal-faq"
 import SplineModel from "@/components/ui/spline-model"
 
+
 export default function HomePage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState("All")

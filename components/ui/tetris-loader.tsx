@@ -5,13 +5,13 @@ import React from 'react'
 import { motion } from 'framer-motion'
 
 const tetrisBlocks = [
-  { id: 1, color: "#EF4444", shape: [[1, 1], [1, 1]] }, // Square (O) - Red
-  { id: 2, color: "#3B82F6", shape: [[0, 2, 0], [2, 2, 2]] }, // T-shape (T) - Blue
-  { id: 3, color: "#10B981", shape: [[3, 3, 0], [0, 3, 3]] }, // Z-shape (Z) - Green
-  { id: 4, color: "#F97316", shape: [[0, 4, 4], [4, 4, 0]] }, // S-shape (S) - Orange
-  { id: 5, color: "#6366F1", shape: [[5, 5, 5, 5]] }, // Line (I) - Indigo
-  { id: 6, color: "#EC4899", shape: [[6, 0, 0], [6, 6, 6]] }, // L-shape (L) - Pink
-  { id: 7, color: "#8B5CF6", shape: [[0, 0, 7], [7, 7, 7]] }, // J-shape (J) - Purple
+  { id: 1, color: "#10B981", shape: [[1, 1], [1, 1]] }, // Square (O) - Green
+  { id: 2, color: "#059669", shape: [[0, 2, 0], [2, 2, 2]] }, // T-shape (T) - Dark Green
+  { id: 3, color: "#34D399", shape: [[3, 3, 0], [0, 3, 3]] }, // Z-shape (Z) - Light Green
+  { id: 4, color: "#047857", shape: [[0, 4, 4], [4, 4, 0]] }, // S-shape (S) - Emerald
+  { id: 5, color: "#6EE7B7", shape: [[5, 5, 5, 5]] }, // Line (I) - Mint
+  { id: 6, color: "#065F46", shape: [[6, 0, 0], [6, 6, 6]] }, // L-shape (L) - Forest
+  { id: 7, color: "#10B981", shape: [[0, 0, 7], [7, 7, 7]] }, // J-shape (J) - Green
 ]
 
 const containerVariants = {
