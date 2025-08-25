@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { ExternalLink, Clock, MapPin, Shield, DollarSign, AlertTriangle } from "lucide-react"
 import type { StudentOffer } from "@/lib/studentOffers"
+import OfferLogo3D from "../OfferLogo3D"
 
 interface DisplayCardsProps {
   offers: StudentOffer[]
@@ -84,9 +85,12 @@ export default function DisplayCards({ offers }: DisplayCardsProps) {
                       </div>
                     </div>
 
-                    <h3 className="text-2xl font-black text-white mb-3 group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-purple-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
-                      {offer.provider}
-                    </h3>
+                    <div className="flex items-center gap-3 mb-3">
+                      <OfferLogo3D provider={offer.provider} size="sm" />
+                      <h3 className="text-2xl font-black text-white group-hover:bg-gradient-to-r group-hover:from-pink-400 group-hover:to-purple-400 group-hover:bg-clip-text group-hover:text-transparent transition-all duration-300">
+                        {offer.provider}
+                      </h3>
+                    </div>
 
                     <p className="text-gray-300 text-sm leading-relaxed mb-4">{offer.offer}</p>
 

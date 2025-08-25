@@ -1,29 +1,20 @@
-import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
-import Script from "next/script"
+import { Space_Mono } from "next/font/google"
 import "./globals.css"
+import { ThemeProvider } from "@/components/theme-provider"
+import LogoInitializer from "@/components/LogoInitializer"
 
-const inter = Inter({ subsets: ["latin"] })
+const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400","700"] })
 
 export const metadata: Metadata = {
-  title: "Freebie Terrorist - Breaking Educational Barriers",
-  description:
-    "Legitimate .edu accounts for students worldwide. Breaking barriers to premium software and services for those marginalized by economic and political exclusivity.",
-  keywords: "edu account, student access, educational equality, free software, global south, legitimate accounts",
-  authors: [{ name: "Freebie Terrorist" }],
+  title: "FTERRORIST - Digital Anarchist Platform",
+  description: "Breaking educational barriers through digital rebellion. Free .edu accounts, premium software, and student tools for everyone.",
+  keywords: ["student discounts", "free software", "edu email", "educational tools", "digital anarchist"],
   openGraph: {
-    title: "Freebie Terrorist - Breaking Educational Barriers",
-    description: "Legitimate .edu accounts for students worldwide. Fighting against educational exclusivity.",
+    title: "FTERRORIST - Digital Anarchist Platform",
+    description: "Breaking educational barriers through digital rebellion",
     type: "website",
-    locale: "en_US",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Freebie Terrorist - Breaking Educational Barriers",
-    description: "Legitimate .edu accounts for students worldwide. Fighting against educational exclusivity.",
-  },
-  generator: "v0.dev",
 }
 
 export default function RootLayout({
@@ -32,26 +23,26 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
-        <Script
-          async
-          defer
-          src="https://tianji.motherfucking.fun/tracker.js"
-          data-website-id="cmcqrgs1m00ujrwk7oc3t5gwz"
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100;200;300;400;500&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Space+Mono:ital,wght@1,400&display=swap"
+          rel="stylesheet"
         />
-        <Script id="matomo-init" strategy="afterInteractive">
-          {`
-            var _mtm = window._mtm = window._mtm || [];
-            _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
-            (function() {
-              var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-              g.async=true; g.src='https://matomo.motherfucking.fun/js/container_PpeT58PO.js'; s.parentNode.insertBefore(g,s);
-            })();
-          `}
-        </Script>
       </head>
-      <body className={inter.className}>{children}</body>
+      <body className={spaceMono.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+        >
+          <LogoInitializer />
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   )
 }

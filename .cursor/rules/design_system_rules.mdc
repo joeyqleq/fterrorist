@@ -1,0 +1,355 @@
+# FREEBIE TERRORIST - Design System Rules
+
+## Project Overview
+This is a dark cyberpunk-themed website for student discount offers, built with Next.js 15, React 19, TypeScript, and modern animation libraries. The design follows a "digital anarchist" aesthetic with green/black/gray color schemes and advanced animations.
+
+## 1. Token Definitions
+
+### Color System
+**Location**: `app/globals.css` (lines 6-27)
+**Format**: CSS Custom Properties using HSL values
+
+```css
+:root {
+  --background: 0 0% 0%;        /* Pure black background */
+  --foreground: 0 0% 100%;      /* White text */
+  --primary: 0 0% 100%;         /* White primary */
+  --secondary: 0 0% 10%;        /* Dark gray secondary */
+  --accent: 0 0% 10%;           /* Dark gray accent */
+  --border: 0 0% 20%;           /* Gray borders */
+  --radius: 0.75rem;            /* Global border radius */
+}
+```
+
+**Brand Colors** (hardcoded in components):
+- Primary Green: `#22c55e` (green-500)
+- Secondary Green: `#4ade80` (green-400)
+- Dark Green: `#16a34a` (green-600)
+- Matrix Green: `#00ff00` (for special effects)
+
+### Typography System
+**Primary Font**: Space Mono (Google Font) - 90% of website
+**Secondary Font**: System monospace for special effects
+**Location**: `app/layout.tsx` (line 12)
+
+```tsx
+import { Space_Mono } from "next/font/google"
+const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"] })
+```
+
+### Spacing & Layout
+**Container**: Centered with 2rem padding, max-width 1400px
+**Grid System**: CSS Grid and Flexbox-based
+**Responsive Breakpoints**: Standard Tailwind (sm: 640px, md: 768px, lg: 1024px, xl: 1280px)
+
+## 2. Component Library
+
+### Location Structure
+```
+components/
+├── ui/                    # Core UI components (80+ components)
+├── magicui/              # Magic UI components (shimmer-button, etc.)
+└── [feature-specific]/   # Feature components (manifesto-cards, etc.)
+```
+
+### Component Architecture
+**Framework**: React 19 with TypeScript
+**Styling**: Tailwind CSS + CSS Custom Properties
+**Animation**: Framer Motion + Anime.js
+**Icons**: Lucide React + Tabler Icons
+
+### Key Component Patterns
+
+**1. Motion Components**
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  className="..."
+>
+```
+
+**2. Cyberpunk Styling**
+```tsx
+className="bg-gradient-to-br from-gray-900 via-black to-gray-800 border-green-500/30"
+```
+
+**3. Green Theme Consistency**
+```tsx
+// Text colors
+text-green-400    // Primary green text
+text-green-300    // Lighter green
+text-green-500    // Darker green
+
+// Backgrounds
+bg-green-600      // Solid backgrounds
+bg-green-500/20   // Transparent overlays
+
+// Borders
+border-green-400/50  // Semi-transparent borders
+```
+
+## 3. Frameworks & Libraries
+
+### Core Stack
+- **Frontend**: Next.js 15.4.6 (App Router)
+- **React**: 19.1.1 (Latest)
+- **TypeScript**: 5.x
+- **Styling**: Tailwind CSS 3.4.1
+- **Build**: Next.js built-in Turbopack
+
+### Animation Libraries
+- **Framer Motion**: `latest` - Primary animation library
+- **Anime.js**: `^4.1.2` - Advanced animations (SVG, numbers, stagger)
+- **Motion**: `^12.23.12` - Additional motion utilities
+- **GSAP**: `^3.13.0` - Complex animations
+
+### UI Libraries
+- **Radix UI**: Complete primitive library
+- **Shadcn/ui**: Component system
+- **Class Variance Authority**: Component variants
+- **Tailwind Merge**: Class optimization
+
+## 4. Asset Management
+
+### Image Storage
+**Location**: `public/` directory
+**Structure**:
+```
+public/
+├── logos/           # Company logos (PNG/JPG)
+├── terrorist_logo.png        # Main brand logo
+├── terrorist_logo_ascii.png  # ASCII art logo
+└── [payment-qr-codes].jpeg  # Payment assets
+```
+
+### Logo System
+**Service**: `lib/logoService.ts` - Automated logo fetching with manual overrides
+**Supported Formats**: PNG, JPG, SVG, WebP
+**Optimization**: Next.js Image component with unoptimized flag
+
+```tsx
+// Manual logo mappings take priority
+const MANUAL_LOGOS: Record<string, string> = {
+  "ZW3D": "/logos/zw3d.png",
+  "Sketch": "/logos/sketch.png",
+  // ... more mappings
+}
+```
+
+### Asset Optimization
+- **Images**: Next.js Image component
+- **SVG**: Inline SVG for animations
+- **Fonts**: Next.js font optimization
+- **No CDN**: Self-hosted assets
+
+## 5. Icon System
+
+### Primary Library
+**Lucide React**: `^0.454.0` - Main icon system
+**Tabler Icons**: `^3.34.1` - Secondary icons
+
+### Usage Pattern
+```tsx
+import { ArrowRight, Terminal, Shield } from "lucide-react"
+
+<Terminal className="w-5 h-5" />
+<ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+```
+
+### Icon Conventions
+- **Size**: Usually `w-5 h-5` (20px)
+- **Color**: Inherit from parent or explicit green classes
+- **Animation**: Framer Motion or CSS transitions
+
+## 6. Styling Approach
+
+### Primary Methodology
+**Tailwind CSS** - Utility-first approach with extensive customization
+
+### Global Styles
+**Location**: `app/globals.css`
+**Includes**:
+- CSS Custom Properties for theming
+- Custom keyframe animations
+- Cyberpunk-specific utilities
+- Enhanced scrollbar styling
+
+### Custom Animations
+```css
+/* Terrorist theme gradient */
+@keyframes terrorist-gradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* SVG outline drawing */
+@keyframes draw {
+  0% { stroke-dashoffset: 1000; }
+  100% { stroke-dashoffset: 0; }
+}
+```
+
+### Responsive Design
+- **Mobile-first**: Tailwind's responsive prefixes
+- **Breakpoints**: sm, md, lg, xl, 2xl
+- **Grid**: CSS Grid with responsive columns
+- **Flexbox**: Extensive use for layouts
+
+### Theme System
+**Dark Mode**: Primary theme (no light mode)
+**Provider**: `next-themes` for theme management
+**Implementation**: CSS custom properties + Tailwind classes
+
+## 7. Project Structure
+
+### Overall Organization
+```
+fterrorist/
+├── app/                    # Next.js App Router
+│   ├── globals.css        # Global styles & tokens
+│   ├── layout.tsx         # Root layout with fonts
+│   ├── page.tsx          # Homepage
+│   ├── donate/           # Donate page
+│   └── api/              # API routes (logo fetching)
+├── components/
+│   ├── ui/               # Reusable UI components
+│   ├── magicui/         # Magic UI library components
+│   └── [features]/      # Feature-specific components
+├── lib/                  # Utilities & business logic
+│   ├── utils.ts         # Tailwind merge utility
+│   ├── logoService.ts   # Logo management
+│   └── studentOffers.ts # Data layer
+├── hooks/               # Custom React hooks
+├── public/             # Static assets
+└── styles/            # Additional stylesheets (unused)
+```
+
+### Component Patterns
+
+**1. Page Components**
+- Located in `app/` directory
+- Use `"use client"` directive
+- Import from `@/components/`
+
+**2. UI Components**
+- Located in `components/ui/`
+- Reusable across features
+- Follow Radix + Tailwind patterns
+
+**3. Feature Components**
+- Located in `components/`
+- Feature-specific logic
+- Import UI components
+
+### Import Aliases
+```json
+{
+  "components": "@/components",
+  "utils": "@/lib/utils",
+  "ui": "@/components/ui",
+  "lib": "@/lib",
+  "hooks": "@/hooks"
+}
+```
+
+## 8. Animation System
+
+### Libraries Used
+1. **Framer Motion**: Primary animation library
+2. **Anime.js**: Advanced effects (SVG, stagger, numbers)
+3. **CSS Animations**: Custom keyframes for specific effects
+
+### Animation Patterns
+
+**1. Page Transitions**
+```tsx
+<motion.div
+  initial={{ opacity: 0, y: 50 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8 }}
+  viewport={{ once: true }}
+>
+```
+
+**2. Stagger Animations**
+```tsx
+transition={{ duration: 0.6, delay: index * 0.1 }}
+```
+
+**3. Anime.js Integration**
+```tsx
+import { animate } from "animejs"
+
+animate(element, {
+  scale: [1, 1.2, 1],
+  duration: 1400,
+  easing: "easeOutExpo"
+})
+```
+
+## 9. Data Management
+
+### Student Offers
+**Location**: `lib/studentOffers.ts`
+**Structure**: TypeScript interfaces with strict typing
+**Format**: Static array of offer objects
+
+```tsx
+export interface StudentOffer {
+  category: string
+  provider: string
+  offer: string
+  duration: string
+  savings: string
+  eligibility: string
+  verification: string
+  notes: string
+  link: string
+}
+```
+
+### Logo Management
+**Service**: `lib/logoService.ts`
+**Features**: Automatic fetching, manual overrides, local caching
+**Priority**: Manual mappings > Local files > External APIs
+
+## 10. Performance Considerations
+
+### Optimization Strategies
+- **Font Loading**: Next.js font optimization
+- **Image Optimization**: Next.js Image component
+- **Code Splitting**: Automatic with Next.js
+- **Animation Performance**: GPU-accelerated transforms
+- **Bundle Size**: Tree-shaking with ES modules
+
+### Animation Performance
+- Use `transform` and `opacity` for smooth animations
+- Avoid animating layout properties
+- Use `requestAnimationFrame` for custom animations
+- GPU acceleration with `transform3d(0,0,0)`
+
+## 11. Figma Integration Guidelines
+
+### Design Token Mapping
+When integrating Figma designs:
+
+1. **Colors**: Map Figma colors to CSS custom properties
+2. **Typography**: Use Space Mono for 90% of text
+3. **Spacing**: Follow Tailwind spacing scale
+4. **Components**: Match existing component patterns
+5. **Animations**: Translate to Framer Motion or Anime.js
+
+### Component Naming
+- Use existing component names from `components/ui/`
+- Follow kebab-case for file names
+- Use PascalCase for component names
+- Maintain cyberpunk aesthetic with green accents
+
+### Asset Workflow
+1. Export assets to `public/` directory
+2. Use Next.js Image component for optimization
+3. Follow existing logo management patterns
+4. Maintain consistent file naming conventions

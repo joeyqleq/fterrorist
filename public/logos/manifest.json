@@ -1,0 +1,410 @@
+{
+  "affinity_designer": {
+    "filename": "affinity_designer.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 25151
+  },
+  "affinity_photo": {
+    "filename": "affinity_photo.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 58240
+  },
+  "affinity_publisher": {
+    "filename": "affinity_publisher.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 55215
+  },
+  "affinity-designer": {
+    "filename": "affinity-designer.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 4223
+  },
+  "alibaba-cloud": {
+    "filename": "alibaba-cloud.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 6114
+  },
+  "altair": {
+    "filename": "altair.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 10019
+  },
+  "altium-designer": {
+    "filename": "altium-designer.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 4634
+  },
+  "altium": {
+    "filename": "altium.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 40745
+  },
+  "amazon-prime": {
+    "filename": "amazon-prime.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 5490
+  },
+  "anthropic-claude": {
+    "filename": "anthropic-claude.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 9114
+  },
+  "asana": {
+    "filename": "asana.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 3225
+  },
+  "atlassian": {
+    "filename": "atlassian.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 5345
+  },
+  "autodesk-education": {
+    "filename": "autodesk-education.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 2380
+  },
+  "axure": {
+    "filename": "axure.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 4728
+  },
+  "basecamp": {
+    "filename": "basecamp.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 4179
+  },
+  "beauitul": {
+    "filename": "beauitul.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 13771
+  },
+  "beautiful-ai": {
+    "filename": "beautiful-ai.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 4198
+  },
+  "bitbucket": {
+    "filename": "bitbucket.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 5310
+  },
+  "bootstrap-studio": {
+    "filename": "bootstrap-studio.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 5004
+  },
+  "canva-pro": {
+    "filename": "canva-pro.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 16303
+  },
+  "craft-do": {
+    "filename": "craft-do.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 6761
+  },
+  "creo": {
+    "filename": "creo.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 62557
+  },
+  "cursor-ai": {
+    "filename": "cursor-ai.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 15671
+  },
+  "d5-render": {
+    "filename": "d5-render.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 12081
+  },
+  "dashlane-premium": {
+    "filename": "dashlane-premium.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 6088
+  },
+  "figma": {
+    "filename": "figma.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 1828
+  },
+  "github": {
+    "filename": "github.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 2836
+  },
+  "google-one-ai-premium": {
+    "filename": "google-one-ai-premium.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 3928
+  },
+  "graphpad-prism": {
+    "filename": "graphpad-prism.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 8630
+  },
+  "grok-by-x-ai": {
+    "filename": "grok-by-x-ai.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 5524
+  },
+  "infomaniak-education": {
+    "filename": "infomaniak-education.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 5873
+  },
+  "interserver": {
+    "filename": "interserver.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 9048
+  },
+  "jetbrains": {
+    "filename": "jetbrains.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 2087
+  },
+  "jmp": {
+    "filename": "jmp.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 45238
+  },
+  "jotform": {
+    "filename": "jotform.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 79196
+  },
+  "kapwing-pro": {
+    "filename": "kapwing-pro.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 4074
+  },
+  "keycreator-cad": {
+    "filename": "keycreator-cad.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 15778
+  },
+  "keycreator": {
+    "filename": "keycreator.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 7310
+  },
+  "kickhost": {
+    "filename": "kickhost.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 6898
+  },
+  "kickresume": {
+    "filename": "kickresume.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 13805
+  },
+  "lucidchart": {
+    "filename": "lucidchart.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 2369
+  },
+  "lumion-pro": {
+    "filename": "lumion-pro.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 1578
+  },
+  "manus-ai": {
+    "filename": "manus-ai.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 45667
+  },
+  "microsoft-azure": {
+    "filename": "microsoft-azure.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 618
+  },
+  "microsoft-office-365": {
+    "filename": "microsoft-office-365.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 618
+  },
+  "miro-ai": {
+    "filename": "miro-ai.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 14891
+  },
+  "namecheap": {
+    "filename": "namecheap.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 7595
+  },
+  "notion": {
+    "filename": "notion.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 5518
+  },
+  "openai": {
+    "filename": "openai.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 7024
+  },
+  "perplexity-pro": {
+    "filename": "perplexity-pro.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 11903
+  },
+  "prism": {
+    "filename": "prism.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 232113
+  },
+  "ptc-creo": {
+    "filename": "ptc-creo.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 3694
+  },
+  "rayon": {
+    "filename": "rayon.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 50593
+  },
+  "sketch": {
+    "filename": "sketch.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 22228
+  },
+  "spline": {
+    "filename": "spline.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 7068
+  },
+  "spotify-premium": {
+    "filename": "spotify-premium.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 12871
+  },
+  "suno-ai": {
+    "filename": "suno-ai.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 16450
+  },
+  "survey-hero": {
+    "filename": "survey-hero.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 10386
+  },
+  "surveyhero": {
+    "filename": "surveyhero.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 4319
+  },
+  "tableau": {
+    "filename": "tableau.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 8554
+  },
+  "tower-pro": {
+    "filename": "tower-pro.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 8874
+  },
+  "unity": {
+    "filename": "unity.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 3977
+  },
+  "webflow": {
+    "filename": "webflow.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 6477
+  },
+  "ynab": {
+    "filename": "ynab.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 4878
+  },
+  "zight-pro": {
+    "filename": "zight-pro.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 8141
+  },
+  "zoho-survey": {
+    "filename": "zoho-survey.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 10971
+  },
+  "zw3d": {
+    "filename": "zw3d.png",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 10527
+  },
+  "fetch": {
+    "filename": "fetch.jpg",
+    "downloadedAt": "2025-08-19T08:27:18.000Z",
+    "source": "script",
+    "size": 6690
+  }
+}

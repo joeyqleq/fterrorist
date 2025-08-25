@@ -25,3 +25,32 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+*storybook.log
+storybook-static
+
+# Large image files
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+*.ico
+*.webp
+
+# But allow small essential images
+!public/placeholder*.png
+!public/placeholder*.jpg
+!public/placeholder*.svg
+!public/terrorist_logo.png
+
+# Logo directory (too many files)
+public/logos/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

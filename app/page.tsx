@@ -1,20 +1,28 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect, useCallback } from "react"
 import { studentOffers } from "@/lib/studentOffers"
-import DisplayCards from "@/components/ui/display-cards"
-import RainbowButton from "@/components/ui/rainbow-button"
-import BackgroundPaths from "@/components/ui/background-paths"
-import { ScrollBackgroundPaths } from "@/components/ui/scroll-background-paths"
-import AnimatedTextCycle from "@/components/ui/animated-text-cycle"
-import { GlowingButton } from "@/components/ui/glowing-button"
-import { GlowingIcon } from "@/components/ui/glowing-icon"
+import TerroristNavbar from "@/components/ui/terrorist-navbar"
 import { ContactFormModal } from "@/components/ui/contact-form-modal"
-import { OfferFilterMenu } from "@/components/ui/offer-filter-menu"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Heart, Globe, Shield, Users, FileText, GraduationCap } from "lucide-react"
-import Link from "next/link"
+import { ShimmerButton } from "@/components/magicui/shimmer-button"
+import { SpinningText } from "@/components/ui/spinning-text"
+import { MagneticBorder } from "@/components/ui/magnetic-border"
+import { Button as MovingBorderButton } from "@/components/ui/moving-border"
+import IntegrationPills from "@/components/ui/integration-pills"
+import EnhancedOfferGrid from "@/components/ui/enhanced-offer-grid"
+import HackerAnimation from "@/components/ui/hacker-animation"
+import AnimeHero from "@/components/ui/anime-hero"
+import { motion } from "framer-motion"
+import { ArrowRight, Zap, Globe, Shield, Terminal, FileText, Heart } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
+import AnimatedStats from "@/components/ui/animated-stats"
+import ManifestoCards from "@/components/ui/manifesto-cards"
+import { MatrixText } from "@/components/ui/matrix-text"
+import { BinaryHoverText } from "@/components/ui/binary-hover-text"
+import CircuitBoardBackground from "@/components/ui/circuit-board-bg"
+import TerminalFAQ from "@/components/ui/terminal-faq"
+import SplineModel from "@/components/ui/spline-model"
 
 export default function HomePage() {
   const [isContactModalOpen, setIsContactModalOpen] = useState(false)
@@ -25,6 +33,27 @@ export default function HomePage() {
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(new Set(studentOffers.map((offer) => offer.category)))
     return ["All", ...uniqueCategories.sort()]
+  }, [])
+
+  // Memoized handlers for better performance
+  const handleCategoryChange = useCallback((category: string) => {
+    setSelectedCategory(category)
+  }, [])
+
+  const handleSearchChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value)
+  }, [])
+
+  const handleScrollToOffers = useCallback(() => {
+    document.querySelector('#offers')?.scrollIntoView({ behavior: 'smooth' })
+  }, [])
+
+  const handleOpenContactModal = useCallback(() => {
+    setIsContactModalOpen(true)
+  }, [])
+
+  const handleCloseContactModal = useCallback(() => {
+    setIsContactModalOpen(false)
   }, [])
 
   // Filter offers based on category and search
@@ -42,282 +71,436 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
-      <BackgroundPaths />
-      <ScrollBackgroundPaths />
+      {/* Circuit Board Background */}
+      <CircuitBoardBackground />
+      
+      {/* Lightweight backdrop to reduce jank */}
+      <div className="fixed inset-0 z-0 bg-[radial-gradient(circle_at_50%_20%,rgba(34,197,94,0.08),transparent_50%),radial-gradient(circle_at_20%_80%,rgba(236,72,153,0.05),transparent_40%)]" />
 
-      {/* Header */}
-      <header className="relative z-50 border-b border-gray-800/50 bg-black/80 backdrop-blur-sm sticky top-0">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Image
-                src="/terrorist_logo.png"
-                alt="Freebie Terrorist Logo"
-                width={48}
-                height={48}
-                className="rounded-full"
-              />
-              <h1 className="text-2xl font-black bg-gradient-to-r from-green-400 via-pink-500 to-yellow-400 bg-clip-text text-transparent">
-                Freebie Terrorist
-              </h1>
-            </div>
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" className="text-gray-300 hover:text-white hover:bg-gray-800">
-                About
-              </Button>
-              <GlowingButton
-                asChild
-                variant="outline"
-                className="border-gray-600 text-white hover:bg-gray-800"
-                glowColors={["#4ade80", "#ec4899", "#f59e0b"]}
-              >
-                <Link href="/donate">Support Us</Link>
-              </GlowingButton>
-            </div>
-          </div>
-        </div>
-      </header>
+      {/* Navbar */}
+      <TerroristNavbar onContactClick={() => setIsContactModalOpen(true)} />
 
-      {/* Hero Section with Animated Text */}
-      <section className="relative z-10 py-20 px-4">
-        <div className="container mx-auto">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            {/* Logo positioned top right as requested */}
-            <div className="lg:order-2 flex-shrink-0">
+      {/* Hero Section (Anime.js inspired) */}
+      <section id="hero" className="relative z-10 min-h-[90vh] flex items-center justify-center px-4 pt-24 pb-16">
+        <div className="container mx-auto text-center max-w-6xl">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Hero Logo with Rotating Text */}
+            <div className="lg:order-2 flex-shrink-0 order-1">
               <div className="relative">
-                <Image
-                  src="/terrorist_logo.png"
-                  alt="Freebie Terrorist Logo"
-                  width={200}
-                  height={200}
-                  className="rounded-full shadow-2xl"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-green-400/20 via-pink-500/20 to-yellow-400/20 rounded-full blur-xl"></div>
+                <AnimeHero />
+                
+                {/* Rotating Text Around ASCII Logo */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                  <SpinningText
+                    radius={12}
+                    fontSize={0.9}
+                    duration={20}
+                    className="font-mono font-bold text-green-400"
+                  >
+                    {"DIGITAL ANARCHIST • FREEBIE TERRORIST • "}
+                  </SpinningText>
+                </div>
               </div>
             </div>
 
-            {/* Hero Text with Animation */}
-            <div className="lg:order-1 flex-1 text-center lg:text-left">
-              <div className="mb-8">
-                <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight">
-                  <span className="block text-white">Breaking</span>
-                  <span className="block">
-                    <AnimatedTextCycle
-                      words={["Educational", "Economic", "Digital", "Academic", "Systemic"]}
-                      interval={3000}
-                      className="bg-gradient-to-r from-green-400 via-pink-500 to-yellow-400 bg-clip-text text-transparent"
-                    />
-                  </span>
-                  <span className="block bg-gradient-to-r from-pink-500 via-purple-500 to-green-400 bg-clip-text text-transparent">
-                    Barriers
-                  </span>
-                </h1>
-
-                <div className="text-xl md:text-2xl text-gray-300 leading-relaxed space-y-4 max-w-4xl">
-                  <p>
-                    This space is more than just a repository for student freebies. It aggregates verified offers and
-                    helps students worldwide, especially those from the global south, who don't have easy access to .edu
-                    addresses.
-                  </p>
-                  <p>
-                    <strong className="text-green-400">Freebie Terrorist</strong> supports those marginalized by
-                    economic and political barriers by providing real, fully functional .edu accounts with legitimate
-                    Office 365 tied to them.
-                  </p>
-                  <p className="text-sm text-gray-400">
-                    <strong>FYI:</strong> I can also help with university/school IDs, transcripts, and other
-                    verification documents required for these offers.
-                  </p>
+            {/* Hero Text */}
+            <div className="lg:order-1 flex-1 text-center lg:text-left space-y-8 lg:space-y-12 order-2">
+              {/* Main Title with Original Gradient + Outline Tracing + Expanded iframe */}
+              <div className="relative w-full overflow-visible">
+                <div className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black font-mono leading-none">
+                  <div className="relative w-full min-w-[120vw] lg:min-w-full">
+                    <h1 className="text-transparent bg-clip-text bg-gradient-to-br from-green-400 via-green-500 to-green-600 animate-pulse">
+                      FREEBIE
+                    </h1>
+                    <h1 className="text-transparent bg-clip-text bg-gradient-to-br from-green-400 via-green-500 to-green-600 animate-pulse">
+                      TERRORIST
+                    </h1>
+                    {/* SVG Outline Tracing */}
+                    <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 600 300">
+                      <text x="20" y="120" className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-mono fill-none stroke-green-400 stroke-2 animate-draw" strokeDasharray="1000" strokeDashoffset="1000">
+                        FREEBIE
+                      </text>
+                      <text x="20" y="240" className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black font-mono fill-none stroke-green-400 stroke-2 animate-draw" strokeDasharray="1000" strokeDashoffset="1000" style={{animationDelay: "1s"}}>
+                        TERRORIST
+                      </text>
+                    </svg>
+                  </div>
                 </div>
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-12">
-                <RainbowButton onClick={() => setIsContactModalOpen(true)}>
-                  <Heart className="w-5 h-5 mr-2" />
-                  Request .edu Account
-                  <ArrowRight className="w-5 h-5 ml-2" />
-                </RainbowButton>
-                <GlowingButton
-                  asChild
-                  size="lg"
-                  variant="outline"
-                  className="border-gray-600 text-white hover:bg-gray-800 rounded-full px-8 py-4"
-                  glowColors={["#8b5cf6", "#ec4899", "#f59e0b"]}
+              {/* Description with spacing */}
+              <motion.div
+                className="space-y-6 mt-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1 }}
+              >
+                <motion.p 
+                  className="text-xl text-gray-300 font-mono bg-gradient-to-r from-gray-300 via-green-400 to-gray-300 bg-clip-text text-transparent"
+                  animate={{ 
+                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"]
+                  }}
+                  transition={{ 
+                    duration: 4, 
+                    repeat: Infinity, 
+                    ease: "easeInOut" 
+                  }}
+                  style={{ backgroundSize: "200% 100%" }}
                 >
-                  <Link href="#about">Learn More</Link>
-                </GlowingButton>
-              </div>
+                  Destroying educational barriers through digital rebellion
+                </motion.p>
+                <motion.p 
+                  className="text-gray-400 max-w-lg mx-auto lg:mx-0 font-mono"
+                  initial={{ opacity: 0.5 }}
+                  animate={{ opacity: [0.5, 1, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity }}
+                >
+                  Free .edu accounts • Premium software • Cloud services • No corporate bullshit
+                </motion.p>
+              </motion.div>
+
+              {/* CTA Buttons with Shimmer Effects */}
+              <motion.div
+                className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mt-8"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.2 }}
+              >
+                <MovingBorderButton
+                  borderRadius="2rem"
+                  className="bg-black/80 border-0 text-white font-mono hover:bg-black/90 min-w-[280px] h-16 text-lg font-bold group"
+                  containerClassName="w-auto"
+                  borderClassName="bg-[radial-gradient(#22c55e_40%,transparent_60%)]"
+                  duration={3000}
+                  onClick={handleScrollToOffers}
+                >
+                  <div className="flex items-center gap-3 px-6">
+                    <Terminal className="w-6 h-6 text-green-400" />
+                    <span className="text-green-400">Access Free Arsenal</span>
+                    <ArrowRight className="w-5 h-5 text-green-400 group-hover:translate-x-1 transition-transform" />
+                  </div>
+                </MovingBorderButton>
+
+                <ShimmerButton
+                  className="min-w-[260px] h-16 text-lg font-bold border-2 border-green-400/40 bg-black/60 text-green-400 hover:bg-green-400/10 backdrop-blur-sm font-mono px-6"
+                  shimmerColor="#22c55e"
+                  background="rgba(0, 0, 0, 0.6)"
+                  borderRadius="2rem"
+                  onClick={() => setIsContactModalOpen(true)}
+                >
+                  <span className="flex items-center gap-3 text-green-400">
+                    <Shield className="w-6 h-6" />
+                    Request .EDU Access
+                  </span>
+                </ShimmerButton>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* About Me Section */}
-      <section id="about" className="relative z-10 py-16 px-4 bg-gray-900/30">
+      {/* Manifesto Section */}
+      <ManifestoCards />
+
+      {/* Offers Section */}
+      <section id="offers" className="relative z-10 py-16 px-4">
         <div className="container mx-auto">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-black text-white mb-8">Why Freebie Terrorist Exists</h2>
-            <div className="text-lg text-gray-300 leading-relaxed space-y-6 text-left">
-              <p>
-                <strong className="text-pink-400">Let's be honest:</strong> This website is made for people who love
-                free stuff. It's a place where you can discover amazing offers and request legitimate .edu addresses and
-                valid IDs when needed.
-              </p>
-              <p>
-                Growing up in economic hardship, I witnessed firsthand how educational barriers prevent talented
-                individuals from accessing the tools they need to succeed. Premium software, cloud services, and
-                development tools are often locked behind paywalls that exclude those who need them most.
-              </p>
-              <p>
-                When you request a .edu address from me, it takes considerable work and effort. I'm trying to hustle but
-                I'm not greedy— I'm saving you the time, effort, and research required to get these accounts yourself.
-                <strong className="text-yellow-400"> Not to mention the risk</strong>, since (let's not kid ourselves)
-                I'm placing myself in considerable risk to help you access these resources.
-              </p>
-              <p>
-                <strong className="text-green-400">I trust that people will tip me whatever they think is fair.</strong>
-                However, this doesn't mean I'm willing to help users who want to take advantage of apps and services
-                they otherwise can't afford if they can't tip me appropriately.
-              </p>
-              <p className="text-center text-xl font-semibold text-purple-400">
-                This service is legitimate, honest, and community-driven. We're fighting against exclusivity, one
-                student at a time.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Features with Glowing Icons */}
-      <section className="relative z-10 py-16 px-4">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            <div className="text-center">
-              <GlowingIcon
-                size="lg"
-                glowColors={["#4ade80", "#22c55e", "#16a34a"]}
-                glowMode="breathe"
-                className="mx-auto mb-4"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-green-400 to-emerald-500 rounded-full flex items-center justify-center">
-                  <Globe className="w-8 h-8 text-black" />
-                </div>
-              </GlowingIcon>
-              <h3 className="text-xl font-bold text-white mb-2">Global Access</h3>
-              <p className="text-gray-300">Supporting students worldwide, especially from underserved regions</p>
-            </div>
-
-            <div className="text-center">
-              <GlowingIcon
-                size="lg"
-                glowColors={["#ec4899", "#db2777", "#be185d"]}
-                glowMode="pulse"
-                className="mx-auto mb-4"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-purple-500 rounded-full flex items-center justify-center">
-                  <Shield className="w-8 h-8 text-white" />
-                </div>
-              </GlowingIcon>
-              <h3 className="text-xl font-bold text-white mb-2">Legitimate Accounts</h3>
-              <p className="text-gray-300">Real .edu addresses with full Office 365 functionality</p>
-            </div>
-
-            <div className="text-center">
-              <GlowingIcon
-                size="lg"
-                glowColors={["#f59e0b", "#d97706", "#b45309"]}
-                glowMode="colorShift"
-                className="mx-auto mb-4"
-              >
-                <div className="w-16 h-16 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
-                  <Users className="w-8 h-8 text-black" />
-                </div>
-              </GlowingIcon>
-              <h3 className="text-xl font-bold text-white mb-2">Community Driven</h3>
-              <p className="text-gray-300">Tip-based service with anonymous support options</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* All Offers Section */}
-      <section id="offers" className="relative z-10 py-20 px-4">
-        <div className="container mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-6">
-              All Available Offers ({studentOffers.length})
+          <motion.div
+            className="text-center mb-8"
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-green-400 font-mono">
+              <BinaryHoverText text="FREE ARSENAL" />
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Discover amazing tools and services that become completely free with your .edu account
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto font-mono">
+              Curated premium software and services, completely free for students.
+              No trials, no bullshit, just pure value.
             </p>
-          </div>
+          </motion.div>
 
-          <OfferFilterMenu
-            categories={categories}
-            selectedCategory={selectedCategory}
-            onCategoryChange={setSelectedCategory}
-            searchTerm={searchTerm}
-            onSearchChange={setSearchTerm}
-          />
+          {/* Category Filter Pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+          >
+            <IntegrationPills
+              categories={categories}
+              selectedCategory={selectedCategory}
+              onCategoryChange={setSelectedCategory}
+            />
+          </motion.div>
 
-          <DisplayCards offers={filteredOffers} />
+          {/* Search Bar */}
+          <motion.div
+            className="max-w-2xl mx-auto mb-12 px-4"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ 
+              duration: 0.6, 
+              delay: 0.3,
+              ease: [0.25, 0.46, 0.45, 0.94]
+            }}
+            viewport={{ once: true }}
+          >
+            <motion.div 
+              className="relative group"
+              whileHover={{ scale: 1.02 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+            >
+              {/* Animated border glow */}
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 rounded-lg opacity-0 group-hover:opacity-30 transition-all duration-500 blur-sm" />
+              
+              <motion.input
+                type="text"
+                placeholder="Search for offers..."
+                value={searchTerm}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(e.target.value)}
+                className="relative w-full px-6 py-4 pr-14 bg-black/60 border border-green-500/30 rounded-lg text-white placeholder-gray-400 focus:border-green-400 focus:bg-black/80 focus:outline-none focus:ring-2 focus:ring-green-400/20 backdrop-blur-sm font-mono transition-all duration-300 ease-out"
+                whileFocus={{ scale: 1.01 }}
+                transition={{ duration: 0.2 }}
+              />
+              
+              {/* Animated search icon */}
+              <motion.div
+                className="absolute right-4 top-1/2 transform -translate-y-1/2"
+                animate={{
+                  rotate: searchTerm ? [0, 360] : 0,
+                  scale: searchTerm ? [1, 1.1, 1] : 1
+                }}
+                transition={{ 
+                  rotate: { duration: 0.5, ease: "easeInOut" },
+                  scale: { duration: 0.3, ease: "easeOut" }
+                }}
+              >
+                <Zap className="text-green-400 w-5 h-5 group-hover:text-green-300 transition-colors duration-300" />
+              </motion.div>
+              
+              {/* Search results count indicator */}
+              {searchTerm && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8, y: -10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.8, y: -10 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className="absolute -bottom-8 left-0 text-sm text-gray-400 font-mono"
+                >
+                  {filteredOffers.length} result{filteredOffers.length !== 1 ? 's' : ''} found
+                </motion.div>
+              )}
+            </motion.div>
+          </motion.div>
 
-          {filteredOffers.length === 0 && (
-            <div className="text-center py-12">
-              <GraduationCap className="w-16 h-16 text-gray-600 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-400 mb-2">No offers found</h3>
-              <p className="text-gray-500">Try adjusting your filters or search terms</p>
-            </div>
-          )}
+          {/* Offers Grid */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            viewport={{ once: true }}
+          >
+            <AnimatedStats />
+            <EnhancedOfferGrid offers={filteredOffers} />
+          </motion.div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="relative z-10 py-20 px-4 bg-gradient-to-r from-green-400 via-pink-500 to-yellow-400">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="container mx-auto text-center relative z-10">
-          <h2 className="text-4xl md:text-5xl font-black text-black mb-6">Ready to Break Barriers?</h2>
-          <p className="text-xl text-black/80 mb-8 max-w-2xl mx-auto">
-            Join thousands of students who have gained access to premium tools and services. Support our mission and get
-            your legitimate .edu account today.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <GlowingButton
-              onClick={() => setIsContactModalOpen(true)}
-              size="lg"
-              className="bg-black text-white hover:bg-gray-800 rounded-full px-8 py-4 font-bold"
-              glowColors={["#000000", "#374151", "#6b7280"]}
-            >
-              <FileText className="w-5 h-5 mr-2" />
-              Request Access
-            </GlowingButton>
-            <GlowingButton
-              asChild
-              size="lg"
-              variant="outline"
-              className="border-black text-black hover:bg-black/10 rounded-full px-8 py-4 font-bold"
-              glowColors={["#000000", "#374151"]}
-            >
-              <Link href="/donate">Support Us</Link>
-            </GlowingButton>
-          </div>
+      <section className="relative z-10 py-32 px-4 bg-gradient-to-r from-green-600 via-emerald-500 to-green-600">
+        <div className="container mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-black font-mono">
+              JOIN THE REBELLION
+            </h2>
+            <p className="text-xl text-black/80 mb-12 max-w-3xl mx-auto font-mono">
+              Break free from corporate paywalls. Access premium tools. 
+              Fight educational inequality. Start your digital revolution today.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <motion.button
+                className="bg-black text-green-400 font-bold px-8 py-4 rounded-lg hover:bg-gray-900 transition-all duration-300 flex items-center justify-center gap-2 font-mono"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setIsContactModalOpen(true)}
+              >
+                <Terminal className="w-5 h-5" />
+                Request .edu Access
+              </motion.button>
+              <motion.button
+                className="border-2 border-black text-black font-bold px-8 py-4 rounded-lg hover:bg-black hover:text-green-400 transition-all duration-300 flex items-center justify-center gap-2 font-mono"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <Link href="/donate" className="flex items-center gap-2">
+                  <Heart className="w-5 h-5" />
+                  Support the Cause
+                </Link>
+              </motion.button>
+            </div>
+          </motion.div>
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <TerminalFAQ />
+
       {/* Footer */}
-      <footer className="relative z-10 py-12 px-4 bg-black border-t border-gray-800">
-        <div className="container mx-auto">
-          <div className="flex flex-col md:flex-row items-center justify-between">
-            <div className="flex items-center gap-3 mb-4 md:mb-0">
-              <Image src="/terrorist_logo.png" alt="Freebie Terrorist Logo" width={32} height={32} />
-              <span className="font-bold text-white">Freebie Terrorist</span>
-            </div>
-            <p className="text-gray-400 text-sm text-center md:text-right">
-              Breaking educational barriers worldwide.
-              <br />
-              Legitimate • Anonymous • Community-driven
-            </p>
+      <footer className="relative z-10 py-16 px-4 border-t border-green-500/20 bg-gradient-to-t from-black/90 to-transparent">
+        <div className="absolute inset-0 z-0">
+          <SplineModel scene="/spline/scene.splinecode" className="w-full h-full" />
+        </div>
+        <div className="container mx-auto relative z-10">
+          {/* Animated Header */}
+          <div className="text-center mb-12">
+            <motion.div
+              className="text-green-400 font-mono text-lg mb-4"
+              animate={{
+                opacity: [0.5, 1, 0.5],
+                scale: [0.98, 1.02, 0.98]
+              }}
+              transition={{ duration: 3, repeat: Infinity }}
+            >
+              <span className="text-green-400">{'>'}</span> SYSTEM STATUS: <span className="text-cyan-400">OPERATIONAL</span>
+              <span className="animate-pulse ml-2">█</span>
+            </motion.div>
           </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="group p-6 rounded-xl border border-green-500/20 bg-black/50 hover:border-green-400/40 transition-all duration-300"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <motion.div
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                >
+                  <Image
+                    src="/terrorist_logo.png"
+                    alt="Terrorist Logo"
+                    width={32}
+                    height={32}
+                    className="rounded-full border border-green-400/50"
+                  />
+                </motion.div>
+                <span className="text-xl font-bold text-green-400 font-mono group-hover:text-green-300 transition-colors">FTERRORIST</span>
+              </div>
+              <p className="text-gray-400 font-mono group-hover:text-gray-300 transition-colors">
+                Digital anarchist fighting educational inequality through free access to premium tools.
+              </p>
+              <div className="mt-4 text-xs font-mono text-green-400/60">
+                <span className="text-cyan-400">{'>'}</span> uptime: 99.9% <br/>
+                <span className="text-cyan-400">{'>'}</span> mode: rebellion
+              </div>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="group p-6 rounded-xl border border-green-500/20 bg-black/50 hover:border-green-400/40 transition-all duration-300"
+            >
+              <h4 className="text-lg font-bold text-white mb-4 font-mono group-hover:text-green-400 transition-colors">
+                <span className="text-green-400">{'>'}</span> Navigation
+              </h4>
+              <div className="space-y-3">
+                {[
+                  { href: "#manifesto", label: "Manifesto" },
+                  { href: "#offers", label: "Free Arsenal" },
+                  { href: "/donate", label: "Donate", external: true }
+                ].map((link, idx) => (
+                  <motion.div key={idx} whileHover={{ x: 10 }} className="group/link">
+                    {link.external ? (
+                      <Link 
+                        href={link.href} 
+                        className="text-gray-400 hover:text-green-400 transition-colors block font-mono text-sm group-hover/link:text-green-300"
+                      >
+                        <span className="text-green-400/60 group-hover/link:text-green-400">$</span> cd {link.label.toLowerCase()}
+                      </Link>
+                    ) : (
+                      <a 
+                        href={link.href} 
+                        className="text-gray-400 hover:text-green-400 transition-colors block font-mono text-sm group-hover/link:text-green-300"
+                      >
+                        <span className="text-green-400/60 group-hover/link:text-green-400">$</span> cd {link.label.toLowerCase()}
+                      </a>
+                    )}
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="group p-6 rounded-xl border border-green-500/20 bg-black/50 hover:border-green-400/40 transition-all duration-300"
+            >
+              <h4 className="text-lg font-bold text-white mb-4 font-mono group-hover:text-green-400 transition-colors">
+                <span className="text-green-400">{'>'}</span> Core Values
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { label: "ANTI-CORPORATE", color: "green" },
+                  { label: "ANTI-PAYWALL", color: "red" },
+                  { label: "PRO-FREEDOM", color: "blue" },
+                  { label: "COMMUNITY-DRIVEN", color: "purple" }
+                ].map((principle, idx) => (
+                  <motion.span
+                    key={idx}
+                    whileHover={{ scale: 1.1, rotate: 2 }}
+                    className={`px-3 py-1 bg-${principle.color}-500/20 border border-${principle.color}-500/30 rounded text-${principle.color}-400 text-xs font-mono cursor-pointer hover:bg-${principle.color}-500/30 transition-all duration-300`}
+                  >
+                    {principle.label}
+                  </motion.span>
+                ))}
+              </div>
+              <div className="mt-4 text-xs font-mono">
+                <motion.div
+                  animate={{ opacity: [0.4, 1, 0.4] }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                  className="text-green-400/60"
+                >
+                  <span className="text-cyan-400">{'>'}</span> status: active rebellion
+                </motion.div>
+              </div>
+            </motion.div>
+          </div>
+          
+          <motion.div 
+            className="pt-8 border-t border-green-500/20"
+            animate={{
+              borderColor: ["rgba(34, 197, 94, 0.2)", "rgba(34, 197, 94, 0.4)", "rgba(34, 197, 94, 0.2)"]
+            }}
+            transition={{ duration: 4, repeat: Infinity }}
+          >
+            <div className="text-center">
+              <motion.p 
+                className="text-sm text-gray-600 font-mono mb-2"
+                animate={{
+                  opacity: [0.6, 1, 0.6]
+                }}
+                transition={{ duration: 3, repeat: Infinity }}
+              >
+                <span className="text-green-400">$</span> rm -rf educational_barriers && echo "Mission Complete" 
+                <span className="animate-pulse text-cyan-400 ml-2">█</span>
+              </motion.p>
+              <motion.div
+                className="text-xs font-mono text-green-400/40"
+                animate={{
+                  opacity: [0.3, 0.7, 0.3]
+                }}
+                transition={{ duration: 5, repeat: Infinity }}
+              >
+                <span className="text-cyan-400">{'>'}</span> breaking educational barriers since 2024 <br/>
+                <span className="text-cyan-400">{'>'}</span> join the digital revolution
+              </motion.div>
+            </div>
+          </motion.div>
         </div>
       </footer>
 

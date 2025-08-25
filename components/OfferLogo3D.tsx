@@ -1,32 +1,83 @@
 "use client"
 
 import { motion } from "framer-motion"
+import { useEffect, useState } from "react"
+import { fetchCompanyLogo, type CompanyLogo } from "@/lib/logoService"
+import Image from "next/image"
 
 interface OfferLogo3DProps {
   provider: string
+  size?: "sm" | "md" | "lg"
 }
 
-const logoColors = {
-  Webflow: "from-blue-500 via-cyan-400 to-blue-600",
-  "Microsoft Azure": "from-blue-600 via-blue-400 to-cyan-500",
-  "Alibaba Cloud": "from-orange-500 via-yellow-400 to-red-500",
-  Namecheap: "from-orange-600 via-yellow-500 to-orange-400",
-  "Bootstrap Studio": "from-purple-600 via-pink-500 to-purple-400",
-  "Google One AI Premium": "from-blue-500 via-green-400 to-yellow-500",
-  OpenAI: "from-green-500 via-emerald-400 to-teal-500",
-  "Cursor AI": "from-blue-600 via-purple-500 to-indigo-600",
-  Figma: "from-purple-500 via-pink-500 to-red-500",
-  Craft: "from-orange-500 via-yellow-400 to-red-500",
-}
+export default function OfferLogo3D({ provider, size = "lg" }: OfferLogo3DProps) {
+  const [logoData, setLogoData] = useState<CompanyLogo | null>(null)
+  const [imageError, setImageError] = useState(false)
+  const [isClient, setIsClient] = useState(false)
+  
+  const sizes = {
+    sm: { container: "w-12 h-12", text: "text-sm", image: 48 },
+    md: { container: "w-16 h-16", text: "text-lg", image: 64 },
+    lg: { container: "w-24 h-24", text: "text-2xl", image: 96 }
+  }
+  
+  const currentSize = sizes[size]
 
-export default function OfferLogo3D({ provider }: OfferLogo3DProps) {
-  const gradient = logoColors[provider as keyof typeof logoColors] || "from-gray-500 via-gray-400 to-gray-600"
-  const initials = provider
-    .split(" ")
-    .map((word) => word[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase()
+  // Set client flag to prevent SSR issues
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isClient) return
+
+    const loadLogo = async () => {
+      try {
+        const logo = await fetchCompanyLogo(provider)
+        setLogoData(logo)
+      } catch (error) {
+        console.error(`Failed to load logo for ${provider}:`, error)
+        // Create fallback logo data
+        setLogoData({
+          company: provider,
+          logoUrl: null,
+          fallbackInitials: provider.split(" ").map(word => word[0]).join("").slice(0, 2).toUpperCase(),
+          fallbackColor: "from-gray-500 via-gray-400 to-gray-600"
+        })
+      }
+    }
+    
+    loadLogo()
+  }, [provider, isClient])
+
+  // Create immediate fallback for SSR and while loading
+  const immediateFallback = {
+    company: provider,
+    logoUrl: null,
+    fallbackInitials: provider.split(" ").map(word => word[0]).join("").slice(0, 2).toUpperCase(),
+    fallbackColor: "from-gray-500 via-gray-400 to-gray-600"
+  }
+
+  // Use logoData if available, otherwise use immediate fallback
+  const displayData = logoData || immediateFallback
+  
+  if (!isClient) {
+    // During SSR, always show fallback to prevent hydration mismatch
+    const gradient = immediateFallback.fallbackColor
+    return (
+      <div
+        className={`${currentSize.container} bg-gradient-to-br ${gradient} rounded-3xl flex items-center justify-center text-black font-black ${currentSize.text} shadow-2xl transform-gpu border-4 border-black/20`}
+        style={{
+          boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)",
+        }}
+      >
+        {immediateFallback.fallbackInitials}
+      </div>
+    )
+  }
+
+  const shouldShowLogo = displayData.logoUrl && !imageError
+  const gradient = displayData.fallbackColor
 
   return (
     <motion.div
@@ -44,12 +95,24 @@ export default function OfferLogo3D({ provider }: OfferLogo3DProps) {
       style={{ perspective: "1000px" }}
     >
       <div
-        className={`w-24 h-24 bg-gradient-to-br ${gradient} rounded-3xl flex items-center justify-center text-black font-black text-2xl shadow-2xl transform-gpu border-4 border-black/20`}
+        className={`${currentSize.container} ${shouldShowLogo ? 'bg-white/10' : `bg-gradient-to-br ${gradient}`} rounded-3xl flex items-center justify-center ${shouldShowLogo ? 'text-white' : 'text-black'} font-black ${currentSize.text} shadow-2xl transform-gpu border-4 border-black/20 overflow-hidden`}
         style={{
           boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1)",
         }}
       >
-        {initials}
+        {shouldShowLogo ? (
+          <Image
+            src={displayData.logoUrl!}
+            alt={`${provider} logo`}
+            width={currentSize.image}
+            height={currentSize.image}
+            className="w-full h-full object-contain p-2"
+            onError={() => setImageError(true)}
+            onLoad={() => setImageError(false)}
+          />
+        ) : (
+          displayData.fallbackInitials
+        )}
 
         {/* Multiple shine effects */}
         <motion.div
@@ -80,12 +143,12 @@ export default function OfferLogo3D({ provider }: OfferLogo3DProps) {
 
       {/* Enhanced shadow with color */}
       <div
-        className={`absolute top-4 left-4 w-24 h-24 bg-gradient-to-br ${gradient} rounded-3xl opacity-30 -z-10 blur-xl`}
+        className={`absolute top-4 left-4 ${currentSize.container} bg-gradient-to-br ${gradient} rounded-3xl opacity-30 -z-10 blur-xl`}
       />
 
       {/* Additional glow effect */}
       <div
-        className={`absolute top-2 left-2 w-24 h-24 bg-gradient-to-br ${gradient} rounded-3xl opacity-20 -z-20 blur-2xl scale-110`}
+        className={`absolute top-2 left-2 ${currentSize.container} bg-gradient-to-br ${gradient} rounded-3xl opacity-20 -z-20 blur-2xl scale-110`}
       />
     </motion.div>
   )
