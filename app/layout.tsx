@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Space_Mono } from "next/font/google"
+import Script from "next/script"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
 import LogoInitializer from "@/components/LogoInitializer"
@@ -29,15 +30,20 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <head>
       <!-- Matomo Tag Manager -->
-<script>
-  var _mtm = window._mtm = window._mtm || [];
-  _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
-  (function() {
-    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-    g.async=true; g.src='https://matomo.motherfucking.fun/js/container_PpeT58PO.js'; s.parentNode.insertBefore(g,s);
-  })();
-</script>
-<!-- End Matomo Tag Manager -->
+      <Script
+        id="matomo-tag-manager"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            var _mtm = window._mtm = window._mtm || [];
+            _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
+            (function() {
+              var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+              g.async=true; g.src='https://matomo.motherfucking.fun/js/container_PpeT58PO.js'; s.parentNode.insertBefore(g,s);
+            })();
+          `,
+        }}
+      />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
