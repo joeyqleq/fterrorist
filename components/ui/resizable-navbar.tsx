@@ -269,7 +269,7 @@ export const NavbarLogo = () => {
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
     >
       <img
-        src="/terrorist_logo_ascii.png"
+        src="/terrorist_logo_ascii.webp"
         alt="Freebie Terrorist"
         width={32}
         height={32}
