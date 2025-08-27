@@ -29,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-      <!-- Matomo Tag Manager -->
+      {/* Matomo Tag Manager */}
       <Script
         id="matomo-tag-manager"
         strategy="afterInteractive"
