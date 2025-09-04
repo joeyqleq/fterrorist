@@ -3,16 +3,15 @@ import { Space_Mono } from "next/font/google"
 import Script from "next/script"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import LogoInitializer from "@/components/LogoInitializer"
 import { initToolbar } from '@21st-extension/toolbar';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from "@vercel/analytics/next"
 
-const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400","700"] })
+const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"] })
 
 export const metadata: Metadata = {
   title: "FREEBIE TERRORIST - Digital Anarchist Platform",
-  description: "Breaking educational barriers through digital rebellion. Free .edu accounts, premium software, and student tools for everyone.",
+  description: "Breaking educational barriers through digital rebellion. Curated, up to date free shit for students. No discounts. Only freebie terrorism on this ship.",
   keywords: ["student discounts", "free software", "edu email", "educational tools", "digital anarchist"],
   openGraph: {
     title: "FREEBIE TERRORIST - Digital Anarchist Platform",
@@ -29,12 +28,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-      {/* Matomo Tag Manager */}
-      <Script
-        id="matomo-tag-manager"
-        strategy="afterInteractive"
-        dangerouslySetInnerHTML={{
-          __html: `
+        {/* Matomo Tag Manager */}
+        <Script
+          id="matomo-tag-manager"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
             var _mtm = window._mtm = window._mtm || [];
             _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
             (function() {
@@ -42,8 +41,8 @@ export default function RootLayout({
               g.async=true; g.src='https://matomo.motherfucking.fun/js/container_PpeT58PO.js'; s.parentNode.insertBefore(g,s);
             })();
           `,
-        }}
-      />
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -51,6 +50,25 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <script async defer src="https://tianji.motherfucking.fun/tracker.js" data-website-id="cmcqrgs1m00ujrwk7oc3t5gwz"></script>
+        {/* Brevo Conversations */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function(d, w, c) {
+                  w.BrevoConversationsID = '6640d1d34321cd379032bedd';
+                  w[c] = w[c] || function() {
+                      (w[c].q = w[c].q || []).push(arguments);
+                  };
+                  var s = d.createElement('script');
+                  s.async = true;
+                  s.src = 'https://conversations-widget.brevo.com/brevo-conversations.js';
+                  if (d.head) d.head.appendChild(s);
+              })(document, window, 'BrevoConversations');
+            `,
+          }}
+        />
+        {/* /Brevo Conversations */}
+
       </head>
       <body className={spaceMono.className}>
         <ThemeProvider
@@ -59,10 +77,10 @@ export default function RootLayout({
           enableSystem={false}
           disableTransitionOnChange
         >
-          <LogoInitializer />
+
           {children}
           <SpeedInsights />
-          <Analytics/>
+          <Analytics />
         </ThemeProvider>
       </body>
     </html>

@@ -1,9 +1,10 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { motion } from "framer-motion"
-import { ExternalLink, DollarSign, Zap, Star } from "lucide-react"
-import type { StudentOffer } from "@/lib/studentOffers"
+import { useState } from 'react'
+import { motion } from 'framer-motion'
+import Image from 'next/image'
+import { ExternalLink, DollarSign, Zap, Star } from 'lucide-react'
+import type { StudentOffer } from '@/lib/studentOffers'
 
 interface OfferCardProps {
   offer: StudentOffer
@@ -11,21 +12,21 @@ interface OfferCardProps {
 }
 
 const categoryColors = {
-  "Web Design": "from-yellow-400 via-green-500 to-yellow-600",
-  Cloud: "from-green-400 via-yellow-500 to-green-600",
-  Domains: "from-yellow-300 via-green-400 to-yellow-500",
-  Design: "from-green-300 via-yellow-400 to-green-500",
-  "AI/Cloud": "from-yellow-500 via-green-600 to-yellow-700",
-  "AI Tools": "from-green-500 via-yellow-600 to-green-700",
-  "AI Coding": "from-yellow-600 via-green-700 to-yellow-800",
-  Productivity: "from-green-600 via-yellow-700 to-green-800",
+  'Web Design': 'from-yellow-400 via-green-500 to-yellow-600',
+  Cloud: 'from-green-400 via-yellow-500 to-green-600',
+  Domains: 'from-yellow-300 via-green-400 to-yellow-500',
+  Design: 'from-green-300 via-yellow-400 to-green-500',
+  'AI/Cloud': 'from-yellow-500 via-green-600 to-yellow-700',
+  'AI Tools': 'from-green-500 via-yellow-600 to-green-700',
+  'AI Coding': 'from-yellow-600 via-green-700 to-yellow-800',
+  Productivity: 'from-green-600 via-yellow-700 to-green-800',
 }
 
 export default function OfferCard({ offer, index }: OfferCardProps) {
   const [isFlipped, setIsFlipped] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
-  const categoryGradient = categoryColors[offer.category as keyof typeof categoryColors] || "from-gray-500 to-gray-400"
+  const categoryGradient = categoryColors[offer.category as keyof typeof categoryColors] || 'from-gray-500 to-gray-400'
 
   return (
     <motion.div
@@ -61,7 +62,16 @@ export default function OfferCard({ offer, index }: OfferCardProps) {
               </div>
 
               {/* Provider */}
-              <h3 className="text-lg font-black text-white mb-3 leading-tight">{offer.provider}</h3>
+              <div className="flex items-center gap-3 mb-3">
+                <Image
+                  src={offer.image}
+                  alt={`${offer.provider} logo`}
+                  width={40}
+                  height={40}
+                  className="rounded-md bg-white p-1 object-contain"
+                />
+                <h3 className="text-lg font-black text-white leading-tight">{offer.provider}</h3>
+              </div>
 
               {/* Offer description */}
               <p className="text-sm text-gray-300 mb-4 leading-relaxed line-clamp-4 flex-1">{offer.offer}</p>

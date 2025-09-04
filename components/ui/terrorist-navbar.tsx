@@ -1,18 +1,17 @@
-"use client"
+'use client'
 
-import React, { useState, useEffect } from "react"
-import { motion, useScroll, useMotionValueEvent } from "framer-motion"
-import { cn } from "@/lib/utils"
-import { Moon, Sun, Menu, X, FileText, Gift, Heart, MessageCircle, HelpCircle } from "lucide-react"
-import { useTheme } from "next-themes"
-import { ContactFormModal } from "./contact-form-modal"
-import Link from "next/link"
-import Image from "next/image"
+import React, { useState, useEffect } from 'react'
+import { motion, useScroll, useMotionValueEvent } from 'framer-motion'
+import { cn } from '@/lib/utils'
+import { Menu, X, FileText, Gift, Heart, MessageCircle, HelpCircle } from 'lucide-react'
+import { ContactFormModal } from './contact-form-modal'
+import Link from 'next/link'
+import Image from 'next/image'
 
 // ASCII Spinner component
 const ASCIISpinner = () => {
   const [frame, setFrame] = useState(0)
-  const spinnerFrames = ["|", "/", "-", "\\", "|", "/", "-", "\\"]
+  const spinnerFrames = ['|', '/', '-', '\\', '|', '/', '-', '\\']
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -38,7 +37,7 @@ const GlitchNavText = ({ children, isHovered }: { children: React.ReactNode; isH
       return
     }
 
-    const glitchChars = "!@#$%^&*()_+-=[]{}|;:,.<>?~`"
+    const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?~`'
     const originalText = children as string
     let glitchTimeout: NodeJS.Timeout
 
@@ -84,7 +83,6 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [hoveredItem, setHoveredItem] = useState<string | null>(null)
   const [screenWidth, setScreenWidth] = useState(0)
-  const { theme, setTheme } = useTheme()
   const { scrollY } = useScroll()
 
   // Track screen width for responsive navbar
@@ -97,27 +95,27 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
 
   // Navigation items with premium icons
   const navItems = [
-    { id: "manifesto", label: "Manifesto", href: "#manifesto", icon: FileText },
-    { id: "offers", label: "Offers", href: "#offers", icon: Gift },
-    { id: "faq", label: "FAQ", href: "#faq", icon: HelpCircle },
-    { id: "donate", label: "Donate", href: "/donate", icon: Heart },
-    { id: "contact", label: "Contact", href: "#contact", icon: MessageCircle }
+    { id: 'manifesto', label: 'Manifesto', href: '#manifesto', icon: FileText },
+    { id: 'offers', label: 'Offers', href: '#offers', icon: Gift },
+    { id: 'faq', label: 'FAQ', href: '#faq', icon: HelpCircle },
+    { id: 'donate', label: 'Donate', href: '/donate', icon: Heart },
+    { id: 'contact', label: 'Contact', href: '#contact', icon: MessageCircle }
   ]
 
   // Handle scroll detection for expansion
-  useMotionValueEvent(scrollY, "change", (latest) => {
+  useMotionValueEvent(scrollY, 'change', (latest) => {
     setIsExpanded(latest > 100)
   })
 
   const handleNavClick = (href: string) => {
-    if (href === "#contact") {
+    if (href === '#contact') {
       onContactClick()
-    } else if (href === "/donate") {
+    } else if (href === '/donate') {
       // Open donate page in new tab
-      window.open("/donate", "_blank")
-    } else if (href.startsWith("#")) {
+      window.open('/donate', '_blank')
+    } else if (href.startsWith('#')) {
       const element = document.querySelector(href)
-      element?.scrollIntoView({ behavior: "smooth" })
+      element?.scrollIntoView({ behavior: 'smooth' })
     }
     setIsMobileMenuOpen(false)
   }
@@ -127,14 +125,14 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
       {/* Desktop Navbar */}
       <motion.nav
         className="fixed top-6 left-1/2 z-50 hidden md:block"
-        style={{ x: "-50%" }}
+        style={{ x: '-50%' }}
         animate={{
           width: isExpanded ? Math.min(550, screenWidth * 0.85) : 180,
           height: isExpanded ? 64 : 48,
           y: 0,
         }}
         transition={{
-          type: "spring",
+          type: 'spring',
           stiffness: 300,
           damping: 30,
           duration: 0.6
@@ -143,13 +141,13 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
         <motion.div
           className="relative h-full w-full rounded-full backdrop-blur-xl border border-green-500/30"
           style={{
-            background: "linear-gradient(135deg, rgba(22, 101, 52, 0.8) 0%, rgba(5, 46, 22, 0.9) 100%)",
-            boxShadow: "0 8px 32px rgba(22, 101, 52, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
+            background: 'linear-gradient(135deg, rgba(22, 101, 52, 0.8) 0%, rgba(5, 46, 22, 0.9) 100%)',
+            boxShadow: '0 8px 32px rgba(22, 101, 52, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
           }}
           animate={{
             boxShadow: isExpanded 
-              ? "0 8px 32px rgba(22, 101, 52, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
-              : "0 4px 16px rgba(22, 101, 52, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)"
+              ? '0 8px 32px rgba(22, 101, 52, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
+              : '0 4px 16px rgba(22, 101, 52, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)'
           }}
         >
           {!isExpanded ? (
@@ -188,8 +186,8 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
                 <Image
                   src="/terrorist_logo.png"
                   alt="Terrorist Logo"
-                  width={28}
-                  height={28}
+                  width={41}
+                  height={41}
                   className="rounded-full border border-green-400/50"
                 />
               </motion.div>
@@ -199,9 +197,9 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
                 {navItems.map((item) => (
                   <motion.button
                     key={item.id}
-                    className="relative px-2 py-1 text-xs font-medium transition-colors duration-200"
+                    className="relative px-2 py-1 text-base font-medium transition-colors duration-200"
                     style={{
-                      color: hoveredItem === item.id ? "#4ade80" : "#f5f5dc"
+                      color: hoveredItem === item.id ? '#4ade80' : '#f5f5dc'
                     }}
                     onMouseEnter={() => setHoveredItem(item.id)}
                     onMouseLeave={() => setHoveredItem(null)}
@@ -209,39 +207,29 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
                     whileTap={{ scale: 0.98 }}
                   >
                     <span className="relative z-10 flex items-center gap-1">
-                      <item.icon className="w-3 h-3 text-green-400" />
-                      <GlitchNavText isHovered={hoveredItem === item.id}>
+                      <item.icon className="w-5 h-5 text-green-400" />
+                      <span>
                         {item.label}
-                      </GlitchNavText>
+                      </span>
                     </span>
                   </motion.button>
                 ))}
               </div>
-
-              {/* Theme Toggle */}
-              <motion.button
-                className="flex-shrink-0 p-1.5 rounded-full bg-green-500/20 text-green-400 hover:bg-green-500/30 transition-colors"
-                onClick={() => setTheme((theme || "dark") === "dark" ? "light" : "dark")}
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-              >
-                {(theme || "dark") === "dark" ? <Sun size={14} /> : <Moon size={14} />}
-              </motion.button>
             </motion.div>
           )}
         </motion.div>
       </motion.nav>
 
-      {/* Mobile Navbar */}
+      {/* MobileNavbar */}
       <motion.nav
         className="fixed top-4 left-1/2 z-50 block lg:hidden"
-        style={{ x: "-50%" }}
+        style={{ x: '-50%' }}
         animate={{
           width: isMobileMenuOpen ? 300 : 160,
           height: isMobileMenuOpen ? 280 : 44,
         }}
         transition={{
-          type: "tween",
+          type: 'tween',
           ease: [0.25, 0.1, 0.25, 1],
           duration: 0.3
         }}
@@ -249,8 +237,8 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
         <motion.div
           className="relative h-full w-full rounded-2xl backdrop-blur-xl border border-green-500/30"
           style={{
-            background: "linear-gradient(135deg, rgba(22, 101, 52, 0.8) 0%, rgba(5, 46, 22, 0.9) 100%)",
-            boxShadow: "0 8px 32px rgba(22, 101, 52, 0.3)"
+            background: 'linear-gradient(135deg, rgba(22, 101, 52, 0.8) 0%, rgba(5, 46, 22, 0.9) 100%)',
+            boxShadow: '0 8px 32px rgba(22, 101, 52, 0.3)'
           }}
         >
           {!isMobileMenuOpen ? (
@@ -316,16 +304,6 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
                   </motion.button>
                 ))}
               </div>
-
-              {/* Mobile Theme Toggle */}
-              <motion.button
-                className="w-full p-2 rounded-lg bg-green-500/20 text-green-400 hover:bg-green-500/30 transition-colors flex items-center justify-center gap-2"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                whileTap={{ scale: 0.98 }}
-              >
-                {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-                <span className="text-sm">Toggle Theme</span>
-              </motion.button>
             </motion.div>
           )}
         </motion.div>

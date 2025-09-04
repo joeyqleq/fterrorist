@@ -259,7 +259,7 @@ export default function FaultyTerminal({
   chromaticAberration = 0,
   dither = 0,
   curvature = 0.2,
-  tint = "#ffffff",
+  tint = "#00ff00",
   mouseReact = true,
   mouseStrength = 0.2,
   dpr = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio || 1, 2) : 1,

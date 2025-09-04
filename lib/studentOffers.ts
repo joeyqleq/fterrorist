@@ -8,6 +8,7 @@ export interface StudentOffer {
   verification: string
   notes: string
   link: string
+  image: string
 }
 
 export const studentOffers: StudentOffer[] = [
@@ -22,6 +23,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email and student ID",
     notes: "One site per student. Must re-verify annually.",
     link: "https://webflow.com/education",
+    image: "/logos/webflow.png",
   },
   {
     category: "Cloud",
@@ -33,6 +35,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email, matching IP/country, no VOIP",
     notes: "Requires valid phone and matching signup location.",
     link: "https://azure.microsoft.com/en-us/free/students/",
+    image: "/logos/microsoft-azure.png",
   },
   {
     category: "Cloud",
@@ -44,6 +47,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Includes training/certifications. Limited regions.",
     link: "https://www.alibabacloud.com/campaign/education",
+    image: "/logos/alibaba-cloud.png",
   },
   {
     category: "Domains",
@@ -55,6 +59,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Eligibility varies by institution. Check FAQ.",
     link: "https://nc.me/",
+    image: "/logos/namecheap.png",
   },
   {
     category: "Design",
@@ -66,6 +71,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Includes one ecommerce-capable hosted site.",
     link: "https://bootstrapstudio.io/student",
+    image: "/logos/bootstrap-studio.png",
   },
   {
     category: "AI/Cloud",
@@ -77,6 +83,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Sign-up ends June 30, 2025.",
     link: "https://one.google.com/edu",
+    image: "/logos/google-one-ai-premium.png",
   },
   {
     category: "AI Coding",
@@ -88,6 +95,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Includes 500 fast requests + unlimited slow tier.",
     link: "https://cursor.com/students",
+    image: "/logos/cursor-ai.png",
   },
   {
     category: "Design",
@@ -99,6 +107,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Includes FigJam, Slides, Dev Studio.",
     link: "https://help.figma.com/hc/en-us/articles/360041061214-Verify-education-status",
+    image: "/logos/figma.png",
   },
   {
     category: "Productivity",
@@ -110,6 +119,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email or school doc",
     notes: "Note-taking app with GPT-4o integration, 250GB storage, and custom domains.",
     link: "https://www.craft.do/education",
+    image: "/logos/craft-do.png",
   },
   // Keeping existing offers that weren't marked for removal
   {
@@ -122,6 +132,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Unlimited websites, SSD storage, 450+ one-click apps, and AI site builder.",
     link: "https://www.interserver.net/webhosting/student-webhosting.html",
+    image: "/logos/interserver.png",
   },
   {
     category: "Hosting",
@@ -133,6 +144,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "Student ID or institutional email",
     notes: "Web hosting for up to 20 websites, 250GB SSD storage, 250+ SaaS tools.",
     link: "https://www.infomaniak.com/en/education",
+    image: "/logos/infomaniak-education.png",
   },
   {
     category: "Design",
@@ -144,6 +156,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Premium templates, AI tools, team collaboration, and 100+ million assets.",
     link: "https://www.canva.com/education/students/",
+    image: "/logos/canva-pro.png",
   },
   {
     category: "AI Tools",
@@ -155,6 +168,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "x.AI developer portal application",
     notes: "$25 in free API credits monthly for x.AI's LLM interface.",
     link: "https://grok.x.ai",
+    image: "/logos/grok.png",
   },
   {
     category: "Productivity",
@@ -166,6 +180,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Screen recording, GIF capturing, video editing, analytics and cloud sharing.",
     link: "https://www.zight.com/education/",
+    image: "/logos/zight-pro.png",
   },
   {
     category: "Security",
@@ -177,6 +192,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "Academic email",
     notes: "Cross-device password manager, secure sharing, VPN, and breach monitoring.",
     link: "https://www.dashlane.com/education",
+    image: "/logos/dashlane-premium.png",
   },
   {
     category: "Password Managers",
@@ -188,6 +204,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Roboform is the next generation password manager.",
     link: "https://www.roboform.com/promotions/college",
+    image: "/logos/roboform.png",
   },
   {
     category: "Development",
@@ -199,6 +216,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email or document",
     notes: "Full access to all JetBrains IDEs (IntelliJ, PyCharm, WebStorm, etc.)",
     link: "https://www.jetbrains.com/community/education/#students",
+    image: "/logos/jetbrains.png",
   },
   {
     category: "Design",
@@ -210,6 +228,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "Academic email",
     notes: "High-speed real-time rendering software for architecture and design.",
     link: "https://www.d5render.com/education",
+    image: "/logos/d5-render.png",
   },
   {
     category: "Video Editing",
@@ -221,6 +240,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "AI tools for subtitling, trimming, and video collaboration with no watermark.",
     link: "https://www.kapwing.com/resources/kapwing-education-plan/",
+    image: "/logos/kapwing-pro.png",
   },
   {
     category: "Engineering",
@@ -232,6 +252,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email or school docs",
     notes: "Access to AutoCAD, Fusion 360, Revit, Maya 3D, and other CAD tools.",
     link: "https://www.autodesk.com/support/account/manage",
+    image: "/logos/autodesk-education.png",
   },
   {
     category: "Development",
@@ -243,6 +264,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email or student ID",
     notes: "Free access to premium developer tools, cloud credits, and services.",
     link: "https://education.github.com/pack",
+    image: "/logos/github.png",
   },
   {
     category: "Development",
@@ -254,6 +276,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Unlimited file uploads, version history, and advanced permissions.",
     link: "https://www.notion.so/product/notion-for-education",
+    image: "/logos/notion.png",
   },
   {
     category: "Project Management",
@@ -265,6 +288,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Project management and collaboration tools for up to 10 users.",
     link: "https://www.atlassian.com/software/free",
+    image: "/logos/atlassian.png",
   },
   {
     category: "Analytics",
@@ -276,6 +300,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email or academic verification",
     notes: "Professional data visualization and analytics software.",
     link: "https://www.tableau.com/academic/students",
+    image: "/logos/tableau.png",
   },
   // NEW OFFERS FROM STEP 4
   {
@@ -288,6 +313,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "SheerID verification",
     notes: "Spotify Premium ($11.99) + Hulu ($9.99) bundle. Free for first month.",
     link: "https://www.spotify.com/us/student/",
+    image: "/logos/spotify-premium.png",
   },
   {
     category: "Productivity",
@@ -299,6 +325,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email address",
     notes: "Web versions of Outlook, Word, Excel, PowerPoint, OneNote and AI tools.",
     link: "https://www.microsoft.com/en-us/education/products/office",
+    image: "/logos/microsoft-office-365.png",
   },
   {
     category: "Finance",
@@ -310,6 +337,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "Proof of enrollment document",
     notes: "Personal finance management app with budgeting and expense tracking.",
     link: "https://www.ynab.com/college",
+    image: "/logos/ynab.png",
   },
   {
     category: "Survey Tools",
@@ -321,6 +349,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email and valid student ID",
     notes: "Advanced survey creation and analytics tools for research projects.",
     link: "https://kzmn7itfur5v8rnz1f7o.lite.vusercontent.net/",
+    image: "/logos/zoho-survey.png",
   },
   {
     category: "Survey Tools",
@@ -332,6 +361,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email or valid student ID",
     notes: "Unlimited surveys for academic research and projects.",
     link: "https://www.surveyhero.com/students",
+    image: "/logos/surveyhero.png",
   },
   {
     category: "Survey Tools",
@@ -343,6 +373,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email and valid student ID",
     notes: "500+ survey templates for academic research and data collection.",
     link: "https://www.jotform.com/surveys/free-survey-for-students/",
+    image: "/logos/jotform.png",
   },
   {
     category: "Game Development",
@@ -354,6 +385,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "SheerID verification",
     notes: "Unity Editor Pro, Odin Inspector and Validator for AR/VR development.",
     link: "https://unity.com/products/unity-student#overview",
+    image: "/logos/unity.png",
   },
   {
     category: "Design",
@@ -365,6 +397,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "Valid school documentation",
     notes: "MacOS app and team workspace for life. $10/month workspace + $120 app value.",
     link: "https://www.sketch.com/education/",
+    image: "/logos/sketch.png",
   },
   {
     category: "AI Tools",
@@ -376,6 +409,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Access to premium AI models + $5 API credits monthly. Extendable via affiliate program.",
     link: "https://www.perplexity.ai/backtoschool",
+    image: "/logos/perplexity-pro.png",
   },
   {
     category: "Engineering",
@@ -387,6 +421,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email address",
     notes: "Professional 3D CAD software for engineering and design projects.",
     link: "https://www.zwsoft.com/product/zw3d/student",
+    image: "/logos/zw3d.png",
   },
   {
     category: "Entertainment",
@@ -398,6 +433,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "Student verification",
     notes: "Prime Video, free shipping, and other Prime benefits. Usually $14.98/month.",
     link: "https://www.amazon.com/amazonprime?primeCampaignId=studentWlpPrimeRedir",
+    image: "/logos/amazon-prime.png",
   },
   {
     category: "Development",
@@ -409,6 +445,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Mac file transfer and sync application for development workflows.",
     link: "https://fetchsoftworks.com/fetch/free",
+    image: "/logos/fetch.jpg",
   },
   {
     category: "Hosting",
@@ -420,6 +457,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "10GB storage, email, cPanel, SSL, 75+ apps. Spark+ plan features.",
     link: "https://kickhost.com/student-hosting/",
+    image: "/logos/kickhost.png",
   },
   {
     category: "Design",
@@ -431,6 +469,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "Valid student ID",
     notes: "Professional prototyping and wireframing software for UX/UI design.",
     link: "https://www.axure.com/edu",
+    image: "/logos/axure.png",
   },
   {
     category: "Project Management",
@@ -442,6 +481,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email signup",
     notes: "5TB storage, unlimited projects for team collaboration and project management.",
     link: "https://basecamp.com/discounts",
+    image: "/logos/basecamp.png",
   },
   {
     category: "Engineering",
@@ -453,6 +493,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "Student verification",
     notes: "50+ software bundle for simulation, HPC, data science and AI (Siemens Xcelerator).",
     link: "https://web.altair.com/altair-student-edition",
+    image: "/logos/altair.png",
   },
   {
     category: "Productivity",
@@ -464,6 +505,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email signup",
     notes: "Collaborative diagramming with unlimited object creation for academic projects.",
     link: "https://www.lucidchart.com/pages/usecase/education",
+    image: "/logos/lucidchart.png",
   },
   {
     category: "Development",
@@ -475,6 +517,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email signup",
     notes: "Code and CI/CD platform with unlimited private repositories for development.",
     link: "https://bitbucket.org/product/education",
+    image: "/logos/bitbucket.png",
   },
   {
     category: "Career",
@@ -486,6 +529,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "ISIC card or Unidays account",
     notes: "Online resume builder with premium templates and career tools.",
     link: "https://www.kickresume.com/en/students/",
+    image: "/logos/kickresume.png",
   },
   {
     category: "Development",
@@ -497,6 +541,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email address",
     notes: "GUI-based Git client for version control and collaborative development.",
     link: "https://www.git-tower.com/students/mac",
+    image: "/logos/tower-pro.png",
   },
   {
     category: "Project Management",
@@ -508,6 +553,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "Goodstack verification",
     notes: "Enterprise project management for assignments and team collaboration.",
     link: "https://asana.com/industry/students",
+    image: "/logos/asana.png",
   },
   {
     category: "3D Design",
@@ -519,6 +565,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "Contact worldwide resellers",
     notes: "Real-time 3D rendering for architects, designers, and visualization professionals.",
     link: "https://lumion.com/product/students",
+    image: "/logos/lumion-pro.png",
   },
   {
     category: "Collaboration",
@@ -530,6 +577,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email and valid ID",
     notes: "AI-integrated collaborative workspace with unlimited boards and Starter Plan perks.",
     link: "https://help.miro.com/hc/en-us/articles/360017730473-Education-plan",
+    image: "/logos/miro-ai.png",
   },
   {
     category: "AI Tools",
@@ -541,6 +589,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email and project explanation",
     notes: "API credits for schoolwork, proof of concepts, and student projects.",
     link: "https://www.anthropic.com/contact-sales/for-student-builders",
+    image: "/logos/anthropic-claude.png",
   },
   {
     category: "AI Tools",
@@ -552,6 +601,7 @@ export const studentOffers: StudentOffer[] = [
     verification: "University verification",
     notes: "NOTICE: This offer has expired and is no longer available.",
     link: "https://help.openai.com/en/articles/10845652-student-plus-referral-program-australia-colombia",
+    image: "/logos/openai.png",
   },
   {
     category: "Music Production",
@@ -563,6 +613,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "AI music maker with 2,500 credits/month (500 songs). Usually $10/month.",
     link: "https://students.suno.com/#students",
+    image: "/logos/suno-ai.png",
   },
   {
     category: "AI Tools",
@@ -573,7 +624,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students with .edu email",
     verification: ".edu email verification required",
     notes: "AI agent that can do almost anything. Each 1,000 credits normally costs $10 for non-students.",
-    link: "https://manus.im/edu"
+    link: "https://manus.im/edu",
+    image: "/logos/manus-ai.png",
   },
   {
     category: "Design",
@@ -584,7 +636,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students with valid .edu and university ID",
     verification: ".edu email and university ID required",
     notes: "Breathtaking 3D design studio for creating custom 3D animations that can be exported anywhere.",
-    link: "https://spline.design/education"
+    link: "https://spline.design/education",
+    image: "/logos/spline.png",
   },
   {
     category: "Engineering",
@@ -595,7 +648,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students worldwide",
     verification: ".edu email address",
     notes: "Precision 2D and 3D CAD software made at the professional level for manufacturing and engineering.",
-    link: "https://www.kubotekkosmos.com/schools-students"
+    link: "https://www.kubotekkosmos.com/schools-students",
+    image: "/logos/keycreator.png",
   },
   {
     category: "Engineering",
@@ -606,7 +660,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Verified university students worldwide",
     verification: ".edu email address + valid student ID",
     notes: "#1 PCB design software in the industry with over 20,000 templates. Includes access to Power Analyzer by Keysight and several university-level coursework and certificates.",
-    link: "https://www.altium.com/education/students"
+    link: "https://www.altium.com/education/students",
+    image: "/logos/altium-designer.png",
   },
 
   {
@@ -618,7 +673,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students worldwide",
     verification: ".edu email",
     notes: "Online presentation maker powered by AI.",
-    link: "https://www.beautiful.ai/students"
+    link: "https://www.beautiful.ai/students",
+    image: "/logos/beautiful-ai.png",
   },
   {
     category: "Statistical Analysis",
@@ -629,7 +685,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students worldwide",
     verification: "Photo of valid university ID",
     notes: "A versatile statistics tool purpose-built for scientists-not statisticians.",
-    link: "https://www.graphpad.com/how-to-buy/student/"
+    link: "https://www.graphpad.com/how-to-buy/student/",
+    image: "/logos/graphpad-prism.png",
   },
   {
     category: "AI Tools",
@@ -640,7 +697,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students worldwide",
     verification: ".edu email",
     notes: "Rayon is a professional grade software that allows you to create beautiful architectural drawings.",
-    link: "https://www.rayon.design/roles/student"
+    link: "https://www.rayon.design/roles/student",
+    image: "/logos/rayon.png",
   },
   {
     category: "Design",
@@ -651,7 +709,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students worldwide",
     verification: ".edu email",
     notes: "Creo is a fully integrated, 3D CAD solution that allows engineers to seamlessly conceptualize, design, analyze, and validate products.",
-    link: "https://www.ptc.com/en/education/free-software/creo-university-download"
+    link: "https://www.ptc.com/en/education/free-software/creo-university-download",
+    image: "/logos/ptc-creo.png",
   },
   {
     category: "Statistical Analysis",
@@ -662,7 +721,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students worldwide",
     verification: ".edu email",
     notes: "Statistical software for dynamic data exploration. Menu-driven interface makes it easy to learn and use – with no coding!",
-    link: "https://www.jmp.com/en/academic/jmp-student-edition"
+    link: "https://www.jmp.com/en/academic/jmp-student-edition",
+    image: "/logos/jmp.png",
   },
   {
     category: "Design",
@@ -673,7 +733,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students worldwide",
     verification: "Verification through Canva Education",
     notes: "Affinity Designer is an award-winning vector graphics software.",
-    link: "https://affinity.serif.com/en-gb/affinity-canva-free-for-schools/#top"
+    link: "https://affinity.serif.com/en-gb/affinity-canva-free-for-schools/#top",
+    image: "/logos/affinity_designer.png",
   },
   {
     category: "Design",
@@ -684,7 +745,8 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students worldwide",
     verification: "Verification through Canva Education",
     notes: "Affinity Photo is an award-winning image editing software.",
-    link: "https://affinity.serif.com/en-gb/affinity-canva-free-for-schools/#top"
+    link: "https://affinity.serif.com/en-gb/affinity-canva-free-for-schools/#top",
+    image: "/logos/affinity_photo.png",
   },
   {
     category: "Design",
@@ -695,6 +757,7 @@ export const studentOffers: StudentOffer[] = [
     eligibility: "Students worldwide",
     verification: "Verification through Canva Education",
     notes: "Affinity Publisher is the next generation of professional page layout software.",
-    link: "https://affinity.serif.com/en-gb/affinity-canva-free-for-schools/#top"
+    link: "https://affinity.serif.com/en-gb/affinity-canva-free-for-schools/#top",
+    image: "/logos/affinity_publisher.png",
   },
 ]

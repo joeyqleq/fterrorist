@@ -147,7 +147,7 @@ export default function AnimeHero({ className = "" }: AnimeHeroProps) {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="relative w-80 h-80">
           <Image 
-            src="/terrorist_logo_ascii.webp" 
+            src="/terrorist_logo_ascii.png" 
             alt="FT ASCII" 
             fill 
             sizes="320px" 

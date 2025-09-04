@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useMemo, useEffect, useCallback } from "react"
+import dynamic from "next/dynamic"
 import { studentOffers } from "@/lib/studentOffers"
 import TerroristNavbar from "@/components/ui/terrorist-navbar"
 import { ContactFormModal } from "@/components/ui/contact-form-modal"
@@ -17,12 +18,14 @@ import { ArrowRight, Zap, Globe, Shield, Terminal, FileText, Heart } from "lucid
 import Image from "next/image"
 import Link from "next/link"
 import AnimatedStats from "@/components/ui/animated-stats"
-import ManifestoCards from "@/components/ui/manifesto-cards"
 import { MatrixText } from "@/components/ui/matrix-text"
 import { BinaryHoverText } from "@/components/ui/binary-hover-text"
 import CircuitBoardBackground from "@/components/ui/circuit-board-bg"
-import TerminalFAQ from "@/components/ui/terminal-faq"
-import SplineModel from "@/components/ui/spline-model"
+
+const ManifestoCards = dynamic(() => import("@/components/ui/manifesto-cards"))
+const TerminalFAQ = dynamic(() => import("@/components/ui/terminal-faq"))
+const SplineModel = dynamic(() => import("@/components/ui/spline-model"))
+const FaultyTerminal = dynamic(() => import("@/components/FaultyTerminal"))
 
 
 export default function HomePage() {
@@ -355,8 +358,8 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="relative z-10 py-16 px-4 border-t border-green-500/20 bg-gradient-to-t from-black/90 to-transparent">
-        <div className="absolute inset-0 z-0">
-          <SplineModel scene="/spline/scene.splinecode" className="w-full h-full" />
+        <div className="absolute inset-0 z-0 opacity-50">
+          <FaultyTerminal />
         </div>
         <div className="container mx-auto relative z-10">
           {/* Animated Header */}

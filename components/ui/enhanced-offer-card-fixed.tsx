@@ -127,7 +127,7 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
                     whileHover={{ scale: 1.1, rotate: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <OfferLogo3D provider={offer.provider} size="sm" />
+                    <OfferLogo3D imageUrl={offer.image} provider={offer.provider} size="sm" />
                   </motion.div>
                   <h3 className="text-lg font-black text-white line-clamp-2 leading-tight">
                     {offer.provider}
@@ -184,11 +184,11 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
 
           {/* Back of card */}
           <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl">
-            <Card className="h-full bg-black/85 backdrop-blur-sm border-0 rounded-2xl overflow-hidden">
+            <Card className="h-full bg-black/85 backdrop-blur-sm border-0 rounded-2xl overflow-hidden flex flex-col">
               {/* Background gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${categoryGradient} opacity-10`} />
               
-              <CardHeader className="pb-3 relative z-10">
+              <CardHeader className="pb-3 relative z-10 flex-shrink-0">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-lg font-bold text-white">{offer.provider}</h3>
                   <Button
@@ -202,8 +202,8 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
                 </div>
               </CardHeader>
 
-              <CardContent className="pt-0 relative z-10 h-auto">
-                <div className="space-y-3 mb-4">
+              <CardContent className="pt-0 relative z-10 flex-1 flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-green-500/50 scrollbar-track-transparent">
+                <div className="space-y-3 mb-4 flex-grow">
                   <div>
                     <h4 className="text-sm font-semibold text-green-400 mb-1">Duration</h4>
                     <p className="text-xs text-gray-300">{offer.duration}</p>
@@ -229,7 +229,7 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
                   )}
                 </div>
 
-                <div className="mt-auto space-y-2">
+                <div className="mt-auto space-y-2 flex-shrink-0">
                   <Button
                     asChild
                     size="sm"
