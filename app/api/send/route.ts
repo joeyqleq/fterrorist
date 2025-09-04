@@ -1,9 +1,7 @@
 import { type NextRequest, NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-// IMPORTANT: You must add your Brevo API key to your Vercel environment variables.
-// The variable name should be BREVO_API_KEY
-const resend = new Resend(process.env.BREVO_API_KEY);
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   const { name, email, message } = await req.json();
@@ -14,11 +12,11 @@ export async function POST(req: NextRequest) {
 
   try {
     const { data, error } = await resend.emails.send({
-      // IMPORTANT: Replace with a sending domain you have verified with Brevo.
-      from: 'Contact Form <noreply@yourdomain.com>', 
+      // IMPORTANT: This 'from' address must use a domain you have verified with Resend.
+      from: 'Digital Anarchy <anarchist@terrorist.me>', 
       // IMPORTANT: Replace with your actual email address to receive the messages.
-      to: ['your-email@example.com'], 
-      subject: `New message from ${name}`,
+      to: ['eojiraam@gmail.com'], 
+      subject: `New Request from ${name}`,
       react: (
         <div>
           <h1>New message from {name}</h1>
