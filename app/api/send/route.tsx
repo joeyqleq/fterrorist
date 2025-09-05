@@ -1,39 +1,47 @@
 import { type NextRequest, NextResponse } from 'next/server';
-import { Resend } from 'resend';
+import * as SibApiV3Sdk from '@getbrevo/brevo';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Configure the Brevo API client
+const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+const apiKey = process.env.BREVO_API_KEY;
+if (apiKey) {
+  apiInstance.setApiKey(SibApiV3Sdk.TransactionalEmailsApiApiKeys.apiKey, apiKey);
+} else {
+  // Log an error or handle the missing API key case
+  console.error("BREVO_API_KEY is not set. The email API will not work.");
+}
 
 export async function POST(req: NextRequest) {
+  // Ensure the API key is set before proceeding
+  if (!apiKey) {
+    return NextResponse.json({ error: 'Server configuration error: Missing API key' }, { status: 500 });
+  }
+
   const { name, email, message } = await req.json();
 
   if (!name || !email || !message) {
     return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
   }
 
+  // Construct the email payload for Brevo
+  const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
+  sendSmtpEmail.sender = { name: 'Digital Anarchy', email: 'anarchist@terrorist.me' };
+  sendSmtpEmail.to = [{ email: 'eojiraam@gmail.com' }]; // Replace with your recipient email
+  sendSmtpEmail.subject = `New Request from ${name}`;
+  sendSmtpEmail.htmlContent = `
+    <div>
+      <h1>New message from ${name}</h1>
+      <p>Email: ${email}</p>
+      <p>Message: ${message}</p>
+    </div>
+  `;
+
   try {
-    const { data, error } = await resend.emails.send({
-      // IMPORTANT: This 'from' address must use a domain you have verified with Resend.
-      from: 'Digital Anarchy <anarchist@terrorist.me>', 
-      // IMPORTANT: Replace with your actual email address to receive the messages.
-      to: ['eojiraam@gmail.com'], 
-      subject: `New Request from ${name}`,
-      react: (
-        <div>
-          <h1>New message from {name}</h1>
-          <p>Email: {email}</p>
-          <p>Message: {message}</p>
-        </div>
-      ),
-    });
-
-    if (error) {
-      console.error({ error });
-      return NextResponse.json({ error }, { status: 500 });
-    }
-
+    const data = await apiInstance.sendTransacEmail(sendSmtpEmail);
     return NextResponse.json(data);
   } catch (error) {
-    console.error({ error });
-    return NextResponse.json({ error }, { status: 500 });
+    console.error('Error sending email with Brevo:', error);
+    // It's good practice to not expose the raw error to the client
+    return NextResponse.json({ error: 'Failed to send email' }, { status: 500 });
   }
 }

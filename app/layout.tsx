@@ -68,7 +68,22 @@ export default function RootLayout({
           }}
         />
         {/* /Brevo Conversations */}
-
+<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
+<script
+          dangerouslySetInnerHTML={{
+            __html: `
+              // Version: 2.0
+              window.Brevo = window.Brevo || [];
+              Brevo.push([
+                  "init",
+                  {
+                  client_key: "21hq8ng0xbjwwoggwi7e12qw",
+                  // Optional: Add other initialization options, see documentation
+                  }
+              ]);
+            `,
+          }}
+        />
       </head>
       <body className={spaceMono.className}>
         <ThemeProvider
