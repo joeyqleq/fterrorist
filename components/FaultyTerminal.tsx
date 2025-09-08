@@ -1,6 +1,14 @@
 import { Renderer, Program, Mesh, Color, Triangle } from "ogl";
 import React, { useEffect, useRef, useMemo, useCallback } from "react";
-import { vertexShader } from "./vertexShader";
+
+const vertexShader = `attribute vec2 position;
+attribute vec2 uv;
+varying vec2 vUv;
+
+void main() {
+  vUv = uv;
+  gl_Position = vec4(position, 0.0, 1.0);
+}`;
 
 type Vec2 = [number, number];
 

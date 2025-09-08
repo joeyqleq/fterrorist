@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 interface BinaryHoverTextProps {
@@ -14,13 +14,24 @@ export function BinaryHoverText({ text, className = '' }: BinaryHoverTextProps) 
   const [activeFonts, setActiveFonts] = useState<{ [key: number]: string }>({})
 
   const getRandomBinary = () => Math.random() > 0.5 ? '0' : '1'
+  // More vibrant and professional colors with a stronger green focus
   const binaryColors = [
-    'text-green-400',
     'text-green-500',
-    'text-green-300',
     'text-green-600',
+    'text-green-400',
+    'text-emerald-600',
+    'text-green-300',
+    'text-green-500',
+    'text-blue-500',
+    'text-cyan-500',
+    'text-lime-500',
     'text-emerald-400',
-    'text-teal-400',
+    'text-green-700',
+    'text-green-500',
+    'text-green-400',
+    'text-green-600',
+    'text-emerald-500',
+    'text-green-500',
   ]
   const getRandomFont = () => {
     const fonts = ['font-mono', 'font-sans', 'font-serif']
@@ -89,14 +100,15 @@ export function BinaryHoverText({ text, className = '' }: BinaryHoverTextProps) 
         return (
           <motion.span
             key={index}
-            className={`relative inline-block ${isScrambled ? `${charColor} ${charFont}` : ''}`}
+            className={`relative inline-block ${isScrambled ? `${charColor} ${charFont}` : 'text-green-400 font-mono'}`}
             animate={{
-              scale: isScrambled ? [1, 1.1, 1] : 1,
-              opacity: isScrambled ? [1, 0.6, 1] : 1,
+              scale: isScrambled ? [1, 1.2, 1.1, 1] : 1,
+              opacity: isScrambled ? [1, 0.5, 1] : 1,
+              rotate: isScrambled ? [0, 5, -5, 0] : 0,
             }}
             transition={{
-              duration: 0.08,
-              ease: "easeInOut"
+              duration: 0.1,
+              ease: "easeOut"
             }}
           >
             {isScrambled ? scrambledChar : char}
@@ -106,4 +118,3 @@ export function BinaryHoverText({ text, className = '' }: BinaryHoverTextProps) 
     </span>
   )
 }
-

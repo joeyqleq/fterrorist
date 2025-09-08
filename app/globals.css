@@ -72,6 +72,19 @@
   transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
 }
 
+/* Performance optimizations for animations */
+.gpu-accelerated {
+  transform: translateZ(0);
+  will-change: transform, opacity, filter;
+}
+
+.reduce-motion {
+  @media (prefers-reduced-motion: reduce) {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 /* Glow effects */
 .glow-green {
   box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
@@ -217,4 +230,107 @@
 
 .animate-draw {
   animation: draw 4s ease-in-out infinite;
+}
+
+/* Glitch Shader Button Animations */
+@keyframes glitch-skew {
+  0%, 100% { transform: skew(0deg); }
+  10% { transform: skew(-2deg); }
+  20% { transform: skew(1deg); }
+  30% { transform: skew(-1deg); }
+  40% { transform: skew(0deg); }
+}
+
+@keyframes glitch-shift {
+  0%, 100% { transform: translate(0, 0); }
+  10% { transform: translate(-2px, 1px); }
+  20% { transform: translate(2px, -1px); }
+  30% { transform: translate(-1px, 2px); }
+  40% { transform: translate(1px, -2px); }
+  50% { transform: translate(0, 0); }
+}
+
+@keyframes digital-noise {
+  0%, 100% { filter: brightness(1) contrast(1); }
+  10% { filter: brightness(1.2) contrast(1.5); }
+  20% { filter: brightness(0.8) contrast(0.5); }
+  30% { filter: brightness(1.1) contrast(1.3); }
+  40% { filter: brightness(0.9) contrast(0.7); }
+  50% { filter: brightness(1) contrast(1); }
+}
+
+@keyframes rgb-split {
+  0%, 100% { 
+    text-shadow: none;
+    filter: none;
+  }
+  10% { 
+    text-shadow: 
+      2px 0 0 #ff0000, 
+      -2px 0 0 #00ff00, 
+      0 2px 0 #0000ff;
+    filter: blur(0.5px);
+  }
+  20% { 
+    text-shadow: 
+      -1px 0 0 #ff0000, 
+      1px 0 0 #00ff00, 
+      0 -1px 0 #0000ff;
+    filter: blur(0.2px);
+  }
+  30% { 
+    text-shadow: 
+      1px 0 0 #ff0000, 
+      -1px 0 0 #00ff00, 
+      0 1px 0 #0000ff;
+    filter: blur(0.3px);
+  }
+}
+
+@keyframes scan-lines {
+  0% { transform: translateY(-100%); opacity: 0; }
+  50% { opacity: 0.8; }
+  100% { transform: translateY(100%); opacity: 0; }
+}
+
+@keyframes border-glow-rotate {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes data-stream {
+  0% { transform: translateX(-100%) skewX(-10deg); }
+  100% { transform: translateX(200%) skewX(10deg); }
+}
+
+.glitch-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.glitch-button:hover .glitch-layer {
+  animation: glitch-skew 0.3s infinite, glitch-shift 0.5s infinite;
+}
+
+.glitch-button:hover .rgb-layer {
+  animation: rgb-split 0.2s infinite;
+}
+
+.glitch-button:hover .noise-layer {
+  animation: digital-noise 0.4s infinite;
+}
+
+.scan-line {
+  animation: scan-lines 2s linear infinite;
+}
+
+.border-glow {
+  background: linear-gradient(45deg, transparent, #22c55e, transparent, #06b6d4, transparent);
+  background-size: 200% 200%;
+  animation: border-glow-rotate 3s linear infinite;
+}
+
+.data-stream {
+  animation: data-stream 1.5s linear infinite;
 }

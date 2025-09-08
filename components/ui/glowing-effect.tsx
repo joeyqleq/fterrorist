@@ -1,27 +1,28 @@
-"use client";
+"use client"
 
-import { memo, useCallback, useEffect, useRef } from "react";
-import { cn } from "@/lib/utils";
-import { animate } from "motion/react";
+import React, { memo, useRef, useCallback, useEffect } from 'react'
+import { animate } from 'framer-motion'
+import { cn } from '@/lib/utils'
 
 interface GlowingEffectProps {
-  blur?: number;
-  inactiveZone?: number;
-  proximity?: number;
-  spread?: number;
-  variant?: "default" | "white";
-  glow?: boolean;
-  className?: string;
-  disabled?: boolean;
-  movementDuration?: number;
-  borderWidth?: number;
+  blur?: number
+  inactiveZone?: number
+  proximity?: number
+  spread?: number
+  variant?: "default" | "white"
+  glow?: boolean
+  className?: string
+  movementDuration?: number
+  borderWidth?: number
+  disabled?: boolean
 }
+
 const GlowingEffect = memo(
   ({
     blur = 0,
     inactiveZone = 0.7,
     proximity = 0,
-    spread = 20,
+    spread = 35, // Increased from 20 to 35 for more intense glow
     variant = "default",
     glow = false,
     className,
@@ -142,7 +143,10 @@ const GlowingEffect = memo(
                   ? `repeating-conic-gradient(
                   from 236.84deg at 50% 50%,
                   var(--black),
-                  var(--black) calc(25% / var(--repeating-conic-gradient-times))
+                  var(--black) calc(25% / var(--repeating-conic-gradient-times)),
+                  var(--black) calc(50% / var(--repeating-conic-gradient-times)),
+                  var(--black) calc(75% / var(--repeating-conic-gradient-times)),
+                  var(--black) calc(100% / var(--repeating-conic-gradient-times))
                 )`
                   : `radial-gradient(circle, #dd7bbb 10%, #dd7bbb00 20%),
                 radial-gradient(circle at 40% 40%, #d79f1e 5%, #d79f1e00 15%),
@@ -176,7 +180,7 @@ const GlowingEffect = memo(
               "after:opacity-[var(--active)] after:transition-opacity after:duration-300",
               "after:[mask-clip:padding-box,border-box]",
               "after:[mask-composite:intersect]",
-              "after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#00000000_0deg,#fff,#00000000_calc(var(--spread)*2deg))]"
+              "after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#fff,#00000000_calc(var(--spread)*2deg))]"
             )}
           />
         </div>
@@ -185,6 +189,6 @@ const GlowingEffect = memo(
   }
 );
 
-GlowingEffect.displayName = "GlowingEffect";
+  GlowingEffect.displayName = "GlowingEffect";
 
-export { GlowingEffect };
+  export { GlowingEffect };

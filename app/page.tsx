@@ -1,11 +1,12 @@
 "use client"
 
-import { useState, useMemo, useEffect, useCallback } from "react"
+import React, { useState, useMemo, useEffect, useCallback } from "react"
 import dynamic from "next/dynamic"
 import { studentOffers } from "@/lib/studentOffers"
 import TerroristNavbar from "@/components/ui/terrorist-navbar"
 import { ContactFormModal } from "@/components/ui/contact-form-modal"
 import { ShimmerButton } from "@/components/magicui/shimmer-button"
+import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button"
 import { SpinningText } from "@/components/ui/spinning-text"
 import { MagneticBorder } from "@/components/ui/magnetic-border"
 import { Button as MovingBorderButton } from "@/components/ui/moving-border"
@@ -14,13 +15,19 @@ import EnhancedOfferGrid from "@/components/ui/enhanced-offer-grid"
 import HackerAnimation from "@/components/ui/hacker-animation"
 import AnimeHero from "@/components/ui/anime-hero"
 import { motion } from "framer-motion"
-import { ArrowRight, Zap, Globe, Shield, Terminal, FileText, Heart } from "lucide-react"
+import { ArrowRight, Zap, Globe, Shield, Terminal, FileText, Heart, Hand } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import AnimatedStats from "@/components/ui/animated-stats"
 import { MatrixText } from "@/components/ui/matrix-text"
 import { BinaryHoverText } from "@/components/ui/binary-hover-text"
 import CircuitBoardBackground from "@/components/ui/circuit-board-bg"
+import { MatrixShader } from "@/components/ui/matrix-shader"
+
+const MagnetLines = dynamic(() => import("@/components/ui/magnet-lines").then(mod => ({ default: mod.MagnetLines })), {
+  ssr: false,
+  loading: () => <div className="h-screen w-screen opacity-0" />
+})
 
 const ManifestoCards = dynamic(() => import("@/components/ui/manifesto-cards"))
 const TerminalFAQ = dynamic(() => import("@/components/ui/terminal-faq"))
@@ -77,6 +84,21 @@ export default function HomePage() {
     <div className="min-h-screen bg-black text-white relative overflow-hidden">
       {/* Circuit Board Background */}
       <CircuitBoardBackground />
+      
+      {/* Magnet Lines Background */}
+      <div className="fixed inset-0 z-0 opacity-40">
+        <MagnetLines 
+          rows={20}
+          columns={35}
+          containerSize="100vw"
+          lineWidth="3px"
+          lineHeight="16px"
+          gradientColors={["#22c55e", "#16a34a", "#15803d", "#166534", "#14532d"]}
+          sensitivity={250}
+          animationSpeed={0.05}
+          className="h-screen w-screen"
+        />
+      </div>
       
       {/* Lightweight backdrop to reduce jank */}
       <div className="fixed inset-0 z-0 bg-[radial-gradient(circle_at_50%_20%,rgba(34,197,94,0.08),transparent_50%),radial-gradient(circle_at_20%_80%,rgba(236,72,153,0.05),transparent_40%)]" />
@@ -159,44 +181,40 @@ export default function HomePage() {
                   animate={{ opacity: [0.5, 1, 0.5] }}
                   transition={{ duration: 3, repeat: Infinity }}
                 >
-                  Free .edu accounts • Premium software • Cloud services • No corporate bullshit
+                  The Freebie Terrorist: student freebies, no discount crap. We dig them up so anyone can cash in.
                 </motion.p>
               </motion.div>
 
-              {/* CTA Buttons with Shimmer Effects */}
+              {/* CTA Buttons with Modern Magic UI Effects */}
               <motion.div
                 className="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start mt-8"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2 }}
               >
-                <MovingBorderButton
+                <ShimmerButton
+                  className="min-w-[280px] h-16 text-lg font-mono font-bold group"
+                  shimmerColor="#22c55e"
+                  background="rgba(0, 0, 0, 0.8)"
                   borderRadius="2rem"
-                  className="bg-black/80 border-0 text-white font-mono hover:bg-black/90 min-w-[280px] h-16 text-lg font-bold group"
-                  containerClassName="w-auto"
-                  borderClassName="bg-[radial-gradient(#22c55e_40%,transparent_60%)]"
-                  duration={3000}
                   onClick={handleScrollToOffers}
                 >
-                  <div className="flex items-center gap-3 px-6">
+                  <div className="flex items-center justify-center gap-3 px-6">
                     <Terminal className="w-6 h-6 text-green-400" />
                     <span className="text-green-400">Access Free Arsenal</span>
                     <ArrowRight className="w-5 h-5 text-green-400 group-hover:translate-x-1 transition-transform" />
                   </div>
-                </MovingBorderButton>
+                </ShimmerButton>
 
-                <ShimmerButton
-                  className="min-w-[260px] h-16 text-lg font-bold border-2 border-green-400/40 bg-black/60 text-green-400 hover:bg-green-400/10 backdrop-blur-sm font-mono px-6"
-                  shimmerColor="#22c55e"
-                  background="rgba(0, 0, 0, 0.6)"
-                  borderRadius="2rem"
+                <InteractiveHoverButton
+                  className="min-w-[260px] h-16 text-lg font-mono font-bold bg-black/80 border-green-500/30 text-green-400 hover:border-green-400 hover:bg-black/90 hover:text-green-300 px-8"
                   onClick={() => setIsContactModalOpen(true)}
                 >
-                  <span className="flex items-center gap-3 text-green-400">
-                    <Shield className="w-6 h-6" />
-                    Request .EDU Access
-                  </span>
-                </ShimmerButton>
+                  <div className="flex items-center justify-center gap-3 px-4">
+                    <div className="text-2xl">🖕</div>
+                    <span>Want a .EDU e-mail?</span>
+                  </div>
+                </InteractiveHoverButton>
               </motion.div>
             </div>
           </div>
@@ -257,7 +275,7 @@ export default function HomePage() {
               transition={{ duration: 0.3, ease: "easeOut" }}
             >
               {/* Animated border glow */}
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 rounded-lg opacity-0 group-hover:opacity-30 transition-all duration-500 blur-sm" />
+              <div className="absolute -inset-0.5 bg-gradient-to-r from-green-500 via-emerald-500 to-blue-500 rounded-lg opacity-0 group-hover:opacity-30 transition-all duration-500 blur-sm" />
               
               <motion.input
                 type="text"

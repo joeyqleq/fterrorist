@@ -36,10 +36,20 @@ export default function AnimatedStats() {
   const { freeCount, totalValue, avgDuration } = useMemo(() => {
     // Count all offers as 99% are accessible to students with proper verification
     const freeCount = studentOffers.length
-    // Fixed total value as calculated by user after removing Survey Hero duplicate and adding Roboform
-    const totalValue = 23222
-    const months = studentOffers.map(o => parseDurationToMonths(o.duration)).filter((v): v is number => v !== null)
-    const avgDuration = months.length ? Math.round(months.reduce((a, b) => a + b, 0) / months.length) : 12
+    // Total value of all offers (manually updated after adding new offers)
+    const totalValue = 53222 // Updated from 23222 to reflect new total
+    // Calculate average duration from offers that have numeric durations
+    const durations = studentOffers
+      .map(offer => {
+        const durationMatch = offer.duration.match(/(\d+)\s*(month|year)s?/i)
+        if (!durationMatch) return null
+        const [, num, unit] = durationMatch
+        const months = parseInt(num, 10) * (unit.toLowerCase() === 'year' ? 12 : 1)
+        return months
+      })
+      .filter((v): v is number => v !== null)
+    
+    const avgDuration = durations.length ? Math.round(durations.reduce((a, b) => a + b, 0) / durations.length) : 12
     return { freeCount, totalValue, avgDuration }
   }, [])
 

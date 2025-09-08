@@ -1,73 +1,80 @@
 "use client"
 
-import React, { useState } from "react"
-import type { StudentOffer } from "@/lib/studentOffers"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ExternalLink, Clock, MapPin, Shield, ArrowRight } from "lucide-react"
-import { motion } from "framer-motion"
-import OfferLogo3D from "../OfferLogo3D"
-import { GlowingEffect } from "./glowing-effect"
-import OfferDetailsModal from "./offer-details-modal"
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Clock, MapPin, Shield, ExternalLink, ArrowRight } from 'lucide-react'
+import OfferLogo3D from '@/components/OfferLogo3D'
+import { GlowingEffect } from '@/components/ui/glowing-effect'
+import OfferDetailsModal from '@/components/ui/offer-details-modal'
+import { StudentOffer } from '@/lib/studentOffers'
+
+// Category colors and gradients
+const categoryColors = {
+  "Web Design": "bg-gradient-to-r from-blue-500 to-purple-500 text-white",
+  "Cloud": "bg-gradient-to-r from-sky-500 to-blue-500 text-white",
+  "Domains": "bg-gradient-to-r from-green-500 to-emerald-500 text-white",
+  "Design": "bg-gradient-to-r from-pink-500 to-rose-500 text-white",
+  "AI/Cloud": "bg-gradient-to-r from-purple-500 to-indigo-500 text-white",
+  "AI Coding": "bg-gradient-to-r from-orange-500 to-red-500 text-white",
+  "Productivity": "bg-gradient-to-r from-teal-500 to-cyan-500 text-white",
+  "Hosting": "bg-gradient-to-r from-yellow-500 to-orange-500 text-white",
+  "AI Tools": "bg-gradient-to-r from-violet-500 to-purple-500 text-white",
+  "Security": "bg-gradient-to-r from-red-500 to-pink-500 text-white",
+  "Password Managers": "bg-gradient-to-r from-indigo-500 to-blue-500 text-white",
+  "Development": "bg-gradient-to-r from-green-500 to-teal-500 text-white",
+  "Video Editing": "bg-gradient-to-r from-purple-500 to-pink-500 text-white",
+  "Engineering": "bg-gradient-to-r from-blue-500 to-cyan-500 text-white",
+  "Project Management": "bg-gradient-to-r from-orange-500 to-yellow-500 text-white",
+  "Analytics": "bg-gradient-to-r from-green-500 to-blue-500 text-white",
+  "Entertainment": "bg-gradient-to-r from-pink-500 to-purple-500 text-white",
+  "Finance": "bg-gradient-to-r from-green-500 to-emerald-500 text-white",
+  "Infrastructure Design": "bg-gradient-to-r from-blue-500 to-indigo-500 text-white",
+  "Survey Tools": "bg-gradient-to-r from-teal-500 to-green-500 text-white",
+  "Game Development": "bg-gradient-to-r from-purple-500 to-indigo-500 text-white",
+  "3D Design": "bg-gradient-to-r from-orange-500 to-red-500 text-white",
+  "Collaboration": "bg-gradient-to-r from-blue-500 to-purple-500 text-white",
+  "Music Production": "bg-gradient-to-r from-pink-500 to-red-500 text-white",
+  "Statistical Analysis": "bg-gradient-to-r from-green-500 to-teal-500 text-white",
+  "Career": "bg-gradient-to-r from-yellow-500 to-orange-500 text-white"
+}
+
+const categoryGradients = {
+  "Web Design": "from-blue-500 to-purple-500",
+  "Cloud": "from-sky-500 to-blue-500",
+  "Domains": "from-green-500 to-emerald-500",
+  "Design": "from-pink-500 to-rose-500",
+  "AI/Cloud": "from-purple-500 to-indigo-500",
+  "AI Coding": "from-orange-500 to-red-500",
+  "Productivity": "from-teal-500 to-cyan-500",
+  "Hosting": "from-yellow-500 to-orange-500",
+  "AI Tools": "from-violet-500 to-purple-500",
+  "Security": "from-red-500 to-pink-500",
+  "Password Managers": "from-indigo-500 to-blue-500",
+  "Development": "from-green-500 to-teal-500",
+  "Video Editing": "from-purple-500 to-pink-500",
+  "Engineering": "from-blue-500 to-cyan-500",
+  "Project Management": "from-orange-500 to-yellow-500",
+  "Analytics": "from-green-500 to-blue-500",
+  "Entertainment": "from-pink-500 to-purple-500",
+  "Finance": "from-green-500 to-emerald-500",
+  "Infrastructure Design": "from-blue-500 to-indigo-500",
+  "Survey Tools": "from-teal-500 to-green-500",
+  "Game Development": "from-purple-500 to-indigo-500",
+  "3D Design": "from-orange-500 to-red-500",
+  "Collaboration": "from-blue-500 to-purple-500",
+  "Music Production": "from-pink-500 to-red-500",
+  "Statistical Analysis": "from-green-500 to-teal-500",
+  "Career": "from-yellow-500 to-orange-500"
+}
 
 interface EnhancedOfferCardProps {
   offer: StudentOffer
   index: number
   isFlipped: boolean
   onFlip: () => void
-}
-
-const categoryColors = {
-  "Web Design": "bg-gradient-to-r from-blue-500 to-cyan-400 text-black",
-  "Cloud": "bg-gradient-to-r from-purple-500 to-pink-500 text-white",
-  "Domains": "bg-gradient-to-r from-green-500 to-emerald-400 text-black",
-  "Design": "bg-gradient-to-r from-pink-500 to-rose-400 text-white",
-  "AI/Cloud": "bg-gradient-to-r from-orange-500 to-yellow-400 text-black",
-  "AI Tools": "bg-gradient-to-r from-red-500 to-pink-500 text-white",
-  "AI Coding": "bg-gradient-to-r from-indigo-500 to-purple-500 text-white",
-  "Productivity": "bg-gradient-to-r from-yellow-400 to-orange-500 text-black",
-  "Engineering": "bg-gradient-to-r from-cyan-500 to-blue-500 text-white",
-  "Entertainment": "bg-gradient-to-r from-purple-600 to-pink-600 text-white",
-  "Finance": "bg-gradient-to-r from-green-600 to-emerald-600 text-white",
-  "Survey Tools": "bg-gradient-to-r from-indigo-600 to-purple-600 text-white",
-  "Game Development": "bg-gradient-to-r from-red-600 to-orange-600 text-white",
-  "Video Editing": "bg-gradient-to-r from-pink-600 to-purple-600 text-white",
-  "Development": "bg-gradient-to-r from-slate-600 to-gray-600 text-white",
-  "Project Management": "bg-gradient-to-r from-blue-600 to-indigo-600 text-white",
-  "Analytics": "bg-gradient-to-r from-emerald-600 to-teal-600 text-white",
-  "Security": "bg-gradient-to-r from-red-500 to-orange-500 text-white",
-  "Hosting": "bg-gradient-to-r from-violet-500 to-purple-500 text-white",
-  "Career": "bg-gradient-to-r from-amber-500 to-orange-500 text-black",
-  "3D Design": "bg-gradient-to-r from-cyan-600 to-blue-600 text-white",
-  "Collaboration": "bg-gradient-to-r from-teal-500 to-green-500 text-white",
-  "Music Production": "bg-gradient-to-r from-pink-500 to-red-500 text-white",
-}
-
-const categoryGradients = {
-  "Web Design": "from-blue-500 to-cyan-400",
-  "Cloud": "from-purple-500 to-pink-500",
-  "Domains": "from-green-500 to-emerald-400",
-  "Design": "from-pink-500 to-rose-400",
-  "AI/Cloud": "from-orange-500 to-yellow-400",
-  "AI Tools": "from-red-500 to-pink-500",
-  "AI Coding": "from-indigo-500 to-purple-500",
-  "Productivity": "from-yellow-400 to-orange-500",
-  "Engineering": "from-cyan-500 to-blue-500",
-  "Entertainment": "from-purple-600 to-pink-600",
-  "Finance": "from-green-600 to-emerald-600",
-  "Survey Tools": "from-indigo-600 to-purple-600",
-  "Game Development": "from-red-600 to-orange-600",
-  "Video Editing": "from-pink-600 to-purple-600",
-  "Development": "from-slate-600 to-gray-600",
-  "Project Management": "from-blue-600 to-indigo-600",
-  "Analytics": "from-emerald-600 to-teal-600",
-  "Security": "from-red-500 to-orange-500",
-  "Hosting": "from-violet-500 to-purple-500",
-  "Career": "from-amber-500 to-orange-500",
-  "3D Design": "from-cyan-600 to-blue-600",
-  "Collaboration": "from-teal-500 to-green-500",
-  "Music Production": "from-pink-500 to-red-500",
 }
 
 export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip }: EnhancedOfferCardProps) {
@@ -83,13 +90,11 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="relative w-full h-[380px] perspective-1000"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
     >
       {/* Glowing effect wrapper */}
       <div className="relative w-full h-full rounded-2xl border border-green-500/20">
         <GlowingEffect
-          spread={30}
+          spread={35}
           glow={true}
           disabled={false}
           proximity={48}
@@ -137,8 +142,8 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
                 <p className="text-gray-300 text-xs leading-relaxed line-clamp-2">{offer.offer}</p>
               </CardHeader>
 
-              <CardContent className="pt-0 pb-4 relative z-10 h-auto flex flex-col flex-1">
-                <div className="space-y-2 mb-4">
+              <CardContent className="pt-0 pb-4 relative z-10 flex-1 flex flex-col overflow-hidden">
+                <div className="space-y-2 mb-4 flex-shrink-0">
                   {[
                     { icon: Clock, text: offer.duration, gradient: "from-purple-500 to-pink-500" },
                     { icon: MapPin, text: offer.eligibility, gradient: "from-pink-500 to-yellow-400" },
@@ -168,7 +173,7 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
                       Get Free
                     </a>
                   </Button>
-
+                  
                   <Button
                     size="sm"
                     variant="outline"
@@ -202,8 +207,8 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
                 </div>
               </CardHeader>
 
-              <CardContent className="pt-0 relative z-10 flex-1 flex flex-col overflow-y-auto scrollbar-thin scrollbar-thumb-green-500/50 scrollbar-track-transparent">
-                <div className="space-y-3 mb-4 flex-grow">
+              <CardContent className="pt-0 relative z-10 flex-1 flex flex-col overflow-hidden">
+                <div className="space-y-3 flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-green-500/50 scrollbar-track-transparent">
                   <div>
                     <h4 className="text-sm font-semibold text-green-400 mb-1">Duration</h4>
                     <p className="text-xs text-gray-300">{offer.duration}</p>

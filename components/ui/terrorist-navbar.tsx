@@ -193,11 +193,11 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
               </motion.div>
 
               {/* Nav Items */}
-              <div className="flex items-center gap-1 flex-1 justify-center">
+              <div className="flex items-center gap-0.5 flex-1 justify-center">
                 {navItems.map((item) => (
                   <motion.button
                     key={item.id}
-                    className="relative px-2 py-1 text-base font-medium transition-colors duration-200"
+                    className="relative px-1.5 py-1 text-sm font-medium transition-colors duration-200"
                     style={{
                       color: hoveredItem === item.id ? '#4ade80' : '#f5f5dc'
                     }}
@@ -207,8 +207,8 @@ export default function TerroristNavbar({ onContactClick }: TerroristNavbarProps
                     whileTap={{ scale: 0.98 }}
                   >
                     <span className="relative z-10 flex items-center gap-1">
-                      <item.icon className="w-5 h-5 text-green-400" />
-                      <span>
+                      <item.icon className="w-4 h-4 text-green-400" />
+                      <span className="text-xs">
                         {item.label}
                       </span>
                     </span>

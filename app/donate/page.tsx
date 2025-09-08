@@ -5,11 +5,17 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ArrowLeft, Copy, ExternalLink, Shield, Zap, Target } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
+import dynamic from "next/dynamic"
 import GradientUnderline from "@/components/ui/gradient-underline"
 import CircuitBoardBackground from "@/components/ui/circuit-board-bg"
 import GridDistortion from "@/components/ui/grid-distortion"
 import TypingText from "@/components/ui/typing-text"
 import { GlowingEffect } from "@/components/ui/glowing-effect"
+
+const MagnetLines = dynamic(() => import("@/components/ui/magnet-lines").then(mod => ({ default: mod.MagnetLines })), {
+  ssr: false,
+  loading: () => <div className="h-screen w-screen opacity-0" />
+})
 
 export default function DonatePage() {
   const copyToClipboard = (text: string) => {
@@ -21,6 +27,19 @@ export default function DonatePage() {
       {/* Terminal Background Animation */}
       <div className="fixed inset-0 z-0">
         <CircuitBoardBackground />
+      </div>
+      
+      {/* Magnet Lines Background */}
+      <div className="fixed inset-0 z-0 opacity-20">
+        <MagnetLines 
+          rows={12}
+          columns={20}
+          containerSize="100vw"
+          lineWidth="2px"
+          lineHeight="8px"
+          gradientColors={["#22c55e", "#16a34a", "#15803d", "#166534", "#14532d"]}
+          className="h-screen w-screen"
+        />
       </div>
       
       {/* Lightweight backdrop to match main page */}
@@ -81,7 +100,6 @@ export default function DonatePage() {
                   <input
                     type="image"
                     src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif"
-                    border={0}
                     name="submit"
                     title="PayPal - The safer, easier way to pay online!"
                     alt="Donate with PayPal button"
@@ -118,9 +136,8 @@ export default function DonatePage() {
                 <a href="https://ko-fi.com/G2G81FLCK7" target="_blank" rel="noopener noreferrer" className="block">
                   <img
                     height="36"
-                    style={{ border: 0, height: 36 }}
+                    style={{ height: 36 }}
                     src="https://storage.ko-fi.com/cdn/kofi6.png?v=6"
-                    border={0}
                     alt="Buy Me a Coffee at ko-fi.com"
                     className="w-full max-w-[200px] mx-auto block rounded-lg"
                   />

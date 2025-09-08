@@ -1,16 +1,13 @@
 "use client"
 
-import { GlowingStarsBackgroundCard, GlowingStarsTitle, GlowingStarsDescription } from "./glowing-background-stars-card"
-import { motion } from "framer-motion"
-import { BinaryHoverText } from "./binary-hover-text"
+import React, { useState } from 'react'
+import { motion } from 'framer-motion'
+import { BinaryHoverText } from '@/components/ui/binary-hover-text'
+import { GlowingStarsBackgroundCard } from '@/components/ui/glowing-background-stars-card'
 
 interface ManifestoCard {
   title: string
   description: string
-  price?: string
-  service?: string
-  note?: string
-  guarantee?: string
 }
 
 export default function ManifestoCards() {
@@ -21,22 +18,15 @@ export default function ManifestoCards() {
     },
     {
       title: "The Solution", 
-      description: "Freebie Terrorist provides authentic .edu email addresses and student IDs from verified US/Canadian universities. No forwards - real accounts with Office 365 or Google Workspace included."
+      description: "Freebie Terrorist provides authentic .edu email addresses and student IDs from verified universities. No forwards - real accounts with Office 365 or Google Workspace included."
     },
     {
       title: ".EDU Email",
-      description: "Authentic .edu email address in your name (or any name you choose) from verified universities. Delivered within 7-10 days with full access to student portals and benefits.",
-      price: "$13",
-      service: "per .edu address",
-      note: "Payment: Crypto, PayPal, or AliPay only"
+      description: "Authentic .edu email address in your name (or any name you choose) from verified universities. Delivered within 7-10 days with full access to student portals and benefits."
     },
     {
       title: "Student ID",
-      description: "Real digital student ID image for the same university and name as your .edu email. Required for offers that need photo verification alongside email verification.",
-      price: "$20",
-      service: "additional for Student ID",
-      note: "Payment: Crypto, PayPal, or AliPay only",
-      guarantee: "If rejected by vendor, show proof and get full refund!"
+      description: "Real digital student ID image for the same university and name as your .edu email. Required for offers that need photo verification alongside email verification."
     }
   ]
 
@@ -70,7 +60,9 @@ export default function ManifestoCards() {
               viewport={{ once: true }}
               className="relative"
             >
-              <GlowingStarsBackgroundCard className="h-[520px] bg-gradient-to-br from-gray-900 via-black to-gray-800 border-green-500/30 max-w-none">
+              <GlowingStarsBackgroundCard 
+                className="h-[520px] bg-gradient-to-br from-gray-900 via-black to-gray-800 border-green-500/30 max-w-none"
+              >
                 <div className="flex flex-col h-full justify-between text-center p-6 relative z-10">
                   <div className="space-y-3">
                     <h3 className="text-green-400 font-mono text-lg font-bold">
@@ -80,29 +72,6 @@ export default function ManifestoCards() {
                       {card.description}
                     </p>
                   </div>
-                  {card.price && (
-                    <div className="mt-auto pt-3 border-t border-green-500/20">
-                      <div className="flex items-center justify-center mb-3">
-                        <img src="/terrorist_logo.png" alt="FT Logo" className="w-8 h-8 rounded-full opacity-50" />
-                      </div>
-                      <div className="text-2xl font-bold text-green-400 font-mono mb-1">
-                        {card.price}
-                      </div>
-                      <div className="text-xs text-gray-400 font-mono mb-2">
-                        {card.service}
-                      </div>
-                      {card.note && (
-                        <div className="text-xs text-blue-300 font-mono mb-1 bg-blue-900/20 rounded p-2">
-                          💳 {card.note}
-                        </div>
-                      )}
-                      {card.guarantee && (
-                        <div className="text-xs text-green-300 font-mono bg-green-900/20 rounded p-2">
-                          ✅ {card.guarantee}
-                        </div>
-                      )}
-                    </div>
-                  )}
                 </div>
               </GlowingStarsBackgroundCard>
             </motion.div>
@@ -116,7 +85,7 @@ export default function ManifestoCards() {
           transition={{ duration: 0.8, delay: 0.4 }}
           viewport={{ once: true }}
         >
-          <p className="text-lg text-gray-400 font-mono max-w-3xl mx-auto">
+          <p className="text-gray-400 text-lg font-mono max-w-3xl mx-auto">
             The free arsenal below remains free. But if you want to unlock the full potential 
             of these offers without the academic gatekeeping, we've got your back. 
             <span className="text-green-400"> This is digital anarchy with a business model.</span>

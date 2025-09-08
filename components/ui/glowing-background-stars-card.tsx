@@ -26,7 +26,11 @@ export const GlowingStarsBackgroundCard = ({
         className
       )}
     >
-      <Illustration mouseEnter={mouseEnter} />
+      <Illustration 
+        mouseEnter={mouseEnter} 
+        glowIntensity={mouseEnter ? 1.2 : 0.7} // More intense glow when hovered and slightly brighter when idle
+        glowDuration={mouseEnter ? 1 : 2} // Faster glow animation when hovered
+      />
       <div className="relative z-10 flex-1 flex flex-col">{children}</div>
     </div>
   );
@@ -60,7 +64,7 @@ export const GlowingStarsTitle = ({
   );
 };
 
-export const Illustration = ({ mouseEnter }: { mouseEnter: boolean }) => {
+export const Illustration = ({ mouseEnter, glowIntensity, glowDuration }: { mouseEnter: boolean; glowIntensity: number; glowDuration: number }) => {
   const stars = 300;
   const columns = 25;
 
@@ -70,11 +74,11 @@ export const Illustration = ({ mouseEnter }: { mouseEnter: boolean }) => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      highlightedStars.current = Array.from({ length: 5 }, () =>
+      highlightedStars.current = Array.from({ length: 8 }, () =>
         Math.floor(Math.random() * stars)
       );
       setGlowingStars([...highlightedStars.current]);
-    }, 3000);
+    }, 2000); // More frequent random glow for more active idle state
 
     return () => clearInterval(interval);
   }, []);
@@ -120,12 +124,13 @@ const Star = ({ isGlowing, delay }: { isGlowing: boolean; delay: number }) => {
         scale: 1,
       }}
       animate={{
-        scale: isGlowing ? [1, 1.2, 2.5, 2.2, 1.5] : 1,
+        scale: isGlowing ? [1, 1.3, 3, 2.5, 1.5] : 1,
         background: isGlowing ? "#fff" : "#666",
+        opacity: isGlowing ? [0.8, 1, 0] : 1,
       }}
       transition={{
-        duration: 2,
-        ease: "easeInOut",
+        duration: isGlowing ? 1.5 : 2.5, // Faster animation when glowing
+        ease: "easeOut",
         delay: delay,
       }}
       className={cn("bg-[#666] h-[1px] w-[1px] rounded-full relative z-20")}
