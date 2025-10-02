@@ -38,7 +38,7 @@ const categoryColors = {
   "Collaboration": "bg-gradient-to-r from-blue-500 to-purple-500 text-white",
   "Music Production": "bg-gradient-to-r from-pink-500 to-red-500 text-white",
   "Statistical Analysis": "bg-gradient-to-r from-green-500 to-teal-500 text-white",
-  "Career": "bg-gradient-to-r from-yellow-500 to-orange-500 text-white"
+  "Career": "bg-gradient-to-r from-yellow-500 to-orange-500"
 }
 
 const categoryGradients = {
@@ -193,9 +193,9 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
               {/* Background gradient */}
               <div className={`absolute inset-0 bg-gradient-to-br ${categoryGradient} opacity-10`} />
               
-              <CardHeader className="pb-3 relative z-10 flex-shrink-0">
-                <div className="flex items-center justify-between mb-3">
-                  <h3 className="text-lg font-bold text-white">{offer.provider}</h3>
+              <CardHeader className="pb-2 relative z-10 flex-shrink-0">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-base font-bold text-white">{offer.provider}</h3>
                   <Button
                     size="sm"
                     variant="ghost"
@@ -207,27 +207,27 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
                 </div>
               </CardHeader>
 
-              <CardContent className="pt-0 relative z-10 flex-1 flex flex-col overflow-hidden">
-                <div className="space-y-3 flex-grow overflow-y-auto scrollbar-thin scrollbar-thumb-green-500/50 scrollbar-track-transparent">
+              <CardContent className="pt-0 relative z-10 flex-1 flex flex-col">
+                <div className="space-y-2 flex-grow">
                   <div>
-                    <h4 className="text-sm font-semibold text-green-400 mb-1">Duration</h4>
-                    <p className="text-xs text-gray-300">{offer.duration}</p>
+                    <h4 className="text-xs font-semibold text-green-400 mb-1">Duration</h4>
+                    <p className="text-xs text-gray-300 line-clamp-1">{offer.duration}</p>
                   </div>
                   
                   <div>
-                    <h4 className="text-sm font-semibold text-green-400 mb-1">Eligibility</h4>
-                    <p className="text-xs text-gray-300">{offer.eligibility}</p>
+                    <h4 className="text-xs font-semibold text-green-400 mb-1">Eligibility</h4>
+                    <p className="text-xs text-gray-300 line-clamp-1">{offer.eligibility}</p>
                   </div>
                   
                   <div>
-                    <h4 className="text-sm font-semibold text-green-400 mb-1">Verification</h4>
-                    <p className="text-xs text-gray-300">{offer.verification}</p>
+                    <h4 className="text-xs font-semibold text-green-400 mb-1">Verification</h4>
+                    <p className="text-xs text-gray-300 line-clamp-1">{offer.verification}</p>
                   </div>
 
                   {offer.notes && (
                     <div>
-                      <h4 className="text-sm font-semibold text-yellow-400 mb-1">Notes</h4>
-                      <p className="text-xs text-yellow-300 bg-yellow-500/10 border border-yellow-500/20 rounded p-2">
+                      <h4 className="text-xs font-semibold text-yellow-400 mb-1">Notes</h4>
+                      <p className="text-xs text-yellow-300 bg-yellow-500/10 border border-yellow-500/20 rounded p-1 line-clamp-2">
                         {offer.notes}
                       </p>
                     </div>
@@ -249,7 +249,12 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
                   <Button
                     size="sm"
                     variant="outline"
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      console.log('Full Details clicked, opening modal');
+                      setIsModalOpen(true);
+                    }}
                     className="w-full border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg h-8"
                   >
                     Full Details
@@ -265,7 +270,10 @@ export default function EnhancedOfferCardFixed({ offer, index, isFlipped, onFlip
       <OfferDetailsModal 
         offer={offer} 
         isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+        onClose={() => {
+          console.log('Closing modal');
+          setIsModalOpen(false);
+        }} 
       />
     </motion.div>
   )

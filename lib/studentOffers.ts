@@ -26,6 +26,18 @@ export const studentOffers: StudentOffer[] = [
     image: "/logos/webflow.png",
   },
   {
+    category: "Web Design",
+    provider: "Framer",
+    offer: "Free basic plan for portfolio hosting with access to next-gen design canvas, complete toolkit including CMS, unlimited AI tools starting with Wireframer to advanced Workshop components, and thousands of free templates",
+    duration: "While enrolled",
+    savings: "$180",
+    eligibility: "Verified students worldwide",
+    verification: ".edu email and student ID or university document",
+    notes: "Full access to design canvas, CMS, and AI tools. Free unlimited AI Tools including Wireframer and Workshop components. Access to thousands of templates.",
+    link: "https://www.framer.com/students/",
+    image: "/logos/framer.png",
+  },
+  {
     category: "Cloud",
     provider: "Microsoft Azure",
     offer: "$100 in Azure credits",
@@ -349,7 +361,7 @@ export const studentOffers: StudentOffer[] = [
     verification: ".edu email",
     notes: "Access to Bentley’s complete portfolio of software for infrastructure engineering.",
     link: "https://www.bentley.com/education/",
-    image: "/logos/bentley.jpg",
+    image: "/logos/bentley.png",
   },
   {
     category: "Survey Tools",

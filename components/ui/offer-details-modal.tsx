@@ -6,6 +6,10 @@ import { X, Star, Clock, MapPin, Shield, Zap, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import OfferLogo3D from '@/components/OfferLogo3D'
 import { StudentOffer } from '@/lib/studentOffers'
+import { createPortal } from 'react-dom'
+import { MagicCard } from './magic-card'
+import { BorderBeam } from './border-beam'
+import { Particles } from './particles'
 
 // Category colors and gradients
 const categoryColors = {
@@ -110,7 +114,12 @@ interface OfferDetailsModalProps {
 }
 
 export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetailsModalProps) {
+  console.log('OfferDetailsModal render:', { offer: offer?.provider, isOpen });
+  
   if (!offer) return null
+
+  // Add client-side check to ensure DOM is available for createPortal
+  if (typeof window === 'undefined') return null
 
   const categoryColor = categoryColors[offer.category as keyof typeof categoryColors] || "bg-gradient-to-r from-gray-500 to-gray-400 text-white"
   const categoryGradient = categoryGradients[offer.category as keyof typeof categoryGradients] || "from-gray-500 to-gray-400"
@@ -120,11 +129,11 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
 
   return (
     <AnimatePresence>
-      {isOpen && (
+      {isOpen && createPortal(
         <>
           {/* Backdrop */}
           <motion.div
-            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[59]"
+            className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[9999]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -138,21 +147,36 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 50 }}
             transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[60] w-full max-w-5xl max-h-[90vh] overflow-y-auto p-4"
+            className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[10000] w-[95vw] sm:w-[90vw] md:w-[85vw] lg:w-[80vw] xl:w-[70vw] max-w-4xl max-h-[90vh] overflow-y-auto p-2 sm:p-4"
           >
-            <div className="relative w-full">
-              <motion.div
+            <div className="relative w-full overflow-hidden">
+              {/* Background Particles */}
+              <Particles
+                className="absolute inset-0 z-0"
+                quantity={25}
+                ease={80}
+                color="#10b981"
+                size={0.5}
+                staticity={40}
+              />
+              
+              <MagicCard
                 className="relative w-full bg-black/95 border border-green-500/30 rounded-2xl shadow-2xl backdrop-blur-md overflow-hidden"
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 30 }}
-                transition={{ duration: 0.3 }}
+                gradientSize={400}
+                gradientColor="#10b981"
+                gradientOpacity={0.1}
+                gradientFrom="#10b981"
+                gradientTo="#059669"
               >
-                {/* Background gradient */}
-                <div className="absolute inset-0 bg-gradient-to-br from-green-600/10 via-emerald-500/5 to-green-600/10 animate-pulse" />
-                
-                {/* Glowing border effect */}
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-green-600 via-emerald-500 to-green-600 rounded-2xl opacity-20 blur-sm" />
+                <motion.div
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 30 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative w-full"
+                >
+                  {/* Background gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-green-600/10 via-emerald-500/5 to-green-600/10 animate-pulse" />
                 
                 {/* Close button */}
                 <motion.button
@@ -165,9 +189,9 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
                 </motion.button>
 
                 {/* Content */}
-                <div className="relative z-10 p-8">
+                <div className="relative z-10 p-4 sm:p-6 lg:p-8">
                   {/* Header */}
-                  <div className="flex items-start gap-6 mb-8">
+                  <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6 mb-6 sm:mb-8">
                     <motion.div 
                       className="flex-shrink-0"
                       initial={{ scale: 0, rotate: -180 }}
@@ -181,7 +205,7 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
                     
                     <div className="flex-1 min-w-0">
                       <motion.h2 
-                        className="text-3xl md:text-4xl font-black text-white mb-2"
+                        className="text-2xl sm:text-3xl md:text-4xl font-black text-white mb-2"
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: 0.3 }}
@@ -200,14 +224,15 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
                     </div>
                   </div>
 
+
                   {/* Details Grid */}
                   <motion.div 
-                    className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"
+                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-6 sm:mb-8"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.6 }}
                   >
-                    <div className="p-6 bg-black/50 border border-purple-500/30 rounded-xl">
+                    <div className="p-4 sm:p-6 bg-black/50 border border-purple-500/30 rounded-xl">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center flex-shrink-0">
                           <Clock className="w-3 h-3 text-white" />
@@ -217,7 +242,7 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
                       <p className="text-gray-300 text-sm">{offer.duration}</p>
                     </div>
 
-                    <div className="p-6 bg-black/50 border border-green-500/30 rounded-xl">
+                    <div className="p-4 sm:p-6 bg-black/50 border border-green-500/30 rounded-xl">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center flex-shrink-0">
                           <MapPin className="w-3 h-3 text-white" />
@@ -227,7 +252,7 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
                       <p className="text-gray-300 text-sm">{offer.eligibility}</p>
                     </div>
 
-                    <div className="p-6 bg-black/50 border border-yellow-500/30 rounded-xl">
+                    <div className="p-4 sm:p-6 bg-black/50 border border-yellow-500/30 rounded-xl">
                       <div className="flex items-center gap-3 mb-3">
                         <div className="w-10 h-10 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
                           <Shield className="w-3 h-3 text-white" />
@@ -240,20 +265,20 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
 
                   {/* About Section */}
                   <motion.div 
-                    className="mb-8"
+                    className="mb-6 sm:mb-8"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7 }}
                   >
-                    <h3 className="text-2xl font-bold text-green-400 mb-4 flex items-center gap-3">
+                    <h3 className="text-xl sm:text-2xl font-bold text-green-400 mb-4 flex items-center gap-3">
                       <Zap className="w-5 h-5" />
                       About {offer.provider}
                     </h3>
-                    <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                    <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-4 sm:mb-6">
                       {offerSummary}
                     </p>
                     
-                    <div className="p-6 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl">
+                    <div className="p-4 sm:p-6 bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/20 rounded-xl">
                       <h4 className="text-lg font-bold text-green-400 mb-2">Category: {offer.category}</h4>
                       <p className="text-gray-300 text-sm">{categoryDescription}</p>
                     </div>
@@ -262,7 +287,7 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
                   {/* Notes Section */}
                   {offer.notes && (
                     <motion.div 
-                      className="mb-8 p-6 bg-yellow-500/10 border border-yellow-500/20 rounded-xl"
+                      className="mb-6 sm:mb-8 p-4 sm:p-6 bg-yellow-500/10 border border-yellow-500/20 rounded-xl"
                       initial={{ opacity: 0, y: 30 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.8 }}
@@ -274,7 +299,7 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
 
                   {/* Action Buttons */}
                   <motion.div 
-                    className="flex flex-col sm:flex-row gap-4"
+                    className="flex flex-col sm:flex-row gap-3 sm:gap-4"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.9 }}
@@ -282,7 +307,7 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
                     <Button
                       asChild
                       size="lg"
-                      className="flex-1 bg-gradient-to-r from-green-400 via-green-500 to-emerald-400 hover:from-green-300 hover:via-green-400 hover:to-emerald-300 text-black font-bold py-6 rounded-xl"
+                      className="flex-1 bg-gradient-to-r from-green-400 via-green-500 to-emerald-400 hover:from-green-300 hover:via-green-400 hover:to-emerald-300 text-black font-bold py-4 sm:py-6 rounded-xl"
                     >
                       <a href={offer.link} target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="w-4 h-4 mr-2" />
@@ -294,16 +319,27 @@ export default function OfferDetailsModal({ offer, isOpen, onClose }: OfferDetai
                       size="lg"
                       variant="outline"
                       onClick={onClose}
-                      className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white py-6 px-8 rounded-xl"
+                      className="border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white py-4 sm:py-6 px-6 sm:px-8 rounded-xl"
                     >
                       Close
                     </Button>
                   </motion.div>
                 </div>
-              </motion.div>
+                
+                {/* Animated Border Beam */}
+                <BorderBeam
+                  size={120}
+                  duration={8}
+                  colorFrom="#10b981"
+                  colorTo="#059669"
+                  borderWidth={2}
+                />
+                </motion.div>
+              </MagicCard>
             </div>
           </motion.div>
-        </>
+        </>,
+        document.body
       )}
     </AnimatePresence>
   )

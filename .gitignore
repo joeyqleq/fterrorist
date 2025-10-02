@@ -42,6 +42,12 @@ storybook-static
 !public/placeholder*.jpg
 !public/placeholder*.svg
 !public/terrorist_logo.png
+!public/terrorist_logo_ascii.png
+!public/logos/*.png
+!public/logos/*.jpg
+!public/logos/*.svg
+!public/logos/*.jpeg
+!public/logos/*.webp
 
 # Logo directory (too many files)
 public/logos/

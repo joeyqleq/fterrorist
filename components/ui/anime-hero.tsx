@@ -3,6 +3,7 @@
 import React, { useEffect, useRef } from "react"
 import Image from "next/image"
 import { animate } from "animejs"
+import Logo from "./spinning-arc-logo-with-gradient-text-1"
 
 interface AnimeHeroProps {
   className?: string
@@ -143,8 +144,18 @@ export default function AnimeHero({ className = "" }: AnimeHeroProps) {
       {/* Canvas rings */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
-      {/* Center ASCII logo - doubled in size, slower pulse */}
+      {/* Enhanced Spinning Arc Logo - positioned behind ASCII logo with smaller size */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="relative">
+          <Logo 
+            size={220} 
+            className="opacity-20 transform transition-all duration-300 hover:opacity-30" 
+          />
+        </div>
+      </div>
+
+      {/* Center ASCII logo - enhanced with subtle glitch effect */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
         <div className="relative w-80 h-80">
           <Image 
             src="/terrorist_logo_ascii.png" 
@@ -153,7 +164,7 @@ export default function AnimeHero({ className = "" }: AnimeHeroProps) {
             sizes="320px" 
             className="object-contain" 
             style={{
-              animation: "slowPulse 4s ease-in-out infinite"
+              animation: "slowPulse 4s ease-in-out infinite, subtleGlitch 30s ease-in-out infinite"
             }}
           />
         </div>
@@ -163,6 +174,16 @@ export default function AnimeHero({ className = "" }: AnimeHeroProps) {
         @keyframes slowPulse {
           0%, 100% { opacity: 0.8; }
           50% { opacity: 1; }
+        }
+        @keyframes subtleGlitch {
+          0%, 99.5%, 100% { 
+            transform: translate(0, 0) scale(1);
+            filter: hue-rotate(0deg);
+          }
+          0.25% { 
+            transform: translate(-0.2px, 0.1px) scale(1.0005);
+            filter: hue-rotate(0.2deg);
+          }
         }
       `}</style>
     </div>

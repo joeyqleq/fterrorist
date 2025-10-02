@@ -8,6 +8,8 @@ import { GlowingStarsBackgroundCard } from '@/components/ui/glowing-background-s
 interface ManifestoCard {
   title: string
   description: string
+  price?: string
+  details?: string[]
 }
 
 export default function ManifestoCards() {
@@ -22,11 +24,27 @@ export default function ManifestoCards() {
     },
     {
       title: ".EDU Email",
-      description: "Authentic .edu email address in your name (or any name you choose) from verified universities. Delivered within 7-10 days with full access to student portals and benefits."
+      description: "Authentic .edu email address in your name (or any name you choose) from verified universities. Delivered within 7-10 days with full access to student portals and benefits.",
+      price: "$13",
+      details: [
+        "• Real .edu email address",
+        "• Office 365 or Google Workspace",
+        "• 7-10 day delivery",
+        "• Full student portal access",
+        "• Lifetime validity"
+      ]
     },
     {
       title: "Student ID",
-      description: "Real digital student ID image for the same university and name as your .edu email. Required for offers that need photo verification alongside email verification."
+      description: "Real digital student ID image for the same university and name as your .edu email. Required for offers that need photo verification alongside email verification.",
+      price: "$20",
+      details: [
+        "• High-quality digital ID image",
+        "• Matches your .edu email",
+        "• Photo verification ready",
+        "• Same university as email",
+        "• Instant delivery"
+      ]
     }
   ]
 
@@ -72,6 +90,24 @@ export default function ManifestoCards() {
                       {card.description}
                     </p>
                   </div>
+                  
+                  {/* Price and details section for cards 3 and 4 */}
+                  {card.price && card.details && (
+                    <div className="mt-6 space-y-4">
+                      <div className="text-center">
+                        <span className="text-3xl font-bold text-green-400 font-mono">
+                          {card.price}
+                        </span>
+                      </div>
+                      <div className="space-y-2">
+                        {card.details.map((detail, detailIndex) => (
+                          <p key={detailIndex} className="text-gray-400 font-mono text-xs text-left">
+                            {detail}
+                          </p>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </GlowingStarsBackgroundCard>
             </motion.div>

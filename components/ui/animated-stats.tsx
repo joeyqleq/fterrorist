@@ -4,6 +4,8 @@ import React, { useEffect, useMemo, useRef, useState } from "react"
 import { studentOffers } from "@/lib/studentOffers"
 import { animate } from "animejs"
 import Counter, { Formatter } from "@/components/animata/text/counter"
+import { BorderBeam } from "@/components/ui/border-beam"
+import { Particles } from "@/components/ui/particles"
 
 function parseSavingsToYearUSD(s: string): number {
   // Extract first number group
@@ -37,7 +39,7 @@ export default function AnimatedStats() {
     // Count all offers as 99% are accessible to students with proper verification
     const freeCount = studentOffers.length
     // Total value of all offers (manually updated after adding new offers)
-    const totalValue = 53222 // Updated from 23222 to reflect new total
+    const totalValue = 53402 // Updated to reflect new total with Framer offer
     // Calculate average duration from offers that have numeric durations
     const durations = studentOffers
       .map(offer => {
@@ -87,34 +89,71 @@ export default function AnimatedStats() {
   }, [hasPlayed])
 
   return (
-    <div ref={ref} className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
-      <div className="p-6 rounded-xl border border-green-500/30 bg-black/50 text-center">
-        <div className="text-gray-400 text-xs mb-1 font-mono">Total Student Offers</div>
-        <Counter
-          delay={500}
-          direction="up"
-          targetValue={freeCount}
-          className="text-4xl font-black text-green-400 font-mono"
-        />
-      </div>
-      <div className="p-6 rounded-xl border border-green-500/30 bg-black/50 text-center">
-        <div className="text-gray-400 text-xs mb-1 font-mono">Total Value (USD/year)</div>
-        <Counter
-          delay={800}
-          direction="up"
-          targetValue={totalValue}
-          format={Formatter.currency}
-          className="text-4xl font-black text-green-400 font-mono"
-        />
-      </div>
-      <div className="p-6 rounded-xl border border-green-500/30 bg-black/50 text-center">
-        <div className="text-gray-400 text-xs mb-1 font-mono">Average Duration (months)</div>
-        <Counter
-          delay={1100}
-          direction="up"
-          targetValue={avgDuration}
-          className="text-4xl font-black text-green-400 font-mono"
-        />
+    <div className="relative mb-12">
+      {/* Background particles */}
+      <Particles
+        className="absolute inset-0 -z-10"
+        quantity={30}
+        ease={80}
+        color="#22c55e"
+        size={0.4}
+        staticity={50}
+      />
+      
+      <div ref={ref} className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="relative p-6 rounded-xl border border-green-500/30 bg-black/50 text-center overflow-hidden">
+          <BorderBeam 
+            size={100} 
+            duration={8} 
+            colorFrom="#22c55e" 
+            colorTo="#10b981" 
+            className="rounded-xl"
+          />
+          <div className="text-gray-400 text-xs mb-1 font-mono">Total Student Offers</div>
+          <Counter
+            delay={500}
+            direction="up"
+            targetValue={freeCount}
+            className="text-4xl font-black text-green-400 font-mono"
+          />
+        </div>
+        
+        <div className="relative p-6 rounded-xl border border-green-500/30 bg-black/50 text-center overflow-hidden">
+          <BorderBeam 
+            size={100} 
+            duration={10} 
+            delay={2}
+            colorFrom="#10b981" 
+            colorTo="#059669" 
+            className="rounded-xl"
+          />
+          <div className="text-gray-400 text-xs mb-1 font-mono">Total Value (USD/year)</div>
+          <Counter
+            delay={800}
+            direction="up"
+            targetValue={totalValue}
+            format={(value: number) => `$${value.toLocaleString()}`}
+            className="text-4xl font-black text-green-400 font-mono"
+          />
+        </div>
+        
+        <div className="relative p-6 rounded-xl border border-green-500/30 bg-black/50 text-center overflow-hidden">
+          <BorderBeam 
+            size={100} 
+            duration={12} 
+            delay={4}
+            colorFrom="#059669" 
+            colorTo="#047857" 
+            className="rounded-xl"
+          />
+          <div className="text-gray-400 text-xs mb-1 font-mono">Average Duration (months)</div>
+          <Counter
+            delay={1100}
+            direction="up"
+            targetValue={avgDuration}
+            className="text-4xl font-black text-green-400 font-mono"
+          />
+        </div>
       </div>
     </div>
   )

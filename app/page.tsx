@@ -5,8 +5,9 @@ import dynamic from "next/dynamic"
 import { studentOffers } from "@/lib/studentOffers"
 import TerroristNavbar from "@/components/ui/terrorist-navbar"
 import { ContactFormModal } from "@/components/ui/contact-form-modal"
-import { ShimmerButton } from "@/components/magicui/shimmer-button"
+import { MatrixShimmerButton } from "@/components/ui/matrix-shimmer-button"
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button"
+import { MatrixShader } from "@/components/ui/matrix-shader"
 import { SpinningText } from "@/components/ui/spinning-text"
 import { MagneticBorder } from "@/components/ui/magnetic-border"
 import { Button as MovingBorderButton } from "@/components/ui/moving-border"
@@ -19,10 +20,10 @@ import { ArrowRight, Zap, Globe, Shield, Terminal, FileText, Heart, Hand } from 
 import Image from "next/image"
 import Link from "next/link"
 import AnimatedStats from "@/components/ui/animated-stats"
+
 import { MatrixText } from "@/components/ui/matrix-text"
 import { BinaryHoverText } from "@/components/ui/binary-hover-text"
 import CircuitBoardBackground from "@/components/ui/circuit-board-bg"
-import { MatrixShader } from "@/components/ui/matrix-shader"
 
 const MagnetLines = dynamic(() => import("@/components/ui/magnet-lines").then(mod => ({ default: mod.MagnetLines })), {
   ssr: false,
@@ -192,27 +193,27 @@ export default function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.2 }}
               >
-                <ShimmerButton
+                <MatrixShimmerButton
                   className="min-w-[280px] h-16 text-lg font-mono font-bold group"
                   shimmerColor="#22c55e"
-                  background="rgba(0, 0, 0, 0.8)"
+                  background="rgba(0, 0, 0, 0.3)"
                   borderRadius="2rem"
                   onClick={handleScrollToOffers}
                 >
-                  <div className="flex items-center justify-center gap-3 px-6">
+                  <div className="flex items-center justify-center gap-3 px-8">
                     <Terminal className="w-6 h-6 text-green-400" />
                     <span className="text-green-400">Access Free Arsenal</span>
                     <ArrowRight className="w-5 h-5 text-green-400 group-hover:translate-x-1 transition-transform" />
                   </div>
-                </ShimmerButton>
+                </MatrixShimmerButton>
 
                 <InteractiveHoverButton
-                  className="min-w-[260px] h-16 text-lg font-mono font-bold bg-black/80 border-green-500/30 text-green-400 hover:border-green-400 hover:bg-black/90 hover:text-green-300 px-8"
+                  className="min-w-[260px] h-16 text-lg font-mono font-bold bg-black/80 border-green-500/30 text-green-400 hover:border-green-400 hover:bg-black/90 hover:text-green-300"
                   onClick={() => setIsContactModalOpen(true)}
                 >
-                  <div className="flex items-center justify-center gap-3 px-4">
-                    <div className="text-2xl">🖕</div>
-                    <span>Want a .EDU e-mail?</span>
+                  <div className="flex items-center justify-center gap-3 px-6">
+                    <div className="text-3xl -ml-1">🖕</div>
+                    <span className="whitespace-nowrap">Want a .EDU e-mail?</span>
                   </div>
                 </InteractiveHoverButton>
               </motion.div>
