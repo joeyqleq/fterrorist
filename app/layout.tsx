@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { Space_Mono } from "next/font/google"
+import localFont from "next/font/local"
 import Script from "next/script"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
@@ -8,7 +8,15 @@ import { initToolbar } from '@21st-extension/toolbar';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from "@vercel/analytics/next"
 
-const spaceMono = Space_Mono({ subsets: ["latin"], weight: ["400", "700"] })
+// Load Space Mono locally
+const spaceMono = localFont({
+  src: [
+    { path: "./fonts/SpaceMono-Regular.ttf", weight: "400", style: "normal" },
+    { path: "./fonts/SpaceMono-Bold.ttf", weight: "700", style: "normal" },
+    { path: "./fonts/SpaceMono-Italic.ttf", weight: "400", style: "italic" },
+  ],
+  display: "swap",
+})
 
 export const metadata: Metadata = {
   title: "FREEBIE TERRORIST - Digital Anarchist Platform",
@@ -21,11 +29,7 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -45,14 +49,8 @@ export default function RootLayout({
           `,
           }}
         />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Bitcount+Prop+Single:wght@100;200;300;400;500&family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Space+Mono:ital,wght@1,400&display=swap"
-          rel="stylesheet"
-        />
+        {/* Font Awesome */}
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
-        <script async defer src="https://tianji.motherfucking.fun/tracker.js" data-website-id="cmcqrgs1m00ujrwk7oc3t5gwz"></script>
         {/* Brevo Conversations */}
         <script
           dangerouslySetInnerHTML={{
@@ -70,31 +68,21 @@ export default function RootLayout({
             `,
           }}
         />
-        {/* /Brevo Conversations */}
-<script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
-<script
+        <script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
+        <script
           dangerouslySetInnerHTML={{
             __html: `
-              // Version: 2.0
               window.Brevo = window.Brevo || [];
               Brevo.push([
                   "init",
-                  {
-                  client_key: "21hq8ng0xbjwwoggwi7e12qw",
-                  // Optional: Add other initialization options, see documentation
-                  }
+                  { client_key: "21hq8ng0xbjwwoggwi7e12qw" }
               ]);
             `,
           }}
         />
       </head>
       <body className={spaceMono.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
           <GlobalLoader />
           {children}
           <SpeedInsights />
