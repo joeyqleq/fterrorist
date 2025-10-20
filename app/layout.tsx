@@ -1,39 +1,44 @@
-import type { Metadata } from "next"
-import localFont from "next/font/local"
-import Script from "next/script"
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { GlobalLoader } from "@/components/ui/global-loader"
-import { initToolbar } from '@21st-extension/toolbar';
-import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Analytics } from "@vercel/analytics/next"
+import type { Metadata } from "next";
+import Script from "next/script";
+import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { GlobalLoader } from "@/components/ui/global-loader";
+import { initToolbar } from "@21st-extension/toolbar";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 // Load Space Mono locally
-const spaceMono = localFont({
-  src: [
-    { path: "./fonts/SpaceMono-Regular.ttf", weight: "400", style: "normal" },
-    { path: "./fonts/SpaceMono-Bold.ttf", weight: "700", style: "normal" },
-    { path: "./fonts/SpaceMono-Italic.ttf", weight: "400", style: "italic" },
-  ],
-  display: "swap",
-})
 
 export const metadata: Metadata = {
   title: "FREEBIE TERRORIST - Digital Anarchist Platform",
-  description: "Breaking educational barriers through digital rebellion. Curated, up to date free shit for students. No discounts. Only freebie terrorism on this ship.",
-  keywords: ["student discounts", "free software", "edu email", "educational tools", "digital anarchist"],
+  description:
+    "Breaking educational barriers through digital rebellion. Curated, up to date free shit for students. No discounts. Only freebie terrorism on this ship.",
+  keywords: [
+    "student discounts",
+    "free software",
+    "edu email",
+    "educational tools",
+    "digital anarchist",
+  ],
   openGraph: {
     title: "FREEBIE TERRORIST - Digital Anarchist Platform",
     description: "Breaking educational barriers through digital rebellion",
     type: "website",
   },
-}
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+};
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <head>
-        <meta name="apple-mobile-web-app-title" content="FTERRORIST" />
+    <html lang="en" suppressHydrationWarning data-oid="i-1x:g8">
+      <head data-oid="p5n7riu">
+        <meta
+          name="apple-mobile-web-app-title"
+          content="FTERRORIST"
+          data-oid="73hfgl8"
+        />
         {/* Matomo Tag Manager */}
         <Script
           id="matomo-tag-manager"
@@ -48,9 +53,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             })();
           `,
           }}
+          data-oid="gbz_-xf"
         />
         {/* Font Awesome */}
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+          rel="stylesheet"
+          data-oid="71pf_zm"
+        />
         {/* Brevo Conversations */}
         <script
           dangerouslySetInnerHTML={{
@@ -67,8 +77,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               })(document, window, 'BrevoConversations');
             `,
           }}
+          data-oid="sqqw27r"
         />
-        <script src="https://cdn.brevo.com/js/sdk-loader.js" async></script>
+        <script
+          src="https://cdn.brevo.com/js/sdk-loader.js"
+          async
+          data-oid="6y_jdri"
+        ></script>
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -79,16 +94,23 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               ]);
             `,
           }}
+          data-oid="hz.wkw:"
         />
       </head>
-      <body className={spaceMono.className}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-          <GlobalLoader />
+      <body className="" data-oid="g6a92cy">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange
+          data-oid="rv8f274"
+        >
+          <GlobalLoader data-oid="sin3pd8" />
           {children}
-          <SpeedInsights />
-          <Analytics />
+          <SpeedInsights data-oid="xfy38ys" />
+          <Analytics data-oid=":.gw-kw" />
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }

@@ -1,19 +1,33 @@
-"use client"
-import { cn } from "@/lib/utils"
-import type React from "react"
+"use client";
+import { cn } from "@/lib/utils";
+import type React from "react";
 
-import { motion, type Transition } from "framer-motion"
+import { motion, type Transition } from "framer-motion";
 
 export type GlowEffectProps = {
-  className?: string
-  style?: React.CSSProperties
-  colors?: string[]
-  mode?: "rotate" | "pulse" | "breathe" | "colorShift" | "flowHorizontal" | "static"
-  blur?: number | "softest" | "soft" | "medium" | "strong" | "stronger" | "strongest" | "none"
-  transition?: Transition
-  scale?: number
-  duration?: number
-}
+  className?: string;
+  style?: React.CSSProperties;
+  colors?: string[];
+  mode?:
+    | "rotate"
+    | "pulse"
+    | "breathe"
+    | "colorShift"
+    | "flowHorizontal"
+    | "static";
+  blur?:
+    | number
+    | "softest"
+    | "soft"
+    | "medium"
+    | "strong"
+    | "stronger"
+    | "strongest"
+    | "none";
+  transition?: Transition;
+  scale?: number;
+  duration?: number;
+};
 
 export function GlowEffect({
   className,
@@ -29,7 +43,7 @@ export function GlowEffect({
     repeat: Number.POSITIVE_INFINITY,
     duration: duration,
     ease: "linear" as const,
-  }
+  };
 
   const animations = {
     rotate: {
@@ -37,12 +51,16 @@ export function GlowEffect({
         `conic-gradient(from 0deg at 50% 50%, ${colors.join(", ")})`,
         `conic-gradient(from 360deg at 50% 50%, ${colors.join(", ")})`,
       ],
+
       transition: {
         ...(transition ?? BASE_TRANSITION),
       },
     },
     pulse: {
-      background: colors.map((color) => `radial-gradient(circle at 50% 50%, ${color} 0%, transparent 100%)`),
+      background: colors.map(
+        (color) =>
+          `radial-gradient(circle at 50% 50%, ${color} 0%, transparent 100%)`,
+      ),
       scale: [1 * scale, 1.1 * scale, 1 * scale],
       opacity: [0.5, 0.8, 0.5],
       transition: {
@@ -53,7 +71,12 @@ export function GlowEffect({
       },
     },
     breathe: {
-      background: [...colors.map((color) => `radial-gradient(circle at 50% 50%, ${color} 0%, transparent 100%)`)],
+      background: [
+        ...colors.map(
+          (color) =>
+            `radial-gradient(circle at 50% 50%, ${color} 0%, transparent 100%)`,
+        ),
+      ],
       scale: [1 * scale, 1.05 * scale, 1 * scale],
       transition: {
         ...(transition ?? {
@@ -64,8 +87,8 @@ export function GlowEffect({
     },
     colorShift: {
       background: colors.map((color, index) => {
-        const nextColor = colors[(index + 1) % colors.length]
-        return `conic-gradient(from 0deg at 50% 50%, ${color} 0%, ${nextColor} 50%, ${color} 100%)`
+        const nextColor = colors[(index + 1) % colors.length];
+        return `conic-gradient(from 0deg at 50% 50%, ${color} 0%, ${nextColor} 50%, ${color} 100%)`;
       }),
       transition: {
         ...(transition ?? {
@@ -76,8 +99,8 @@ export function GlowEffect({
     },
     flowHorizontal: {
       background: colors.map((color) => {
-        const nextColor = colors[(colors.indexOf(color) + 1) % colors.length]
-        return `linear-gradient(to right, ${color}, ${nextColor})`
+        const nextColor = colors[(colors.indexOf(color) + 1) % colors.length];
+        return `linear-gradient(to right, ${color}, ${nextColor})`;
       }),
       transition: {
         ...(transition ?? {
@@ -89,11 +112,11 @@ export function GlowEffect({
     static: {
       background: `linear-gradient(to right, ${colors.join(", ")})`,
     },
-  }
+  };
 
   const getBlurClass = (blur: GlowEffectProps["blur"]) => {
     if (typeof blur === "number") {
-      return `blur-[${blur}px]`
+      return `blur-[${blur}px]`;
     }
 
     const presets = {
@@ -104,10 +127,10 @@ export function GlowEffect({
       stronger: "blur-xl",
       strongest: "blur-2xl",
       none: "blur-none",
-    }
+    };
 
-    return presets[blur as keyof typeof presets]
-  }
+    return presets[blur as keyof typeof presets];
+  };
 
   return (
     <motion.div
@@ -126,6 +149,7 @@ export function GlowEffect({
         getBlurClass(blur),
         className,
       )}
+      data-oid=":hbf2kf"
     />
-  )
+  );
 }

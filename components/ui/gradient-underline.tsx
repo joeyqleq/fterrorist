@@ -1,34 +1,34 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 
 interface GradientUnderlineProps {
-  children: React.ReactNode
-  className?: string
-  hoverOnly?: boolean
+  children: React.ReactNode;
+  className?: string;
+  hoverOnly?: boolean;
 }
 
-export default function GradientUnderline({ 
-  children, 
+export default function GradientUnderline({
+  children,
   className = "",
-  hoverOnly = true 
+  hoverOnly = true,
 }: GradientUnderlineProps) {
-  const [isHovered, setIsHovered] = useState(false)
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <span 
+    <span
       className={`relative inline-block cursor-pointer ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      data-oid="fy2ea5e"
     >
       {children}
-      <span 
+      <span
         className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-cyan-400 via-pink-500 to-purple-600 transition-all duration-500 ${
-          hoverOnly 
-            ? (isHovered ? 'w-full' : 'w-0') 
-            : 'w-full animate-pulse'
+          hoverOnly ? (isHovered ? "w-full" : "w-0") : "w-full animate-pulse"
         }`}
+        data-oid=".d9dm2i"
       />
     </span>
-  )
+  );
 }

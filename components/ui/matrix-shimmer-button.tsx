@@ -1,10 +1,11 @@
-"use client"
+"use client";
 
 import React, { CSSProperties, ComponentPropsWithoutRef } from "react";
 import { cn } from "@/lib/utils";
 import { MatrixShader } from "@/components/ui/matrix-shader";
 
-export interface MatrixShimmerButtonProps extends ComponentPropsWithoutRef<"button"> {
+export interface MatrixShimmerButtonProps
+  extends ComponentPropsWithoutRef<"button"> {
   shimmerColor?: string;
   shimmerSize?: string;
   borderRadius?: string;
@@ -32,13 +33,18 @@ export const MatrixShimmerButton = React.forwardRef<
     ref,
   ) => {
     return (
-      <div className="relative overflow-hidden" style={{ borderRadius }}>
+      <div
+        className="relative overflow-hidden"
+        style={{ borderRadius }}
+        data-oid="gig3yq_"
+      >
         {/* Matrix Shader Background */}
-        <MatrixShader 
+        <MatrixShader
           className="absolute inset-0 opacity-30"
           style={{ borderRadius }}
+          data-oid="xw_g.wt"
         />
-        
+
         {/* Shimmer Button */}
         <button
           style={
@@ -58,6 +64,7 @@ export const MatrixShimmerButton = React.forwardRef<
           )}
           ref={ref}
           {...props}
+          data-oid="t7i-jru"
         >
           {/* spark container */}
           <div
@@ -65,11 +72,18 @@ export const MatrixShimmerButton = React.forwardRef<
               "-z-30 blur-[2px]",
               "absolute inset-0 overflow-visible [container-type:size]",
             )}
+            data-oid="s5oez7n"
           >
             {/* spark */}
-            <div className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]">
+            <div
+              className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]"
+              data-oid="h_sbbdj"
+            >
               {/* spark before */}
-              <div className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
+              <div
+                className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]"
+                data-oid="btu19lx"
+              />
             </div>
           </div>
           {children}
@@ -83,6 +97,7 @@ export const MatrixShimmerButton = React.forwardRef<
               "group-hover:shadow-[inset_0_-6px_10px_#ffffff3f]",
               "group-active:shadow-[inset_0_-10px_10px_#ffffff3f]",
             )}
+            data-oid="ms46a1d"
           />
 
           {/* backdrop */}
@@ -90,6 +105,7 @@ export const MatrixShimmerButton = React.forwardRef<
             className={cn(
               "absolute -z-20 [background:var(--bg)] [border-radius:var(--radius)] [inset:var(--cut)]",
             )}
+            data-oid="62s8pgd"
           />
         </button>
       </div>

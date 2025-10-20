@@ -1,12 +1,15 @@
-import React, { useEffect, useRef } from 'react';
-import * as THREE from 'three';
+import React, { useEffect, useRef } from "react";
+import * as THREE from "three";
 
 interface CelestialMatrixShaderProps {
   className?: string;
   style?: React.CSSProperties;
 }
 
-const CelestialMatrixShader: React.FC<CelestialMatrixShaderProps> = ({ className, style }) => {
+const CelestialMatrixShader: React.FC<CelestialMatrixShaderProps> = ({
+  className,
+  style,
+}) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -25,8 +28,8 @@ const CelestialMatrixShader: React.FC<CelestialMatrixShaderProps> = ({ className
       renderer.setPixelRatio(window.devicePixelRatio);
       container.appendChild(renderer.domElement);
     } catch (err) {
-      console.error('WebGL not supported:', err);
-      container.innerHTML = 
+      console.error("WebGL not supported:", err);
+      container.innerHTML =
         '<p style="color:white;text-align:center;">Sorry, your browser does not support WebGL.</p>';
       return;
     }
@@ -82,11 +85,15 @@ const CelestialMatrixShader: React.FC<CelestialMatrixShaderProps> = ({ className
 
     // 4) Uniforms, material, mesh
     const uniforms = {
-      iTime:       { value: 0 },
+      iTime: { value: 0 },
       iResolution: { value: new THREE.Vector2() },
-      iMouse:      { value: new THREE.Vector2() }
+      iMouse: { value: new THREE.Vector2() },
     };
-    const material = new THREE.ShaderMaterial({ vertexShader, fragmentShader, uniforms });
+    const material = new THREE.ShaderMaterial({
+      vertexShader,
+      fragmentShader,
+      uniforms,
+    });
     const geometry = new THREE.PlaneGeometry(2, 2);
     const mesh = new THREE.Mesh(geometry, material);
     scene.add(mesh);
@@ -98,7 +105,7 @@ const CelestialMatrixShader: React.FC<CelestialMatrixShaderProps> = ({ className
       renderer.setSize(w, h);
       uniforms.iResolution.value.set(w, h);
     };
-    window.addEventListener('resize', onResize);
+    window.addEventListener("resize", onResize);
     onResize();
 
     // 6) Mouse handler
@@ -106,7 +113,7 @@ const CelestialMatrixShader: React.FC<CelestialMatrixShaderProps> = ({ className
       // flip Y so (0,0) is bottom-left
       uniforms.iMouse.value.set(e.clientX, container.clientHeight - e.clientY);
     };
-    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener("mousemove", onMouseMove);
 
     // 7) Animation loop
     renderer.setAnimationLoop(() => {
@@ -116,8 +123,8 @@ const CelestialMatrixShader: React.FC<CelestialMatrixShaderProps> = ({ className
 
     // 8) Cleanup
     return () => {
-      window.removeEventListener('resize', onResize);
-      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("mousemove", onMouseMove);
 
       // stop the loop
       renderer.setAnimationLoop(null);
@@ -137,19 +144,20 @@ const CelestialMatrixShader: React.FC<CelestialMatrixShaderProps> = ({ className
   return (
     <div
       ref={containerRef}
-      className={`shader-container ${className || ''}`}
+      className={`shader-container ${className || ""}`}
       style={{
-        position: style?.position || 'absolute',
+        position: style?.position || "absolute",
         top: style?.top || 0,
         left: style?.left || 0,
-        width: style?.width || '100%',
-        height: style?.height || '100%',
+        width: style?.width || "100%",
+        height: style?.height || "100%",
         zIndex: style?.zIndex || 1,
-        pointerEvents: 'auto',
+        pointerEvents: "auto",
         borderRadius: style?.borderRadius,
-        ...style
+        ...style,
       }}
       aria-label="Celestial Matrix animated background"
+      data-oid="d6riiiw"
     />
   );
 };

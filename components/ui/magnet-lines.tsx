@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { useRef, useEffect, useState } from "react";
 
@@ -29,7 +29,7 @@ function MagnetLines({
   style = {},
   gradientColors = ["#22c55e", "#16a34a", "#15803d", "#166534"], // Different shades of green
   sensitivity = 300, // Distance sensitivity
-  animationSpeed = 0.06 // Animation transition speed
+  animationSpeed = 0.06, // Animation transition speed
 }: MagnetLinesProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isClient, setIsClient] = useState(false);
@@ -39,14 +39,17 @@ function MagnetLines({
   useEffect(() => {
     setIsClient(true);
     const total = rows * columns;
-    const opacities = Array.from({ length: total }, () => 0.6 + (Math.random() * 0.4));
+    const opacities = Array.from(
+      { length: total },
+      () => 0.6 + Math.random() * 0.4,
+    );
     setSpanOpacities(opacities);
-    
+
     // Force a re-render after state is set
     const timer = setTimeout(() => {
-      setSpanOpacities(prev => [...prev]); // Trigger re-render
+      setSpanOpacities((prev) => [...prev]); // Trigger re-render
     }, 50);
-    
+
     return () => clearTimeout(timer);
   }, [rows, columns]);
 
@@ -54,7 +57,9 @@ function MagnetLines({
     const container = containerRef.current;
     if (!container) return;
 
-    const items = container.querySelectorAll("span") as NodeListOf<HTMLSpanElement>;
+    const items = container.querySelectorAll(
+      "span",
+    ) as NodeListOf<HTMLSpanElement>;
     let animationFrameId: number;
 
     const onPointerMove = (event: MouseEvent) => {
@@ -65,7 +70,7 @@ function MagnetLines({
 
       animationFrameId = requestAnimationFrame(() => {
         const pointer = { x: event.clientX, y: event.clientY };
-        
+
         items.forEach((item: HTMLSpanElement, index: number) => {
           const rect = item.getBoundingClientRect();
           const centerX = rect.x + rect.width / 2;
@@ -74,41 +79,44 @@ function MagnetLines({
           const deltaX = pointer.x - centerX;
           const deltaY = pointer.y - centerY;
           const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-          
+
           // Calculate angle pointing toward the mouse
           const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI);
-          
+
           // Smooth rotation with enhanced sensitivity
           item.style.setProperty("--rotate", `${angle}deg`);
-          
+
           // Enhanced distance-based effects
           const maxDistance = sensitivity; // Maximum effective distance
           const normalizedDistance = Math.min(distance / maxDistance, 1);
           const proximity = 1 - normalizedDistance; // Inverted for proximity
-          
+
           // Dynamic opacity based on proximity
           const baseOpacity = 0.6;
           const maxOpacity = 1.0;
-          const proximityOpacity = baseOpacity + (proximity * (maxOpacity - baseOpacity));
+          const proximityOpacity =
+            baseOpacity + proximity * (maxOpacity - baseOpacity);
           item.style.opacity = proximityOpacity.toString();
-          
+
           // Dynamic color intensity based on proximity
-          const colorIndex = Math.floor(normalizedDistance * (gradientColors.length - 1));
+          const colorIndex = Math.floor(
+            normalizedDistance * (gradientColors.length - 1),
+          );
           const color = gradientColors[colorIndex] || gradientColors[0];
-          
+
           // Add scale effect for nearby elements
-          const scale = 1 + (proximity * 0.3); // Scale up to 130% when close
-          
+          const scale = 1 + proximity * 0.3; // Scale up to 130% when close
+
           // Add glow effect for very close elements
           if (proximity > 0.6) {
             const glowIntensity = (proximity - 0.6) / 0.4; // 0 to 1 for top 40% proximity
             item.style.boxShadow = `0 0 ${glowIntensity * 20}px ${color}, 0 0 ${glowIntensity * 40}px ${color}80`;
             item.style.filter = `brightness(${1 + glowIntensity * 0.5})`;
           } else {
-            item.style.boxShadow = 'none';
-            item.style.filter = 'brightness(1)';
+            item.style.boxShadow = "none";
+            item.style.filter = "brightness(1)";
           }
-          
+
           // Apply all transforms together
           item.style.transform = `rotate(var(--rotate)) scale(${scale})`;
           item.style.backgroundColor = color;
@@ -127,17 +135,17 @@ function MagnetLines({
         onPointerMove({ clientX: centerX, clientY: centerY } as MouseEvent);
       }
     };
-    
+
     // Initial positioning at center
     initializeLines();
-    
+
     // Also try again after a short delay to ensure DOM is ready
     const initTimer = setTimeout(initializeLines, 100);
-    window.addEventListener('load', initializeLines);
+    window.addEventListener("load", initializeLines);
 
     return () => {
       window.removeEventListener("mousemove", onPointerMove);
-      window.removeEventListener('load', initializeLines);
+      window.removeEventListener("load", initializeLines);
       clearTimeout(initTimer);
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
@@ -146,7 +154,7 @@ function MagnetLines({
   }, [gradientColors, sensitivity, animationSpeed]);
 
   const total = rows * columns;
-  
+
   // Don't render anything until client-side hydration is complete
   if (!isClient || spanOpacities.length === 0) {
     return (
@@ -157,18 +165,19 @@ function MagnetLines({
           gridTemplateRows: `repeat(${rows}, 1fr)`,
           width: containerSize,
           height: containerSize,
-          ...style
+          ...style,
         }}
+        data-oid="8x5t0kw"
       />
     );
   }
-  
+
   const spans = Array.from({ length: total }, (_, i) => {
     // Use different gradient colors for variation
     const colorIndex = i % gradientColors.length;
     const color = gradientColors[colorIndex];
     const opacity = spanOpacities[i] || 0.8; // Increased base opacity
-    
+
     return (
       <span
         key={i}
@@ -177,14 +186,15 @@ function MagnetLines({
           backgroundColor: color,
           width: lineWidth,
           height: lineHeight,
-          ['--rotate' as any]: `${baseAngle}deg`,
+          ["--rotate" as any]: `${baseAngle}deg`,
           transform: "rotate(var(--rotate)) scale(1)",
           willChange: "transform, opacity, box-shadow",
           opacity: opacity,
           borderRadius: "1px",
           transition: `all ${animationSpeed}s ease-out`,
-          transformOrigin: "center center"
+          transformOrigin: "center center",
         }}
+        data-oid=":nuqabr"
       />
     );
   });
@@ -198,8 +208,9 @@ function MagnetLines({
         gridTemplateRows: `repeat(${rows}, 1fr)`,
         width: containerSize,
         height: containerSize,
-        ...style
+        ...style,
       }}
+      data-oid="kx.4jlg"
     >
       {spans}
     </div>

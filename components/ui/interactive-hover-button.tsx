@@ -19,14 +19,21 @@ const InteractiveHoverButton = React.forwardRef<
         className,
       )}
       {...props}
+      data-oid="61ouvx."
     >
       {/* Always visible content - no translation or opacity changes */}
-      <div className="flex items-center justify-center gap-3 h-full text-green-400 group-hover:text-green-300 transition-colors duration-300">
+      <div
+        className="flex items-center justify-center gap-3 h-full text-green-400 group-hover:text-green-300 transition-colors duration-300"
+        data-oid="t-zo8zc"
+      >
         {children}
       </div>
-      
+
       {/* Hover background effect */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-r from-green-600/20 to-emerald-500/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"></div>
+      <div
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-green-600/20 to-emerald-500/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        data-oid="2irhk1_"
+      ></div>
     </button>
   );
 });

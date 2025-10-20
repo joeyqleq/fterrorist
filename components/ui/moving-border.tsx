@@ -1,4 +1,4 @@
- "use client";
+"use client";
 import React from "react";
 import {
   motion,
@@ -39,17 +39,20 @@ export function Button({
         borderRadius: borderRadius,
       }}
       {...otherProps}
+      data-oid=".uu9njj"
     >
       <div
         className="absolute inset-0"
         style={{ borderRadius: `calc(${borderRadius} * 0.96)` }}
+        data-oid="dma.1yc"
       >
-        <MovingBorder duration={duration} rx="30%" ry="30%">
+        <MovingBorder duration={duration} rx="30%" ry="30%" data-oid="-zauo-v">
           <div
             className={cn(
               "h-20 w-20 bg-[radial-gradient(#0ea5e9_40%,transparent_60%)] opacity-[0.8]",
               borderClassName,
             )}
+            data-oid="tv36w15"
           />
         </MovingBorder>
       </div>
@@ -62,6 +65,7 @@ export function Button({
         style={{
           borderRadius: `calc(${borderRadius} * 0.96)`,
         }}
+        data-oid="_qg9:n_"
       >
         {children}
       </div>
@@ -113,6 +117,7 @@ export const MovingBorder = ({
         width="100%"
         height="100%"
         {...otherProps}
+        data-oid="zmuvjiu"
       >
         <rect
           fill="none"
@@ -121,6 +126,7 @@ export const MovingBorder = ({
           rx={rx}
           ry={ry}
           ref={pathRef}
+          data-oid="u7cj09g"
         />
       </svg>
       <motion.div
@@ -131,6 +137,7 @@ export const MovingBorder = ({
           display: "inline-block",
           transform,
         }}
+        data-oid="6kq4rm4"
       >
         {children}
       </motion.div>

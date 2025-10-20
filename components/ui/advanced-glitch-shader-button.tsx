@@ -1,33 +1,35 @@
-"use client"
+"use client";
 
-import React, { useRef, useEffect, useState, useCallback } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import React, { useRef, useEffect, useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface AdvancedGlitchShaderButtonProps {
-  children: React.ReactNode
-  onClick?: () => void
-  className?: string
-  intensity?: 'subtle' | 'moderate' | 'extreme'
-  variant?: 'matrix' | 'cyber' | 'neon'
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+  intensity?: "subtle" | "moderate" | "extreme";
+  variant?: "matrix" | "cyber" | "neon";
 }
 
-export const AdvancedGlitchShaderButton: React.FC<AdvancedGlitchShaderButtonProps> = ({
+export const AdvancedGlitchShaderButton: React.FC<
+  AdvancedGlitchShaderButtonProps
+> = ({
   children,
   onClick,
   className,
-  intensity = 'moderate',
-  variant = 'matrix'
+  intensity = "moderate",
+  variant = "matrix",
 }) => {
-  const [isHovered, setIsHovered] = useState(false)
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 })
-  const [isGlitching, setIsGlitching] = useState(false)
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const buttonRef = useRef<HTMLButtonElement>(null)
-  const glRef = useRef<WebGLRenderingContext | null>(null)
-  const programRef = useRef<WebGLProgram | null>(null)
-  const animationRef = useRef<number>()
-  const [webglSupported, setWebglSupported] = useState(true)
+  const [isHovered, setIsHovered] = useState(false);
+  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const [isGlitching, setIsGlitching] = useState(false);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const glRef = useRef<WebGLRenderingContext | null>(null);
+  const programRef = useRef<WebGLProgram | null>(null);
+  const animationRef = useRef<number>();
+  const [webglSupported, setWebglSupported] = useState(true);
 
   // WebGL Shader sources
   const vertexShaderSource = `
@@ -38,7 +40,7 @@ export const AdvancedGlitchShaderButton: React.FC<AdvancedGlitchShaderButtonProp
       gl_Position = vec4(a_position, 0.0, 1.0);
       v_texCoord = (a_position + 1.0) / 2.0;
     }
-  `
+  `;
 
   const fragmentShaderSource = `
     precision mediump float;
@@ -138,307 +140,347 @@ export const AdvancedGlitchShaderButton: React.FC<AdvancedGlitchShaderButtonProp
       color *= u_intensity;
       gl_FragColor = vec4(color, 0.8);
     }
-  `
+  `;
 
   // Initialize WebGL with proper error handling
   const initWebGL = useCallback(() => {
-    if (!canvasRef.current) return false
+    if (!canvasRef.current) return false;
 
     try {
-      const gl = canvasRef.current.getContext('webgl') as WebGLRenderingContext | null || 
-                 canvasRef.current.getContext('experimental-webgl') as WebGLRenderingContext | null
+      const gl =
+        (canvasRef.current.getContext(
+          "webgl",
+        ) as WebGLRenderingContext | null) ||
+        (canvasRef.current.getContext(
+          "experimental-webgl",
+        ) as WebGLRenderingContext | null);
       if (!gl) {
-        setWebglSupported(false)
-        return false
+        setWebglSupported(false);
+        return false;
       }
 
-      glRef.current = gl
+      glRef.current = gl;
 
       // Create shaders
-      const vertexShader = gl.createShader(gl.VERTEX_SHADER)!
-      gl.shaderSource(vertexShader, vertexShaderSource)
-      gl.compileShader(vertexShader)
-      
+      const vertexShader = gl.createShader(gl.VERTEX_SHADER)!;
+      gl.shaderSource(vertexShader, vertexShaderSource);
+      gl.compileShader(vertexShader);
+
       if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
-        console.error('Vertex shader compilation error:', gl.getShaderInfoLog(vertexShader))
-        setWebglSupported(false)
-        return false
+        console.error(
+          "Vertex shader compilation error:",
+          gl.getShaderInfoLog(vertexShader),
+        );
+        setWebglSupported(false);
+        return false;
       }
 
-      const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)!
-      gl.shaderSource(fragmentShader, fragmentShaderSource)
-      gl.compileShader(fragmentShader)
-      
+      const fragmentShader = gl.createShader(gl.FRAGMENT_SHADER)!;
+      gl.shaderSource(fragmentShader, fragmentShaderSource);
+      gl.compileShader(fragmentShader);
+
       if (!gl.getShaderParameter(fragmentShader, gl.COMPILE_STATUS)) {
-        console.error('Fragment shader compilation error:', gl.getShaderInfoLog(fragmentShader))
-        setWebglSupported(false)
-        return false
+        console.error(
+          "Fragment shader compilation error:",
+          gl.getShaderInfoLog(fragmentShader),
+        );
+        setWebglSupported(false);
+        return false;
       }
 
       // Create program
-      const program = gl.createProgram()!
-      gl.attachShader(program, vertexShader)
-      gl.attachShader(program, fragmentShader)
-      gl.linkProgram(program)
-      
+      const program = gl.createProgram()!;
+      gl.attachShader(program, vertexShader);
+      gl.attachShader(program, fragmentShader);
+      gl.linkProgram(program);
+
       if (!gl.getProgramParameter(program, gl.LINK_STATUS)) {
-        console.error('Shader program linking error:', gl.getProgramInfoLog(program))
-        setWebglSupported(false)
-        return false
+        console.error(
+          "Shader program linking error:",
+          gl.getProgramInfoLog(program),
+        );
+        setWebglSupported(false);
+        return false;
       }
-      
-      programRef.current = program
+
+      programRef.current = program;
 
       // Create buffer
-      const positionBuffer = gl.createBuffer()
-      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer)
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-        -1, -1,
-         1, -1,
-        -1,  1,
-         1,  1,
-      ]), gl.STATIC_DRAW)
+      const positionBuffer = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      gl.bufferData(
+        gl.ARRAY_BUFFER,
+        new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1]),
+        gl.STATIC_DRAW,
+      );
 
-      return true
+      return true;
     } catch (error) {
-      console.error('WebGL initialization error:', error)
-      setWebglSupported(false)
-      return false
+      console.error("WebGL initialization error:", error);
+      setWebglSupported(false);
+      return false;
     }
-  }, [])
+  }, []);
 
   // Render WebGL
-  const renderWebGL = useCallback((time: number) => {
-    const gl = glRef.current
-    const program = programRef.current
-    if (!gl || !program || !buttonRef.current) return
+  const renderWebGL = useCallback(
+    (time: number) => {
+      const gl = glRef.current;
+      const program = programRef.current;
+      if (!gl || !program || !buttonRef.current) return;
 
-    const rect = buttonRef.current.getBoundingClientRect()
-    gl.canvas.width = rect.width
-    gl.canvas.height = rect.height
-    gl.viewport(0, 0, rect.width, rect.height)
+      const rect = buttonRef.current.getBoundingClientRect();
+      gl.canvas.width = rect.width;
+      gl.canvas.height = rect.height;
+      gl.viewport(0, 0, rect.width, rect.height);
 
-    gl.clearColor(0, 0, 0, 0)
-    gl.clear(gl.COLOR_BUFFER_BIT)
+      gl.clearColor(0, 0, 0, 0);
+      gl.clear(gl.COLOR_BUFFER_BIT);
 
-    if (!isHovered) return
+      if (!isHovered) return;
 
-    gl.useProgram(program)
+      gl.useProgram(program);
 
-    // Set uniforms
-    const timeLocation = gl.getUniformLocation(program, 'u_time')
-    const resolutionLocation = gl.getUniformLocation(program, 'u_resolution')
-    const mouseLocation = gl.getUniformLocation(program, 'u_mouse')
-    const intensityLocation = gl.getUniformLocation(program, 'u_intensity')
-    const variantLocation = gl.getUniformLocation(program, 'u_variant')
+      // Set uniforms
+      const timeLocation = gl.getUniformLocation(program, "u_time");
+      const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
+      const mouseLocation = gl.getUniformLocation(program, "u_mouse");
+      const intensityLocation = gl.getUniformLocation(program, "u_intensity");
+      const variantLocation = gl.getUniformLocation(program, "u_variant");
 
-    gl.uniform1f(timeLocation, time * 0.001)
-    gl.uniform2f(resolutionLocation, rect.width, rect.height)
-    gl.uniform2f(mouseLocation, mousePos.x, rect.height - mousePos.y)
-    
-    const intensityMap = { subtle: 0.3, moderate: 0.6, extreme: 1.0 }
-    const variantMap = { matrix: 0, cyber: 1, neon: 2 }
-    
-    gl.uniform1f(intensityLocation, intensityMap[intensity] * (isGlitching ? 1.5 : 1.0))
-    gl.uniform1i(variantLocation, variantMap[variant])
+      gl.uniform1f(timeLocation, time * 0.001);
+      gl.uniform2f(resolutionLocation, rect.width, rect.height);
+      gl.uniform2f(mouseLocation, mousePos.x, rect.height - mousePos.y);
 
-    // Set attributes
-    const positionLocation = gl.getAttribLocation(program, 'a_position')
-    gl.enableVertexAttribArray(positionLocation)
-    gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0)
+      const intensityMap = { subtle: 0.3, moderate: 0.6, extreme: 1.0 };
+      const variantMap = { matrix: 0, cyber: 1, neon: 2 };
 
-    // Draw
-    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
-  }, [isHovered, mousePos, intensity, variant, isGlitching])
+      gl.uniform1f(
+        intensityLocation,
+        intensityMap[intensity] * (isGlitching ? 1.5 : 1.0),
+      );
+      gl.uniform1i(variantLocation, variantMap[variant]);
+
+      // Set attributes
+      const positionLocation = gl.getAttribLocation(program, "a_position");
+      gl.enableVertexAttribArray(positionLocation);
+      gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+      // Draw
+      gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    },
+    [isHovered, mousePos, intensity, variant, isGlitching],
+  );
 
   // Canvas 2D fallback for non-WebGL browsers
-  const renderCanvas2D = useCallback((time: number) => {
-    if (!canvasRef.current || !buttonRef.current || webglSupported) return
+  const renderCanvas2D = useCallback(
+    (time: number) => {
+      if (!canvasRef.current || !buttonRef.current || webglSupported) return;
 
-    const ctx = canvasRef.current.getContext('2d')
-    if (!ctx) return
+      const ctx = canvasRef.current.getContext("2d");
+      if (!ctx) return;
 
-    const rect = buttonRef.current.getBoundingClientRect()
-    canvasRef.current.width = rect.width
-    canvasRef.current.height = rect.height
+      const rect = buttonRef.current.getBoundingClientRect();
+      canvasRef.current.width = rect.width;
+      canvasRef.current.height = rect.height;
 
-    ctx.clearRect(0, 0, rect.width, rect.height)
+      ctx.clearRect(0, 0, rect.width, rect.height);
 
-    if (!isHovered) return
+      if (!isHovered) return;
 
-    // Simple particle effect for fallback
-    const imageData = ctx.createImageData(rect.width, rect.height)
-    const data = imageData.data
+      // Simple particle effect for fallback
+      const imageData = ctx.createImageData(rect.width, rect.height);
+      const data = imageData.data;
 
-    for (let i = 0; i < data.length; i += 4) {
-      const x = (i / 4) % rect.width
-      const y = Math.floor((i / 4) / rect.width)
-      
-      const distanceToMouse = Math.sqrt(
-        Math.pow(x - mousePos.x, 2) + Math.pow(y - mousePos.y, 2)
-      )
-      const influence = Math.max(0, 1 - distanceToMouse / 100)
-      
-      const noise = Math.random() * influence * 0.4
-      const wave = Math.sin(time * 0.01 + x * 0.1) * 0.3
-      
-      const intensity = (noise + wave) * 255
-      
-      // Color based on variant
-      if (variant === 'matrix') {
-        data[i] = intensity * 0.1     // R
-        data[i + 1] = intensity * 0.8 // G
-        data[i + 2] = intensity * 0.3 // B
-      } else if (variant === 'cyber') {
-        data[i] = intensity * 0.1     // R
-        data[i + 1] = intensity * 0.6 // G
-        data[i + 2] = intensity * 0.9 // B
-      } else { // neon
-        data[i] = intensity * 0.9     // R
-        data[i + 1] = intensity * 0.2 // G
-        data[i + 2] = intensity * 0.8 // B
+      for (let i = 0; i < data.length; i += 4) {
+        const x = (i / 4) % rect.width;
+        const y = Math.floor(i / 4 / rect.width);
+
+        const distanceToMouse = Math.sqrt(
+          Math.pow(x - mousePos.x, 2) + Math.pow(y - mousePos.y, 2),
+        );
+        const influence = Math.max(0, 1 - distanceToMouse / 100);
+
+        const noise = Math.random() * influence * 0.4;
+        const wave = Math.sin(time * 0.01 + x * 0.1) * 0.3;
+
+        const intensity = (noise + wave) * 255;
+
+        // Color based on variant
+        if (variant === "matrix") {
+          data[i] = intensity * 0.1; // R
+          data[i + 1] = intensity * 0.8; // G
+          data[i + 2] = intensity * 0.3; // B
+        } else if (variant === "cyber") {
+          data[i] = intensity * 0.1; // R
+          data[i + 1] = intensity * 0.6; // G
+          data[i + 2] = intensity * 0.9; // B
+        } else {
+          // neon
+          data[i] = intensity * 0.9; // R
+          data[i + 1] = intensity * 0.2; // G
+          data[i + 2] = intensity * 0.8; // B
+        }
+
+        data[i + 3] = intensity * 0.3; // A
       }
-      
-      data[i + 3] = intensity * 0.3 // A
-    }
 
-    ctx.putImageData(imageData, 0, 0)
-  }, [webglSupported, isHovered, mousePos, variant])
+      ctx.putImageData(imageData, 0, 0);
+    },
+    [webglSupported, isHovered, mousePos, variant],
+  );
 
   // Animation loop
   useEffect(() => {
-    if (!canvasRef.current) return
+    if (!canvasRef.current) return;
 
-    let startTime = Date.now()
-    
+    let startTime = Date.now();
+
     // Try WebGL first, fallback to Canvas 2D
-    const webglInitialized = initWebGL()
+    const webglInitialized = initWebGL();
     if (!webglInitialized) {
-      console.log('WebGL not available, using Canvas 2D fallback')
-    }
-    
-    const animate = () => {
-      const time = Date.now() - startTime
-      
-      if (webglInitialized && webglSupported) {
-        renderWebGL(time)
-      } else {
-        renderCanvas2D(time)
-      }
-      
-      animationRef.current = requestAnimationFrame(animate)
+      console.log("WebGL not available, using Canvas 2D fallback");
     }
 
-    animate()
+    const animate = () => {
+      const time = Date.now() - startTime;
+
+      if (webglInitialized && webglSupported) {
+        renderWebGL(time);
+      } else {
+        renderCanvas2D(time);
+      }
+
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    animate();
 
     return () => {
       if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current)
+        cancelAnimationFrame(animationRef.current);
       }
-    }
-  }, [initWebGL, renderWebGL, renderCanvas2D, webglSupported])
+    };
+  }, [initWebGL, renderWebGL, renderCanvas2D, webglSupported]);
 
   // Mouse tracking
-  const handleMouseMove = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
-    if (!buttonRef.current) return
-    
-    const rect = buttonRef.current.getBoundingClientRect()
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top
-    })
-  }, [])
+  const handleMouseMove = useCallback(
+    (e: React.MouseEvent<HTMLButtonElement>) => {
+      if (!buttonRef.current) return;
+
+      const rect = buttonRef.current.getBoundingClientRect();
+      setMousePos({
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
+      });
+    },
+    [],
+  );
 
   // Random glitch triggers
   useEffect(() => {
-    if (!isHovered) return
+    if (!isHovered) return;
 
-    const glitchInterval = setInterval(() => {
-      const chance = { subtle: 0.1, moderate: 0.3, extreme: 0.6 }[intensity]
-      if (Math.random() < chance) {
-        setIsGlitching(true)
-        setTimeout(() => setIsGlitching(false), 50 + Math.random() * 200)
-      }
-    }, 800 + Math.random() * 1200)
+    const glitchInterval = setInterval(
+      () => {
+        const chance = { subtle: 0.1, moderate: 0.3, extreme: 0.6 }[intensity];
+        if (Math.random() < chance) {
+          setIsGlitching(true);
+          setTimeout(() => setIsGlitching(false), 50 + Math.random() * 200);
+        }
+      },
+      800 + Math.random() * 1200,
+    );
 
-    return () => clearInterval(glitchInterval)
-  }, [isHovered, intensity])
+    return () => clearInterval(glitchInterval);
+  }, [isHovered, intensity]);
 
   const variantStyles = {
-    matrix: 'border-green-400/40 text-green-400 hover:border-green-400/70',
-    cyber: 'border-cyan-400/40 text-cyan-400 hover:border-cyan-400/70',
-    neon: 'border-pink-400/40 text-pink-400 hover:border-pink-400/70'
-  }
+    matrix: "border-green-400/40 text-green-400 hover:border-green-400/70",
+    cyber: "border-cyan-400/40 text-cyan-400 hover:border-cyan-400/70",
+    neon: "border-pink-400/40 text-pink-400 hover:border-pink-400/70",
+  };
 
   return (
     <motion.button
       ref={buttonRef}
       className={cn(
-        'relative overflow-hidden font-mono font-bold border-2 bg-black/70 backdrop-blur-sm',
-        'transform-gpu will-change-transform transition-all duration-300',
+        "relative overflow-hidden font-mono font-bold border-2 bg-black/70 backdrop-blur-sm",
+        "transform-gpu will-change-transform transition-all duration-300",
         variantStyles[variant],
-        className
+        className,
       )}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => {
-        setIsHovered(false)
-        setIsGlitching(false)
+        setIsHovered(false);
+        setIsGlitching(false);
       }}
       onMouseMove={handleMouseMove}
       onClick={onClick}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.98 }}
       animate={{
-        filter: isGlitching ? [
-          'brightness(1)', 
-          'brightness(1.5)', 
-          'brightness(0.7)', 
-          'brightness(1.2)', 
-          'brightness(1)'
-        ] : 'brightness(1)',
-        x: isGlitching ? [0, -1, 1, -0.5, 0] : 0
+        filter: isGlitching
+          ? [
+              "brightness(1)",
+              "brightness(1.5)",
+              "brightness(0.7)",
+              "brightness(1.2)",
+              "brightness(1)",
+            ]
+          : "brightness(1)",
+        x: isGlitching ? [0, -1, 1, -0.5, 0] : 0,
       }}
       transition={{ duration: 0.1 }}
+      data-oid="j.rr4ap"
     >
       {/* WebGL/Canvas2D Shader Canvas */}
       <canvas
         ref={canvasRef}
         className="absolute inset-0 w-full h-full pointer-events-none z-[1]"
-        style={{ mixBlendMode: webglSupported ? 'screen' : 'overlay' }}
+        style={{ mixBlendMode: webglSupported ? "screen" : "overlay" }}
+        data-oid="_-moaob"
       />
 
       {/* Scan Lines */}
-      <AnimatePresence>
+      <AnimatePresence data-oid="q2s-xwe">
         {isHovered && (
           <motion.div
-            initial={{ y: '-100%', opacity: 0 }}
-            animate={{ y: '100%', opacity: [0, 0.8, 0] }}
-            transition={{ 
-              duration: 1.5, 
-              repeat: Infinity, 
-              ease: 'linear',
-              delay: Math.random() * 2
+            initial={{ y: "-100%", opacity: 0 }}
+            animate={{ y: "100%", opacity: [0, 0.8, 0] }}
+            transition={{
+              duration: 1.5,
+              repeat: Infinity,
+              ease: "linear",
+              delay: Math.random() * 2,
             }}
             className={cn(
-              'absolute left-0 w-full h-[1px] z-[2] pointer-events-none',
-              variant === 'matrix' && 'bg-gradient-to-r from-transparent via-green-400 to-transparent',
-              variant === 'cyber' && 'bg-gradient-to-r from-transparent via-cyan-400 to-transparent',
-              variant === 'neon' && 'bg-gradient-to-r from-transparent via-pink-400 to-transparent'
+              "absolute left-0 w-full h-[1px] z-[2] pointer-events-none",
+              variant === "matrix" &&
+                "bg-gradient-to-r from-transparent via-green-400 to-transparent",
+              variant === "cyber" &&
+                "bg-gradient-to-r from-transparent via-cyan-400 to-transparent",
+              variant === "neon" &&
+                "bg-gradient-to-r from-transparent via-pink-400 to-transparent",
             )}
-            style={{ 
+            style={{
               boxShadow: `0 0 10px ${
-                variant === 'matrix' ? 'rgba(34, 197, 94, 0.8)' :
-                variant === 'cyber' ? 'rgba(6, 182, 212, 0.8)' :
-                'rgba(236, 72, 153, 0.8)'
+                variant === "matrix"
+                  ? "rgba(34, 197, 94, 0.8)"
+                  : variant === "cyber"
+                    ? "rgba(6, 182, 212, 0.8)"
+                    : "rgba(236, 72, 153, 0.8)"
               }`,
-              filter: 'blur(0.5px)'
+
+              filter: "blur(0.5px)",
             }}
+            data-oid="zrye._d"
           />
         )}
       </AnimatePresence>
 
       {/* Digital Grid */}
-      <AnimatePresence>
+      <AnimatePresence data-oid="8tcl_db">
         {isHovered && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -448,25 +490,37 @@ export const AdvancedGlitchShaderButton: React.FC<AdvancedGlitchShaderButtonProp
             style={{
               backgroundImage: `
                 linear-gradient(90deg, transparent 98%, ${
-                  variant === 'matrix' ? 'rgba(34, 197, 94, 0.3)' :
-                  variant === 'cyber' ? 'rgba(6, 182, 212, 0.3)' :
-                  'rgba(236, 72, 153, 0.3)'
+                  variant === "matrix"
+                    ? "rgba(34, 197, 94, 0.3)"
+                    : variant === "cyber"
+                      ? "rgba(6, 182, 212, 0.3)"
+                      : "rgba(236, 72, 153, 0.3)"
                 } 100%),
                 linear-gradient(0deg, transparent 98%, ${
-                  variant === 'matrix' ? 'rgba(34, 197, 94, 0.3)' :
-                  variant === 'cyber' ? 'rgba(6, 182, 212, 0.3)' :
-                  'rgba(236, 72, 153, 0.3)'
+                  variant === "matrix"
+                    ? "rgba(34, 197, 94, 0.3)"
+                    : variant === "cyber"
+                      ? "rgba(6, 182, 212, 0.3)"
+                      : "rgba(236, 72, 153, 0.3)"
                 } 100%)
               `,
-              backgroundSize: '10px 10px'
+
+              backgroundSize: "10px 10px",
             }}
+            data-oid="4u7wz6n"
           />
         )}
       </AnimatePresence>
 
       {/* Content */}
-      <div className="relative z-[3] flex items-center justify-center px-6 py-3 w-full h-full">
-        <div className="flex items-center justify-center gap-3">
+      <div
+        className="relative z-[3] flex items-center justify-center px-6 py-3 w-full h-full"
+        data-oid="s1z:c38"
+      >
+        <div
+          className="flex items-center justify-center gap-3"
+          data-oid="98.b_zd"
+        >
           {children}
         </div>
       </div>
@@ -475,28 +529,39 @@ export const AdvancedGlitchShaderButton: React.FC<AdvancedGlitchShaderButtonProp
       <motion.div
         className="absolute inset-[-2px] rounded-[inherit] pointer-events-none z-[0]"
         animate={{
-          background: isHovered ? [
-            `linear-gradient(45deg, transparent, ${
-              variant === 'matrix' ? 'rgba(34, 197, 94, 0.3)' :
-              variant === 'cyber' ? 'rgba(6, 182, 212, 0.3)' :
-              'rgba(236, 72, 153, 0.3)'
-            }, transparent)`,
-            `linear-gradient(225deg, transparent, ${
-              variant === 'matrix' ? 'rgba(34, 197, 94, 0.3)' :
-              variant === 'cyber' ? 'rgba(6, 182, 212, 0.3)' :
-              'rgba(236, 72, 153, 0.3)'
-            }, transparent)`,
-            `linear-gradient(45deg, transparent, ${
-              variant === 'matrix' ? 'rgba(34, 197, 94, 0.3)' :
-              variant === 'cyber' ? 'rgba(6, 182, 212, 0.3)' :
-              'rgba(236, 72, 153, 0.3)'
-            }, transparent)`
-          ] : 'transparent'
+          background: isHovered
+            ? [
+                `linear-gradient(45deg, transparent, ${
+                  variant === "matrix"
+                    ? "rgba(34, 197, 94, 0.3)"
+                    : variant === "cyber"
+                      ? "rgba(6, 182, 212, 0.3)"
+                      : "rgba(236, 72, 153, 0.3)"
+                }, transparent)`,
+
+                `linear-gradient(225deg, transparent, ${
+                  variant === "matrix"
+                    ? "rgba(34, 197, 94, 0.3)"
+                    : variant === "cyber"
+                      ? "rgba(6, 182, 212, 0.3)"
+                      : "rgba(236, 72, 153, 0.3)"
+                }, transparent)`,
+
+                `linear-gradient(45deg, transparent, ${
+                  variant === "matrix"
+                    ? "rgba(34, 197, 94, 0.3)"
+                    : variant === "cyber"
+                      ? "rgba(6, 182, 212, 0.3)"
+                      : "rgba(236, 72, 153, 0.3)"
+                }, transparent)`,
+              ]
+            : "transparent",
         }}
-        transition={{ duration: 2, repeat: Infinity, ease: 'linear' }}
+        transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
+        data-oid="2dcqr8b"
       />
     </motion.button>
-  )
-}
+  );
+};
 
-export default AdvancedGlitchShaderButton
+export default AdvancedGlitchShaderButton;

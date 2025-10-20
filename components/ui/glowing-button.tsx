@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import { Button } from "@/components/ui/button"
-import { GlowEffect } from "@/components/ui/glow-effect"
-import { cn } from "@/lib/utils"
-import type React from "react"
+import { Button } from "@/components/ui/button";
+import { GlowEffect } from "@/components/ui/glow-effect";
+import { cn } from "@/lib/utils";
+import type React from "react";
 
 interface GlowingButtonProps {
-  children: React.ReactNode
-  onClick?: () => void
-  className?: string
-  variant?: "default" | "outline" | "ghost"
-  size?: "default" | "sm" | "lg"
-  asChild?: boolean
-  href?: string
-  glowColors?: string[]
-  glowMode?: "rotate" | "pulse" | "breathe" | "colorShift"
+  children: React.ReactNode;
+  onClick?: () => void;
+  className?: string;
+  variant?: "default" | "outline" | "ghost";
+  size?: "default" | "sm" | "lg";
+  asChild?: boolean;
+  href?: string;
+  glowColors?: string[];
+  glowMode?: "rotate" | "pulse" | "breathe" | "colorShift";
 }
 
 export function GlowingButton({
@@ -30,7 +30,7 @@ export function GlowingButton({
   ...props
 }: GlowingButtonProps) {
   return (
-    <div className="relative group">
+    <div className="relative group" data-oid="rksk.47">
       <GlowEffect
         colors={glowColors}
         mode={glowMode}
@@ -38,7 +38,9 @@ export function GlowingButton({
         duration={3}
         scale={0.9}
         className="opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        data-oid="oaocyvg"
       />
+
       <Button
         onClick={onClick}
         className={cn("relative z-10", className)}
@@ -46,9 +48,10 @@ export function GlowingButton({
         size={size}
         asChild={asChild}
         {...props}
+        data-oid="2t.37a7"
       >
         {children}
       </Button>
     </div>
-  )
+  );
 }

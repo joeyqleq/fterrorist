@@ -1,22 +1,64 @@
 // components/ui/tetris-loader.tsx
-"use client"
+"use client";
 
-import React from 'react'
-import { motion } from 'framer-motion'
+import React from "react";
+import { motion } from "framer-motion";
 
 const tetrisBlocks = [
-  { id: 1, color: "#10B981", shape: [[1, 1], [1, 1]] }, // Square (O) - Green
-  { id: 2, color: "#059669", shape: [[0, 2, 0], [2, 2, 2]] }, // T-shape (T) - Dark Green
-  { id: 3, color: "#34D399", shape: [[3, 3, 0], [0, 3, 3]] }, // Z-shape (Z) - Light Green
-  { id: 4, color: "#047857", shape: [[0, 4, 4], [4, 4, 0]] }, // S-shape (S) - Emerald
+  {
+    id: 1,
+    color: "#10B981",
+    shape: [
+      [1, 1],
+      [1, 1],
+    ],
+  }, // Square (O) - Green
+  {
+    id: 2,
+    color: "#059669",
+    shape: [
+      [0, 2, 0],
+      [2, 2, 2],
+    ],
+  }, // T-shape (T) - Dark Green
+  {
+    id: 3,
+    color: "#34D399",
+    shape: [
+      [3, 3, 0],
+      [0, 3, 3],
+    ],
+  }, // Z-shape (Z) - Light Green
+  {
+    id: 4,
+    color: "#047857",
+    shape: [
+      [0, 4, 4],
+      [4, 4, 0],
+    ],
+  }, // S-shape (S) - Emerald
   { id: 5, color: "#6EE7B7", shape: [[5, 5, 5, 5]] }, // Line (I) - Mint
-  { id: 6, color: "#065F46", shape: [[6, 0, 0], [6, 6, 6]] }, // L-shape (L) - Forest
-  { id: 7, color: "#10B981", shape: [[0, 0, 7], [7, 7, 7]] }, // J-shape (J) - Green
-]
+  {
+    id: 6,
+    color: "#065F46",
+    shape: [
+      [6, 0, 0],
+      [6, 6, 6],
+    ],
+  }, // L-shape (L) - Forest
+  {
+    id: 7,
+    color: "#10B981",
+    shape: [
+      [0, 0, 7],
+      [7, 7, 7],
+    ],
+  }, // J-shape (J) - Green
+];
 
 const containerVariants = {
   animate: {},
-}
+};
 
 const blockVariants = {
   initial: {
@@ -44,7 +86,7 @@ const blockVariants = {
       ease: "easeIn",
     },
   }),
-}
+};
 
 const blockDropAndFade = {
   initial: { y: -20, opacity: 0 },
@@ -59,7 +101,7 @@ const blockDropAndFade = {
       ease: "easeInOut",
     },
   }),
-}
+};
 
 export function TetrisLoading() {
   return (
@@ -68,8 +110,12 @@ export function TetrisLoading() {
       variants={containerVariants}
       initial="initial"
       animate="animate"
+      data-oid="pqr1.hu"
     >
-      <div className="flex flex-wrap justify-center gap-2 mb-6">
+      <div
+        className="flex flex-wrap justify-center gap-2 mb-6"
+        data-oid="v5w:al9"
+      >
         {tetrisBlocks.map((block, i) => (
           <motion.div
             key={block.id}
@@ -78,17 +124,21 @@ export function TetrisLoading() {
             variants={blockDropAndFade}
             initial="initial"
             animate="animate"
+            data-oid="dk7p.ss"
           >
             {block.shape.map((row, rowIndex) => (
-              <div key={rowIndex} className="flex gap-px">
+              <div key={rowIndex} className="flex gap-px" data-oid="ty1pdir">
                 {row.map((cell, cellIndex) => (
                   <div
                     key={cellIndex}
                     className="w-4 h-4 rounded-sm"
-                    style={{ backgroundColor: cell !== 0 ? block.color : "transparent" }}
-          />
-        ))}
-      </div>
+                    style={{
+                      backgroundColor: cell !== 0 ? block.color : "transparent",
+                    }}
+                    data-oid="2wtndl:"
+                  />
+                ))}
+              </div>
             ))}
           </motion.div>
         ))}
@@ -103,9 +153,10 @@ export function TetrisLoading() {
           repeat: Infinity,
           repeatType: "reverse",
         }}
+        data-oid="-xu1-xj"
       >
         LOADING_RESOURCES...
       </motion.p>
     </motion.div>
-  )
+  );
 }

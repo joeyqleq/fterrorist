@@ -306,8 +306,9 @@ export const Particles: React.FC<ParticlesProps> = ({
       ref={canvasContainerRef}
       aria-hidden="true"
       {...props}
+      data-oid="w1t1lwk"
     >
-      <canvas ref={canvasRef} className="size-full" />
+      <canvas ref={canvasRef} className="size-full" data-oid="yax.inx" />
     </div>
   );
 };

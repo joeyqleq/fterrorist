@@ -1,40 +1,42 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from "react";
 
 interface TypingTextProps {
-  text: string
-  speed?: number
-  className?: string
-  showCursor?: boolean
+  text: string;
+  speed?: number;
+  className?: string;
+  showCursor?: boolean;
 }
 
-export default function TypingText({ 
-  text, 
-  speed = 100, 
-  className = "", 
-  showCursor = true 
+export default function TypingText({
+  text,
+  speed = 100,
+  className = "",
+  showCursor = true,
 }: TypingTextProps) {
-  const [displayText, setDisplayText] = useState("")
-  const [currentIndex, setCurrentIndex] = useState(0)
+  const [displayText, setDisplayText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     if (currentIndex < text.length) {
       const timeout = setTimeout(() => {
-        setDisplayText(prev => prev + text[currentIndex])
-        setCurrentIndex(prev => prev + 1)
-      }, speed)
+        setDisplayText((prev) => prev + text[currentIndex]);
+        setCurrentIndex((prev) => prev + 1);
+      }, speed);
 
-      return () => clearTimeout(timeout)
+      return () => clearTimeout(timeout);
     }
-  }, [currentIndex, text, speed])
+  }, [currentIndex, text, speed]);
 
   return (
-    <span className={className}>
+    <span className={className} data-oid="d31z5hj">
       {displayText}
       {showCursor && (
-        <span className="animate-pulse text-cyan-400 ml-1">|</span>
+        <span className="animate-pulse text-cyan-400 ml-1" data-oid="ni-c0an">
+          |
+        </span>
       )}
     </span>
-  )
+  );
 }

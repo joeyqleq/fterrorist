@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface LogoProps {
   size?: number;
@@ -13,9 +13,15 @@ interface ArcProps {
   duration: number;
 }
 
-const Logo: React.FC<LogoProps> = ({ size = 500, className = '' }) => {
+const Logo: React.FC<LogoProps> = ({ size = 500, className = "" }) => {
   // Arc renderer function
-  const renderArc = ({ radius, strokeWidth, rotation, delay, duration }: ArcProps) => {
+  const renderArc = ({
+    radius,
+    strokeWidth,
+    rotation,
+    delay,
+    duration,
+  }: ArcProps) => {
     return (
       <path
         d={`M ${100 - radius} 100 a ${radius} ${radius} 0 0 1 ${radius * 2} 0`}
@@ -23,10 +29,11 @@ const Logo: React.FC<LogoProps> = ({ size = 500, className = '' }) => {
         strokeWidth={strokeWidth}
         fill="none"
         style={{
-          transformOrigin: '100px 100px',
+          transformOrigin: "100px 100px",
           transform: `rotate(${rotation}deg)`,
           animation: `spin ${duration}s ${delay}s infinite linear`,
         }}
+        data-oid="umrgx.e"
       />
     );
   };
@@ -40,15 +47,16 @@ const Logo: React.FC<LogoProps> = ({ size = 500, className = '' }) => {
   ];
 
   return (
-    <div className={`relative ${className}`}>
+    <div className={`relative ${className}`} data-oid="4su2:1b">
       <svg
         width={size}
         height={size}
         viewBox="0 0 200 200"
         className="text-green-400 dark:text-green-400 transition-colors duration-500 hover:text-green-300 dark:hover:text-green-300"
-        style={{ overflow: 'visible' }}
+        style={{ overflow: "visible" }}
+        data-oid="8opyxll"
       >
-        <style>
+        <style data-oid="lysa5jr">
           {`
             @keyframes spin {
               from { transform: rotate(0deg); }
@@ -85,29 +93,30 @@ const Logo: React.FC<LogoProps> = ({ size = 500, className = '' }) => {
             }
           `}
         </style>
-        
+
         {/* Render all arcs with very subtle glitch effect */}
-        <g style={{ animation: 'subtleGlitch 25s ease-in-out infinite' }}>
+        <g
+          style={{ animation: "subtleGlitch 25s ease-in-out infinite" }}
+          data-oid="5vp:0n8"
+        >
           {arcs.map((arc, index) => (
-            <React.Fragment key={index}>
-              {renderArc(arc)}
-            </React.Fragment>
+            <React.Fragment key={index}>{renderArc(arc)}</React.Fragment>
           ))}
         </g>
-        
+
         {/* Revolutionary Text Spinning between arcs */}
         {arcs.map((arc, index) => {
           if (index % 2 === 0) return null; // Only place text on odd indices for spacing
           const textRadius = arc.radius + 5; // Slightly outside each arc
           const textCount = 8; // Number of text instances around circle
-          
+
           return (
-            <g key={`text-${index}`}>
+            <g key={`text-${index}`} data-oid="gkg71:r">
               {Array.from({ length: textCount }).map((_, textIndex) => {
                 const angle = (360 / textCount) * textIndex;
                 const x = 100 + Math.cos((angle * Math.PI) / 180) * textRadius;
                 const y = 100 + Math.sin((angle * Math.PI) / 180) * textRadius;
-                
+
                 return (
                   <text
                     key={textIndex}
@@ -121,11 +130,12 @@ const Logo: React.FC<LogoProps> = ({ size = 500, className = '' }) => {
                     dominantBaseline="middle"
                     className="revolution-text"
                     style={{
-                      transformOrigin: '100px 100px',
+                      transformOrigin: "100px 100px",
                       transform: `rotate(${angle + 90}deg)`,
                       animation: `revolutionSpin ${15 + index * 2}s linear infinite`,
-                      opacity: 0.7
+                      opacity: 0.7,
                     }}
+                    data-oid=":d-rk:v"
                   >
                     VIVA LA REVOLUTION!
                   </text>
@@ -134,30 +144,50 @@ const Logo: React.FC<LogoProps> = ({ size = 500, className = '' }) => {
             </g>
           );
         })}
-        
+
         {/* Logo Circle with Gradient (no text) */}
-        <g>
-          <defs>
-            <linearGradient id="terroristGradient" x1="0%" y1="0%" x2="100%" y2="0%" gradientTransform="rotate(30)">
-              <stop offset="0%" stopColor="#22c55e" className="animate-gradient-stop-1">
+        <g data-oid="pke4u2g">
+          <defs data-oid="kqfyjj8">
+            <linearGradient
+              id="terroristGradient"
+              x1="0%"
+              y1="0%"
+              x2="100%"
+              y2="0%"
+              gradientTransform="rotate(30)"
+              data-oid="yymc57:"
+            >
+              <stop
+                offset="0%"
+                stopColor="#22c55e"
+                className="animate-gradient-stop-1"
+                data-oid="0gkh9wl"
+              >
                 <animate
                   attributeName="stop-color"
                   values="#22c55e; #16a34a; #15803d; #ec4899; #f59e0b; #22c55e"
                   dur="6s"
                   repeatCount="indefinite"
+                  data-oid="ft59fdt"
                 />
               </stop>
-              <stop offset="100%" stopColor="#ec4899" className="animate-gradient-stop-2">
+              <stop
+                offset="100%"
+                stopColor="#ec4899"
+                className="animate-gradient-stop-2"
+                data-oid="8i6qpny"
+              >
                 <animate
                   attributeName="stop-color"
                   values="#ec4899; #f59e0b; #22c55e; #16a34a; #15803d; #ec4899"
                   dur="6s"
                   repeatCount="indefinite"
+                  data-oid="iiploe."
                 />
               </stop>
             </linearGradient>
           </defs>
-          
+
           {/* Optional subtle center circle for visual anchor */}
           <circle
             cx="100"
@@ -166,8 +196,9 @@ const Logo: React.FC<LogoProps> = ({ size = 500, className = '' }) => {
             fill="url(#terroristGradient)"
             opacity="0.6"
             style={{
-              animation: 'pulse 2s ease-in-out infinite'
+              animation: "pulse 2s ease-in-out infinite",
             }}
+            data-oid="7_7t8:j"
           />
         </g>
       </svg>

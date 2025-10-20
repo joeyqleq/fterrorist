@@ -71,6 +71,7 @@ export const BorderBeam = ({
           "--border-beam-width": `${borderWidth}px`,
         } as React.CSSProperties
       }
+      data-oid="a3b0m7_"
     >
       <motion.div
         className={cn(
@@ -100,6 +101,7 @@ export const BorderBeam = ({
           delay: -delay,
           ...transition,
         }}
+        data-oid="o.bgbm_"
       />
     </div>
   );

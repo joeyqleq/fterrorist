@@ -10,7 +10,6 @@ import {
 
 import React, { useRef, useState } from "react";
 
-
 interface NavbarProps {
   children: React.ReactNode;
   className?: string;
@@ -70,6 +69,7 @@ export const Navbar = ({ children, className }: NavbarProps) => {
     <motion.div
       ref={ref}
       className={cn("fixed inset-x-0 top-4 z-50 w-full", className)}
+      data-oid="6x1yfes"
     >
       {React.Children.map(children, (child) =>
         React.isValidElement(child)
@@ -88,7 +88,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
     <motion.div
       animate={{
         backdropFilter: visible ? "blur(20px)" : "blur(10px)",
-        background: visible 
+        background: visible
           ? "linear-gradient(135deg, rgba(21, 77, 21, 0.95) 0%, rgba(34, 139, 34, 0.85) 100%)"
           : "linear-gradient(135deg, rgba(21, 77, 21, 0.7) 0%, rgba(34, 139, 34, 0.6) 100%)",
         borderRadius: visible ? "24px" : "50px",
@@ -110,6 +110,7 @@ export const NavBody = ({ children, className, visible }: NavBodyProps) => {
         "border border-green-500/20",
         className,
       )}
+      data-oid="_f_0acb"
     >
       {children}
     </motion.div>
@@ -126,6 +127,7 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         "hidden flex-1 flex-row items-center justify-center space-x-8 text-sm font-medium transition duration-200 lg:flex",
         className,
       )}
+      data-oid="w7e::bx"
     >
       {items.map((item, idx) => (
         <motion.a
@@ -141,12 +143,14 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
               "0 0 15px #00ff00, 0 0 20px #00ff00",
               "0 0 5px #00ff00, 0 0 10px #00ff00",
             ],
-            transition: { 
-              duration: 0.8, 
+
+            transition: {
+              duration: 0.8,
               ease: "easeInOut",
-              times: [0, 0.3, 0.6, 1]
-            }
+              times: [0, 0.3, 0.6, 1],
+            },
           }}
+          data-oid="mzxbyg:"
         >
           {hovered === idx && (
             <motion.div
@@ -156,9 +160,13 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ type: "spring", stiffness: 400, damping: 30 }}
+              data-oid="kfum5hi"
             />
           )}
-          <span className="relative z-20 flex items-center gap-2">
+          <span
+            className="relative z-20 flex items-center gap-2"
+            data-oid="0g0wuqn"
+          >
             {item.icon}
             {item.name}
           </span>
@@ -173,7 +181,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
     <motion.div
       animate={{
         backdropFilter: visible ? "blur(20px)" : "blur(10px)",
-        background: visible 
+        background: visible
           ? "linear-gradient(135deg, rgba(21, 77, 21, 0.95) 0%, rgba(34, 139, 34, 0.85) 100%)"
           : "linear-gradient(135deg, rgba(21, 77, 21, 0.7) 0%, rgba(34, 139, 34, 0.6) 100%)",
         borderRadius: visible ? "16px" : "25px",
@@ -191,6 +199,7 @@ export const MobileNav = ({ children, className, visible }: MobileNavProps) => {
         "relative z-50 mx-auto flex w-full max-w-[calc(100vw-2rem)] flex-col items-center justify-between border border-green-500/20 lg:hidden",
         className,
       )}
+      data-oid="cqhqhr."
     >
       {children}
     </motion.div>
@@ -207,6 +216,7 @@ export const MobileNavHeader = ({
         "flex w-full flex-row items-center justify-between",
         className,
       )}
+      data-oid="wxmt9cw"
     >
       {children}
     </div>
@@ -220,7 +230,7 @@ export const MobileNavMenu = ({
   onClose,
 }: MobileNavMenuProps) => {
   return (
-    <AnimatePresence>
+    <AnimatePresence data-oid="hvqra34">
       {isOpen && (
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -230,6 +240,7 @@ export const MobileNavMenu = ({
             "absolute inset-x-0 top-16 z-50 flex w-full flex-col items-start justify-start gap-6 rounded-2xl border border-green-500/20 bg-gradient-to-br from-green-900/95 to-emerald-900/85 backdrop-blur-xl px-6 py-8 shadow-xl",
             className,
           )}
+          data-oid="5_fk3rp"
         >
           {children}
         </motion.div>
@@ -250,11 +261,12 @@ export const MobileNavToggle = ({
       whileTap={{ scale: 0.9 }}
       onClick={onClick}
       className="text-amber-100 hover:text-green-400 transition-colors"
+      data-oid="ijiw-ug"
     >
       {isOpen ? (
-        <IconX className="h-5 w-5" />
+        <IconX className="h-5 w-5" data-oid="h50n897" />
       ) : (
-        <IconMenu2 className="h-5 w-5" />
+        <IconMenu2 className="h-5 w-5" data-oid="j2kqbn6" />
       )}
     </motion.button>
   );
@@ -267,6 +279,7 @@ export const NavbarLogo = () => {
       className="relative z-20 flex items-center space-x-2 text-sm font-bold text-amber-100"
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
+      data-oid="18ly:i-"
     >
       <img
         src="/terrorist_logo_ascii.webp"
@@ -274,8 +287,13 @@ export const NavbarLogo = () => {
         width={32}
         height={32}
         className="rounded-lg"
+        data-oid="jg1ro1v"
       />
-      <span className="font-mono font-black tracking-wider text-amber-100">
+
+      <span
+        className="font-mono font-black tracking-wider text-amber-100"
+        data-oid="hv952za"
+      >
         FREEBIE TERRORIST
       </span>
     </motion.a>
@@ -303,18 +321,26 @@ export const NavbarButton = ({
     "px-4 py-2 rounded-xl font-mono text-sm font-bold relative cursor-pointer transition-all duration-300 inline-block text-center";
 
   const variantStyles = {
-    primary: "bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-500 hover:to-emerald-500 shadow-lg hover:shadow-green-500/25",
-    secondary: "bg-transparent border border-green-500/50 text-amber-100 hover:bg-green-500/20",
+    primary:
+      "bg-gradient-to-r from-green-600 to-emerald-600 text-white hover:from-green-500 hover:to-emerald-500 shadow-lg hover:shadow-green-500/25",
+    secondary:
+      "bg-transparent border border-green-500/50 text-amber-100 hover:bg-green-500/20",
     dark: "bg-black/50 text-amber-100 border border-green-500/30 hover:bg-black/70",
-    gradient: "bg-gradient-to-r from-emerald-500 to-green-700 text-white shadow-lg hover:shadow-emerald-500/30",
+    gradient:
+      "bg-gradient-to-r from-emerald-500 to-green-700 text-white shadow-lg hover:shadow-emerald-500/30",
   };
 
   return (
-    <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      data-oid="uoww.xt"
+    >
       <Tag
         href={href || undefined}
         className={cn(baseStyles, variantStyles[variant], className)}
         {...props}
+        data-oid="6514xyg"
       >
         {children}
       </Tag>

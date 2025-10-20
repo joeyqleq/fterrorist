@@ -261,7 +261,9 @@ export default function FaultyTerminal({
   tint = "#00ff00",
   mouseReact = true,
   mouseStrength = 0.2,
-  dpr = typeof window !== 'undefined' ? Math.min(window.devicePixelRatio || 1, 2) : 1,
+  dpr = typeof window !== "undefined"
+    ? Math.min(window.devicePixelRatio || 1, 2)
+    : 1,
   pageLoadAnimation = true,
   brightness = 1,
   className,
@@ -282,7 +284,7 @@ export default function FaultyTerminal({
 
   const ditherValue = useMemo(
     () => (typeof dither === "boolean" ? (dither ? 1 : 0) : dither),
-    [dither]
+    [dither],
   );
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
@@ -314,7 +316,7 @@ export default function FaultyTerminal({
           value: new Color(
             gl.canvas.width,
             gl.canvas.height,
-            gl.canvas.width / gl.canvas.height
+            gl.canvas.width / gl.canvas.height,
           ),
         },
         uScale: { value: scale },
@@ -352,7 +354,7 @@ export default function FaultyTerminal({
       program.uniforms.iResolution.value = new Color(
         gl.canvas.width,
         gl.canvas.height,
-        gl.canvas.width / gl.canvas.height
+        gl.canvas.width / gl.canvas.height,
       );
     }
 
@@ -438,6 +440,7 @@ export default function FaultyTerminal({
       className={`w-full h-full relative overflow-hidden ${className}`}
       style={style}
       {...rest}
+      data-oid="6.c_4sp"
     />
   );
 }

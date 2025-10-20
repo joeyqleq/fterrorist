@@ -1,37 +1,41 @@
-"use client"
-import { useState, useEffect, useRef } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+"use client";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface AnimatedTextCycleProps {
-  words: string[]
-  interval?: number
-  className?: string
+  words: string[];
+  interval?: number;
+  className?: string;
 }
 
-export default function AnimatedTextCycle({ words, interval = 5000, className = "" }: AnimatedTextCycleProps) {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [width, setWidth] = useState("auto")
-  const measureRef = useRef<HTMLDivElement>(null)
+export default function AnimatedTextCycle({
+  words,
+  interval = 5000,
+  className = "",
+}: AnimatedTextCycleProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [width, setWidth] = useState("auto");
+  const measureRef = useRef<HTMLDivElement>(null);
 
   // Get the width of the current word
   useEffect(() => {
     if (measureRef.current) {
-      const elements = measureRef.current.children
+      const elements = measureRef.current.children;
       if (elements.length > currentIndex) {
         // Add a small buffer (10px) to prevent text wrapping
-        const newWidth = elements[currentIndex].getBoundingClientRect().width
-        setWidth(`${newWidth}px`)
+        const newWidth = elements[currentIndex].getBoundingClientRect().width;
+        setWidth(`${newWidth}px`);
       }
     }
-  }, [currentIndex])
+  }, [currentIndex]);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length)
-    }, interval)
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % words.length);
+    }, interval);
 
-    return () => clearInterval(timer)
-  }, [interval, words.length])
+    return () => clearInterval(timer);
+  }, [interval, words.length]);
 
   // Container animation for the whole word
   const containerVariants = {
@@ -58,7 +62,7 @@ export default function AnimatedTextCycle({ words, interval = 5000, className = 
         ease: "easeIn",
       },
     },
-  }
+  };
 
   return (
     <>
@@ -68,9 +72,10 @@ export default function AnimatedTextCycle({ words, interval = 5000, className = 
         aria-hidden="true"
         className="absolute opacity-0 pointer-events-none"
         style={{ visibility: "hidden" }}
+        data-oid="u:89800"
       >
         {words.map((word, i) => (
-          <span key={i} className={`font-bold ${className}`}>
+          <span key={i} className={`font-bold ${className}`} data-oid="-8kr8dd">
             {word}
           </span>
         ))}
@@ -88,8 +93,9 @@ export default function AnimatedTextCycle({ words, interval = 5000, className = 
             mass: 1.2,
           },
         }}
+        data-oid="y3wyhi."
       >
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence mode="wait" initial={false} data-oid="8hsng2t">
           <motion.span
             key={currentIndex}
             className={`inline-block font-bold ${className}`}
@@ -98,11 +104,12 @@ export default function AnimatedTextCycle({ words, interval = 5000, className = 
             animate="visible"
             exit="exit"
             style={{ whiteSpace: "nowrap" }}
+            data-oid="a417p3f"
           >
             {words[currentIndex]}
           </motion.span>
         </AnimatePresence>
       </motion.span>
     </>
-  )
+  );
 }

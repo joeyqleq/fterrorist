@@ -34,9 +34,12 @@ interface CounterProps {
 }
 
 export const Formatter = {
-  number: (value: number) => Intl.NumberFormat("en-US").format(+value.toFixed(0)),
+  number: (value: number) =>
+    Intl.NumberFormat("en-US").format(+value.toFixed(0)),
   currency: (value: number) =>
-    Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(+value.toFixed(0)),
+    Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(
+      +value.toFixed(0),
+    ),
 };
 
 export default function Counter({
@@ -76,5 +79,11 @@ export default function Counter({
     });
   }, [springValue, format]);
 
-  return <span ref={ref} className={cn("text-4xl font-bold text-foreground", className)} />;
+  return (
+    <span
+      ref={ref}
+      className={cn("text-4xl font-bold text-foreground", className)}
+      data-oid="qf-aqdh"
+    />
+  );
 }

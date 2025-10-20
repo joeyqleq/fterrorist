@@ -93,7 +93,7 @@ const GridDistortion: React.FC<GridDistortionProps> = ({
       size,
       size,
       THREE.RGBAFormat,
-      THREE.FloatType
+      THREE.FloatType,
     );
     dataTexture.needsUpdate = true;
     uniforms.uDataTexture.value = dataTexture;
@@ -186,8 +186,10 @@ const GridDistortion: React.FC<GridDistortionProps> = ({
           if (distSq < maxDist * maxDist) {
             const index = 4 * (i + size * j);
             const power = Math.min(maxDist / Math.sqrt(distSq), 10);
-            (data as Float32Array)[index] += strength * 100 * mouseState.vX * power;
-            (data as Float32Array)[index + 1] -= strength * 100 * mouseState.vY * power;
+            (data as Float32Array)[index] +=
+              strength * 100 * mouseState.vX * power;
+            (data as Float32Array)[index + 1] -=
+              strength * 100 * mouseState.vY * power;
           }
         }
       }
@@ -213,6 +215,7 @@ const GridDistortion: React.FC<GridDistortionProps> = ({
     <div
       ref={containerRef}
       className={`w-full h-full overflow-hidden ${className}`}
+      data-oid="jl7eon."
     />
   );
 };

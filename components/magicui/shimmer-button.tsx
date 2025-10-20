@@ -48,6 +48,7 @@ export const ShimmerButton = React.forwardRef<
         )}
         ref={ref}
         {...props}
+        data-oid="7e4-h3y"
       >
         {/* spark container */}
         <div
@@ -55,11 +56,18 @@ export const ShimmerButton = React.forwardRef<
             "-z-30 blur-[2px]",
             "absolute inset-0 overflow-visible [container-type:size]",
           )}
+          data-oid="ye1_0-g"
         >
           {/* spark */}
-          <div className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]">
+          <div
+            className="absolute inset-0 h-[100cqh] animate-shimmer-slide [aspect-ratio:1] [border-radius:0] [mask:none]"
+            data-oid="32o:1l5"
+          >
             {/* spark before */}
-            <div className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]" />
+            <div
+              className="absolute -inset-full w-auto rotate-0 animate-spin-around [background:conic-gradient(from_calc(270deg-(var(--spread)*0.5)),transparent_0,var(--shimmer-color)_var(--spread),transparent_var(--spread))] [translate:0_0]"
+              data-oid="70a-47t"
+            />
           </div>
         </div>
         {children}
@@ -80,6 +88,7 @@ export const ShimmerButton = React.forwardRef<
             // on click
             "group-active:shadow-[inset_0_-10px_10px_#ffffff3f]",
           )}
+          data-oid="6pagx96"
         />
 
         {/* backdrop */}
@@ -87,6 +96,7 @@ export const ShimmerButton = React.forwardRef<
           className={cn(
             "absolute -z-20 [background:var(--bg)] [border-radius:var(--radius)] [inset:var(--cut)]",
           )}
+          data-oid="u6vbg7q"
         />
       </button>
     );

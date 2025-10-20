@@ -35,6 +35,7 @@ export function LineShadowText({
       )}
       data-text={content}
       {...props}
+      data-oid="tcemg51"
     >
       {content}
     </MotionComponent>

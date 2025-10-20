@@ -47,6 +47,7 @@ export const MaskContainer = ({
       transition={{
         backgroundColor: { duration: 0.3 },
       }}
+      data-oid="v_m0piq"
     >
       <motion.div
         className="absolute flex h-full w-full items-center justify-center bg-black text-6xl [mask-image:url(/mask.svg)] [mask-repeat:no-repeat] [mask-size:40px] dark:bg-white"
@@ -54,14 +55,19 @@ export const MaskContainer = ({
           maskPosition: `${mousePosition.x - maskSize / 2}px ${
             mousePosition.y - maskSize / 2
           }px`,
+
           maskSize: `${maskSize}px`,
         }}
         transition={{
           maskSize: { duration: 0.3, ease: "easeInOut" },
           maskPosition: { duration: 0.15, ease: "linear" },
         }}
+        data-oid="yktfojg"
       >
-        <div className="absolute inset-0 z-0 h-full w-full bg-black opacity-50 dark:bg-white" />
+        <div
+          className="absolute inset-0 z-0 h-full w-full bg-black opacity-50 dark:bg-white"
+          data-oid="hbwp1ng"
+        />
         <div
           onMouseEnter={() => {
             setIsHovered(true);
@@ -70,12 +76,16 @@ export const MaskContainer = ({
             setIsHovered(false);
           }}
           className="relative z-20 mx-auto max-w-4xl text-center text-4xl font-bold"
+          data-oid="n69o:y9"
         >
           {children}
         </div>
       </motion.div>
 
-      <div className="flex h-full w-full items-center justify-center">
+      <div
+        className="flex h-full w-full items-center justify-center"
+        data-oid="_-cb5dc"
+      >
         {revealText}
       </div>
     </motion.div>

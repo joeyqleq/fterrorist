@@ -1,20 +1,20 @@
-"use client"
+"use client";
 
-import React, { memo, useRef, useCallback, useEffect } from 'react'
-import { animate } from 'framer-motion'
-import { cn } from '@/lib/utils'
+import React, { memo, useRef, useCallback, useEffect } from "react";
+import { animate } from "framer-motion";
+import { cn } from "@/lib/utils";
 
 interface GlowingEffectProps {
-  blur?: number
-  inactiveZone?: number
-  proximity?: number
-  spread?: number
-  variant?: "default" | "white"
-  glow?: boolean
-  className?: string
-  movementDuration?: number
-  borderWidth?: number
-  disabled?: boolean
+  blur?: number;
+  inactiveZone?: number;
+  proximity?: number;
+  spread?: number;
+  variant?: "default" | "white";
+  glow?: boolean;
+  className?: string;
+  movementDuration?: number;
+  borderWidth?: number;
+  disabled?: boolean;
 }
 
 const GlowingEffect = memo(
@@ -57,7 +57,7 @@ const GlowingEffect = memo(
           const center = [left + width * 0.5, top + height * 0.5];
           const distanceFromCenter = Math.hypot(
             mouseX - center[0],
-            mouseY - center[1]
+            mouseY - center[1],
           );
           const inactiveRadius = 0.5 * Math.min(width, height) * inactiveZone;
 
@@ -95,7 +95,7 @@ const GlowingEffect = memo(
           });
         });
       },
-      [inactiveZone, proximity, movementDuration]
+      [inactiveZone, proximity, movementDuration],
     );
 
     useEffect(() => {
@@ -125,9 +125,11 @@ const GlowingEffect = memo(
             "pointer-events-none absolute -inset-px hidden rounded-[inherit] border opacity-0 transition-opacity",
             glow && "opacity-100",
             variant === "white" && "border-white",
-            disabled && "!block"
+            disabled && "!block",
           )}
+          data-oid="7dmmo43"
         />
+
         <div
           ref={containerRef}
           style={
@@ -167,8 +169,9 @@ const GlowingEffect = memo(
             glow && "opacity-100",
             blur > 0 && "blur-[var(--blur)] ",
             className,
-            disabled && "!hidden"
+            disabled && "!hidden",
           )}
+          data-oid="jb6apjz"
         >
           <div
             className={cn(
@@ -180,15 +183,16 @@ const GlowingEffect = memo(
               "after:opacity-[var(--active)] after:transition-opacity after:duration-300",
               "after:[mask-clip:padding-box,border-box]",
               "after:[mask-composite:intersect]",
-              "after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#fff,#00000000_calc(var(--spread)*2deg))]"
+              "after:[mask-image:linear-gradient(#0000,#0000),conic-gradient(from_calc((var(--start)-var(--spread))*1deg),#fff,#00000000_calc(var(--spread)*2deg))]",
             )}
+            data-oid="7r7deyo"
           />
         </div>
       </>
     );
-  }
+  },
 );
 
-  GlowingEffect.displayName = "GlowingEffect";
+GlowingEffect.displayName = "GlowingEffect";
 
-  export { GlowingEffect };
+export { GlowingEffect };

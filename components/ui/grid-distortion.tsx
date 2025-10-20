@@ -1,42 +1,46 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 
 export default function GridDistortion() {
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 })
+  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth) * 100
-      const y = (e.clientY / window.innerHeight) * 100
-      setMousePos({ x, y })
-    }
+      const x = (e.clientX / window.innerWidth) * 100;
+      const y = (e.clientY / window.innerHeight) * 100;
+      setMousePos({ x, y });
+    };
 
-    window.addEventListener('mousemove', handleMouseMove)
-    return () => window.removeEventListener('mousemove', handleMouseMove)
-  }, [])
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div
+      className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+      data-oid=".10.9yj"
+    >
       {/* Base grid */}
-      <div 
+      <div
         className="absolute inset-0 opacity-30"
         style={{
           backgroundImage: `
             linear-gradient(rgba(34, 197, 94, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(34, 197, 94, 0.1) 1px, transparent 1px)
           `,
-          backgroundSize: '40px 40px'
+          backgroundSize: "40px 40px",
         }}
+        data-oid="0.ch874"
       />
-      
+
       {/* Distortion effect following mouse */}
-      <div 
+      <div
         className="absolute w-96 h-96 rounded-full opacity-20 transition-all duration-700 ease-out"
         style={{
           left: `${mousePos.x}%`,
           top: `${mousePos.y}%`,
-          transform: 'translate(-50%, -50%)',
+          transform: "translate(-50%, -50%)",
           background: `
             radial-gradient(circle, 
               rgba(34, 197, 94, 0.3) 0%, 
@@ -45,12 +49,13 @@ export default function GridDistortion() {
               transparent 100%
             )
           `,
-          filter: 'blur(2px)',
+          filter: "blur(2px)",
         }}
+        data-oid="wrmio-9"
       />
-      
+
       {/* Pixelated overlay grid */}
-      <div 
+      <div
         className="absolute inset-0 opacity-40"
         style={{
           backgroundImage: `
@@ -59,18 +64,34 @@ export default function GridDistortion() {
             linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
             linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)
           `,
-          backgroundSize: '20px 20px, 20px 20px, 8px 8px, 8px 8px',
-          animation: 'gridPulse 4s ease-in-out infinite'
+          backgroundSize: "20px 20px, 20px 20px, 8px 8px, 8px 8px",
+          animation: "gridPulse 4s ease-in-out infinite",
         }}
+        data-oid="e82.m9b"
       />
-      
+
       {/* Moving scan lines */}
-      <div className="absolute inset-0">
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent animate-scan-slow top-1/4"></div>
-        <div className="absolute w-full h-px bg-gradient-to-r from-transparent via-green-400/20 to-transparent animate-scan-slow top-3/4" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute w-px h-full bg-gradient-to-b from-transparent via-purple-400/20 to-transparent animate-scan-vertical-slow left-1/4" style={{ animationDelay: '3s' }}></div>
-        <div className="absolute w-px h-full bg-gradient-to-b from-transparent via-blue-400/20 to-transparent animate-scan-vertical-slow right-1/4" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute inset-0" data-oid="-nb8zsh">
+        <div
+          className="absolute w-full h-px bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent animate-scan-slow top-1/4"
+          data-oid="q-y1hcr"
+        ></div>
+        <div
+          className="absolute w-full h-px bg-gradient-to-r from-transparent via-green-400/20 to-transparent animate-scan-slow top-3/4"
+          style={{ animationDelay: "2s" }}
+          data-oid="p--gfa5"
+        ></div>
+        <div
+          className="absolute w-px h-full bg-gradient-to-b from-transparent via-purple-400/20 to-transparent animate-scan-vertical-slow left-1/4"
+          style={{ animationDelay: "3s" }}
+          data-oid="2tq.se4"
+        ></div>
+        <div
+          className="absolute w-px h-full bg-gradient-to-b from-transparent via-blue-400/20 to-transparent animate-scan-vertical-slow right-1/4"
+          style={{ animationDelay: "1s" }}
+          data-oid="il339z."
+        ></div>
       </div>
     </div>
-  )
+  );
 }

@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
 export default function BoldCopy({
   text = "animata",
@@ -6,13 +6,13 @@ export default function BoldCopy({
   textClassName,
   backgroundTextClassName,
 }: {
-  text: string
-  className?: string
-  textClassName?: string
-  backgroundTextClassName?: string
+  text: string;
+  className?: string;
+  textClassName?: string;
+  backgroundTextClassName?: string;
 }) {
   if (!text?.length) {
-    return null
+    return null;
   }
 
   return (
@@ -21,12 +21,14 @@ export default function BoldCopy({
         "group relative flex items-center justify-center bg-background px-2 py-2 md:px-6 md:py-4 font-mono",
         className,
       )}
+      data-oid="go6itfj"
     >
       <div
         className={cn(
           "text-4xl font-bold uppercase text-foreground/15 transition-all group-hover:opacity-50 md:text-8xl",
           backgroundTextClassName,
         )}
+        data-oid="_qpkui2"
       >
         {text}
       </div>
@@ -35,9 +37,10 @@ export default function BoldCopy({
           "text-md absolute font-bold uppercase text-foreground transition-all group-hover:text-4xl md:text-3xl group-hover:md:text-8xl",
           textClassName,
         )}
+        data-oid="aj65kbo"
       >
         {text}
       </div>
     </div>
-  )
+  );
 }

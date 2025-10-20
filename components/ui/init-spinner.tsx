@@ -16,7 +16,10 @@ export function InitSpinner() {
   }, []);
 
   return (
-    <span className="font-mono text-green-400 text-lg font-bold animate-pulse">
+    <span
+      className="font-mono text-green-400 text-lg font-bold animate-pulse"
+      data-oid="ntitspc"
+    >
       {spinnerFrames[frameIndex]}
     </span>
   );
@@ -24,11 +27,14 @@ export function InitSpinner() {
 
 export function InitButton({ visible }: { visible: boolean }) {
   return (
-    <div className="flex items-center justify-center gap-3">
-      <span className="font-mono text-amber-100 text-sm font-bold tracking-widest">
+    <div className="flex items-center justify-center gap-3" data-oid="555u_v5">
+      <span
+        className="font-mono text-amber-100 text-sm font-bold tracking-widest"
+        data-oid="a45495s"
+      >
         INIT
       </span>
-      {!visible && <InitSpinner />}
+      {!visible && <InitSpinner data-oid="afa7n_l" />}
     </div>
   );
 }
