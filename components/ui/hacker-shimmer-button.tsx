@@ -51,24 +51,7 @@ export const HackerShimmerButton = React.forwardRef<
         {...props}
         data-oid="peo3hhr"
       >
-        {/* Animated shimmer effect */}
-        <div
-          className="absolute inset-0 -z-10 overflow-hidden"
-          data-oid="z_xxu0q"
-        >
-          <div
-            className="animate-shimmer-slide absolute inset-0 h-[100%] w-[100%]"
-            data-oid="8ub338b"
-          >
-            <div
-              className="absolute -inset-full w-auto animate-spin-around"
-              style={{
-                background: `conic-gradient(from 0deg, transparent 0deg, var(--shimmer-color) 45deg, transparent 90deg)`,
-              }}
-              data-oid="x42_f0c"
-            />
-          </div>
-        </div>
+        {/* Removed shimmer effect */}
 
         {/* Scanline effect */}
         <div

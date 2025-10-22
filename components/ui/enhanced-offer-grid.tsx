@@ -9,13 +9,13 @@ interface EnhancedOfferGridProps {
   offers: StudentOffer[];
 }
 
-const CARDS_PER_LOAD = 12; // Load 3 rows at a time (4 cards per row)
+const CARDS_PER_LOAD = 16; // Load 4 rows at a time (4 cards per row)
 
 export default function EnhancedOfferGrid({ offers }: EnhancedOfferGridProps) {
   const [flippedCard, setFlippedCard] = useState<number | null>(null);
   const [visibleCount, setVisibleCount] = useState(CARDS_PER_LOAD);
   const loadMoreRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(loadMoreRef, { once: false, margin: "200px" });
+  const isInView = useInView(loadMoreRef, { once: false, margin: "400px" });
 
   const handleCardFlip = (index: number) => {
     setFlippedCard(flippedCard === index ? null : index);
@@ -24,10 +24,8 @@ export default function EnhancedOfferGrid({ offers }: EnhancedOfferGridProps) {
   // Load more cards when scroll trigger is in view
   useEffect(() => {
     if (isInView && visibleCount < offers.length) {
-      const timer = setTimeout(() => {
-        setVisibleCount((prev) => Math.min(prev + CARDS_PER_LOAD, offers.length));
-      }, 100);
-      return () => clearTimeout(timer);
+      // Immediate loading - no delay
+      setVisibleCount((prev) => Math.min(prev + CARDS_PER_LOAD, offers.length));
     }
   }, [isInView, visibleCount, offers.length]);
 

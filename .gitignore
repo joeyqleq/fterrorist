@@ -43,11 +43,20 @@ storybook-static
 !public/placeholder*.svg
 !public/terrorist_logo.png
 !public/terrorist_logo_ascii.png
+!public/web-app-manifest*.png
 !public/logos/*.png
 !public/logos/*.jpg
 !public/logos/*.svg
 !public/logos/*.jpeg
 !public/logos/*.webp
+
+# Allow Next.js app icons and favicons
+!app/favicon.ico
+!app/icon*.png
+!app/icon*.svg
+!app/apple-icon*.png
+!app/opengraph-image*.png
+!app/twitter-image*.png
 
 # Logo directory (too many files)
 public/logos/
