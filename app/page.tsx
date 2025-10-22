@@ -32,6 +32,7 @@ import { BinaryHoverText } from "@/components/ui/binary-hover-text";
 import CircuitBoardBackground from "@/components/ui/circuit-board-bg";
 import { HackerShimmerButton } from "@/components/ui/hacker-shimmer-button";
 import HackerTitle from "@/components/ui/hacker-title";
+import { AnimatedGradientText } from "@/components/ui/animated-gradient-text";
 
 const MagnetLines = dynamic(
   () =>
@@ -110,15 +111,15 @@ export default function HomePage() {
       {/* Circuit Board Background */}
       <CircuitBoardBackground data-oid="v:-1f98" />
 
-      {/* Magnet Lines Background - More reactive */}
-      <div className="fixed inset-0 z-0 opacity-40" data-oid="wznq6jk">
+      {/* Magnet Lines Background - More reactive with increased brightness */}
+      <div className="fixed inset-0 z-0 opacity-60" data-oid="wznq6jk">
         <MagnetLines
           rows={18}
           columns={30}
           containerSize="100vw"
           lineWidth="2px"
           lineHeight="14px"
-          gradientColors={["#22c55e", "#16a34a", "#15803d", "#166534"]}
+          gradientColors={["#34d965", "#22c55e", "#16a34a", "#15803d"]}
           sensitivity={200}
           animationSpeed={0.06}
           className="h-screen w-screen"
@@ -236,21 +237,28 @@ export default function HomePage() {
                 data-oid="p-pxmyh"
               >
                 <HackerShimmerButton
-                  className="min-w-[280px] h-16 text-lg font-mono font-bold"
+                  className="min-w-[280px] h-16 text-lg font-mono font-bold group"
                   onClick={handleScrollToOffers}
                   data-oid="m.1ysgw"
                 >
-                  <Terminal
-                    className="w-5 h-5 text-green-400"
-                    data-oid="e6w6sbw"
-                  />
-                  <span className="text-green-400" data-oid="dyp8-jn">
-                    Access Free Arsenal
-                  </span>
-                  <ArrowRight
-                    className="w-5 h-5 text-green-400 group-hover:translate-x-1 transition-transform"
-                    data-oid="wqsmwnq"
-                  />
+                  <div className="flex items-center justify-center gap-3">
+                    <Terminal
+                      className="w-5 h-5 text-green-400"
+                      data-oid="e6w6sbw"
+                    />
+                    <AnimatedGradientText
+                      colorFrom="#22c55e"
+                      colorTo="#10b981"
+                      speed={1.5}
+                      className="text-lg font-bold"
+                    >
+                      &gt;_ Access Free Arsenal
+                    </AnimatedGradientText>
+                    <ArrowRight
+                      className="w-5 h-5 text-green-400 group-hover:translate-x-1 transition-transform"
+                      data-oid="wqsmwnq"
+                    />
+                  </div>
                 </HackerShimmerButton>
 
                 <HackerShimmerButton

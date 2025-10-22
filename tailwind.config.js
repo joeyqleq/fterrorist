@@ -125,6 +125,10 @@ module.exports = {
           "0%": { strokeDashoffset: "1000" },
           "100%": { strokeDashoffset: "0" },
         },
+        "gradient": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -143,6 +147,7 @@ module.exports = {
         "spin-around": "spin-around 2s linear infinite",
         "spin-slow": "spin-slow 8s linear infinite",
         "draw": "draw 3s ease-in-out forwards",
+        "gradient": "gradient 8s linear infinite",
       },
     },
   },

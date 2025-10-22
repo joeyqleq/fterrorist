@@ -6,6 +6,7 @@ import { GlobalLoader } from "@/components/ui/global-loader";
 import { initToolbar } from "@21st-extension/toolbar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
+import { Pointer } from "@/components/ui/pointer";
 
 // Load Space Mono locally
 
@@ -105,6 +106,7 @@ export default function RootLayout({
           disableTransitionOnChange
           data-oid="rv8f274"
         >
+          <Pointer />
           <GlobalLoader data-oid="sin3pd8" />
           {children}
           <SpeedInsights data-oid="xfy38ys" />
