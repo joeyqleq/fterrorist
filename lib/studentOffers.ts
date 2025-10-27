@@ -784,4 +784,16 @@ export const studentOffers: StudentOffer[] = [
     link: "https://affinity.serif.com/en-gb/affinity-canva-free-for-schools/#top",
     image: "/logos/affinity_publisher.png",
   },
+  {
+    category: "AI Tools",
+    provider: "Meshy AI",
+    offer: "Pro plan with discounted rate",
+    duration: "1 year",
+    savings: "$174",
+    eligibility: "Students worldwide",
+    verification: ".edu email",
+    notes: "Students receive a free first month of Pro, followed by just $5.99/month for 12 months.",
+    link: "https://www.meshy.ai/education",
+    image: "/logos/meshy-ai.png",
+  },
 ]
