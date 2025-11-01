@@ -40,21 +40,8 @@ export default function RootLayout({
           content="FTERRORIST"
           data-oid="73hfgl8"
         />
-        {/* Matomo Tag Manager */}
-        <Script
-          id="matomo-tag-manager"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-            var _mtm = window._mtm = window._mtm || [];
-            _mtm.push({'mtm.startTime': (new Date().getTime()), 'event': 'mtm.Start'});
-            (function() {
-              var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-              g.async=true; g.src='https://matomo.motherfucking.fun/js/container_PpeT58PO.js'; s.parentNode.insertBefore(g,s);
-            })();
-          `,
-          }}
-          data-oid="gbz_-xf"
+        {/* Tianji analytics */}
+       <script async defer src="https://tianji.p5n.lol/tracker.js" data-website-id="cmhgrm18c0001k053lht419w0"
         />
         {/* Font Awesome */}
         <link
