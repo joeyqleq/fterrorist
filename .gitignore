@@ -59,7 +59,7 @@ storybook-static
 !app/twitter-image*.png
 
 # Logo directory (too many files)
-public/logos/
+#public/logos/
 
 # OS files
 .DS_Store
