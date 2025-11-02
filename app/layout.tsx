@@ -31,7 +31,26 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
-}) {
+}) {  
+  const matomoScript = `
+    var _paq = window._paq = window._paq || [];
+    /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+    ${process.env.NODE_ENV === 'production' ? `
+    _paq.push(["setCookieDomain", "*.terrorist.me"]);
+    _paq.push(["setDomains", ["*.terrorist.me","*.www.terrorist.me"]]);
+    _paq.push(["enableCrossDomainLinking"]);
+    ` : ''}
+    _paq.push(['trackPageView']);
+    _paq.push(['enableLinkTracking']);
+    (function() {
+      var u="//matomo.p5n.lol/";
+      _paq.push(['setTrackerUrl', u+'matomo.php']);
+      _paq.push(['setSiteId', '2']);
+      var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+      g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+    })();
+  `;
+
   return (
     <html lang="en" suppressHydrationWarning data-oid="i-1x:g8">
       <head data-oid="p5n7riu">
@@ -40,6 +59,14 @@ export default function RootLayout({
           content="FTERRORIST"
           data-oid="73hfgl8"
         />
+
+        {/* Matomo */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: matomoScript,
+          }}
+        />
+        
         {/* Tianji analytics */}
        <script async defer src="https://tianji.p5n.lol/tracker.js" data-website-id="cmhgrm18c0001k053lht419w0"
         />
