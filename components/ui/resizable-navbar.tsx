@@ -9,6 +9,7 @@ import {
 } from "framer-motion";
 
 import React, { useRef, useState } from "react";
+import Image from "next/image";
 
 interface NavbarProps {
   children: React.ReactNode;
@@ -281,7 +282,7 @@ export const NavbarLogo = () => {
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
       data-oid="18ly:i-"
     >
-      <img
+      <Image
         src="/terrorist_logo_ascii.webp"
         alt="Freebie Terrorist"
         width={32}

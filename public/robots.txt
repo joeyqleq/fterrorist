@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://terrorist.me/sitemap.xml
+Host: https://terrorist.me

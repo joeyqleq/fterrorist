@@ -7,11 +7,15 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 
 interface EnhancedOfferGridProps {
   offers: StudentOffer[];
+  onOpenUseCases: (offer: StudentOffer) => void;
 }
 
 const CARDS_PER_LOAD = 16; // Load 4 rows at a time (4 cards per row)
 
-export default function EnhancedOfferGrid({ offers }: EnhancedOfferGridProps) {
+export default function EnhancedOfferGrid({
+  offers,
+  onOpenUseCases,
+}: EnhancedOfferGridProps) {
   const [flippedCard, setFlippedCard] = useState<number | null>(null);
   const [visibleCount, setVisibleCount] = useState(CARDS_PER_LOAD);
   const loadMoreRef = useRef<HTMLDivElement>(null);
@@ -62,6 +66,7 @@ export default function EnhancedOfferGrid({ offers }: EnhancedOfferGridProps) {
                 index={index}
                 isFlipped={flippedCard === index}
                 onFlip={() => handleCardFlip(index)}
+                onOpenUseCases={onOpenUseCases}
                 data-oid="d6yz:s_"
               />
             </motion.div>

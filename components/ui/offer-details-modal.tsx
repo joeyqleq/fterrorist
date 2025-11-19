@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -10,6 +10,7 @@ import {
   Shield,
   Zap,
   ExternalLink,
+  Lightbulb,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import OfferLogo3D from "@/components/OfferLogo3D";
@@ -127,6 +128,163 @@ const offerSummaries: { [key: string]: string } = {
     "Notion is an all-in-one workspace that combines notes, tasks, wikis, and databases to help individuals and teams stay organized.",
 };
 
+type UseCases = { students: string[]; independents: string[] };
+
+const providerUseCases: Partial<Record<string, UseCases>> = {
+  "Google Gemini": {
+    students: [
+      "Draft research summaries and study guides with Gemini Advanced, then park them in NotebookLM for instant recall.",
+      "Prototype AI projects or code helpers without burning personal credits while you’re enrolled.",
+    ],
+    independents: [
+      "Storyboard campaigns, write briefs, and generate technical outlines before you commit to paid seats.",
+      "Use NotebookLM to keep dense client docs searchable and conversational.",
+    ],
+  },
+  Webflow: {
+    students: [
+      "Launch a portfolio or capstone site with real CMS and publish without touching code.",
+      "Collaborate with classmates to ship client-ready mockups fast.",
+    ],
+    independents: [
+      "Prototype client landing pages, get feedback, and handoff exports without paying for staging.",
+      "Test component libraries and CMS structures for agency use before committing seats.",
+    ],
+  },
+  InterServer: {
+    students: [
+      "Host labs, course projects, or club sites with SSL and one-click installs all year.",
+      "Deploy hackathon MVPs on a real server instead of free-tier sandboxes.",
+    ],
+    independents: [
+      "Run pilot sites for clients to validate traffic and uptime before migrating to a main provider.",
+      "Keep a personal sandbox for testing plugins, AI builders, and staging domains at zero cost.",
+    ],
+  },
+  "Dashlane Premium": {
+    students: [
+      "Securely share group-project credentials and avoid reusing campus passwords.",
+      "Use VPN on public Wi‑Fi (library, dorms, cafés) to cut credential leakage.",
+    ],
+    independents: [
+      "Centralize client logins with breach monitoring while you trial Dashlane’s workflow.",
+      "Test VPN, autofill, and shared collections before moving a team onto it.",
+    ],
+  },
+  GitHub: {
+    students: [
+      "Leverage pack perks (domains, CI, design tools) to ship a standout portfolio project.",
+      "Practice PR reviews and CI/CD pipelines so team workflows feel natural.",
+    ],
+    independents: [
+      "Bundle the partner credits to prototype SaaS backends and deploy proofs of concept.",
+      "Audit the pack’s partner tools against your current stack without spending cash.",
+    ],
+  },
+};
+
+const defaultUseCases = (offer: StudentOffer): UseCases => ({
+  students: [
+    `Ship a portfolio piece, hackathon build, or capstone on ${offer.provider} while it's free.`,
+    `Stretch your budget by saving ${offer.savings} you can redirect to hardware, books, or travel.`,
+  ],
+  independents: [
+    `Pilot ${offer.provider} on client or side projects before paying full freight.`,
+    `Automate repetitive tasks with the ${offer.category.toLowerCase()} stack so you can stay billable.`,
+  ],
+});
+
+const categoryUseCases: Partial<Record<string, (offer: StudentOffer) => UseCases>> = {
+  Hosting: (offer) => ({
+    students: [
+      `Launch a personal site, resume, or club page without touching your bank account.`,
+      `Host hackathon MVPs or coursework demos on ${offer.provider} and keep them live all semester.`,
+    ],
+    independents: [
+      `Prototype client ideas on ${offer.provider} to earn trust before upselling managed hosting.`,
+      `Stress-test landing pages with free SSL and one-click app installers before scaling elsewhere.`,
+    ],
+  }),
+  Cloud: (offer) => ({
+    students: [
+      `Use the credits to lab for certifications or practice cloud architecture safely.`,
+      `Spin up AI/ML experiments or data pipelines without wrestling with campus hardware.`,
+    ],
+    independents: [
+      `Run short-lived workloads for gigs or freelance prototypes without paying out of pocket.`,
+      `Benchmark ${offer.provider} against your current cloud before migrating critical workloads.`,
+    ],
+  }),
+  "AI Coding": (offer) => ({
+    students: [
+      `Pair ${offer.provider} with your IDE to draft assignments faster and learn unfamiliar stacks.`,
+      `Use fast requests for debugging capstone projects before demo day.`,
+    ],
+    independents: [
+      `Accelerate client deliverables with AI pair-programming while you validate its value.`,
+      `Keep a secondary AI copilot for thorny code reviews or refactors without new spend.`,
+    ],
+  }),
+  "AI Tools": (offer) => ({
+    students: [
+      `Summarize dense papers, draft research outlines, or storyboard presentations with Gemini-class tools.`,
+      `Generate study aids, quizzes, and practice prompts tailored to your lectures.`,
+    ],
+    independents: [
+      `Create briefs, mockups, or marketing copy for freelance clients without buying new seats.`,
+      `Prototype content workflows before rolling them into a paid creative stack.`,
+    ],
+  }),
+  Security: (offer) => ({
+    students: [
+      `Lock down shared campus devices with secure passwords and breach monitoring.`,
+      `Use VPN and autofill to keep dorm Wi‑Fi or library browsing safer.`,
+    ],
+    independents: [
+      `Consolidate client credentials under one vault while you decide if ${offer.provider} fits long-term.`,
+      `Test dark web monitoring or VPN speeds without swapping your main provider yet.`,
+    ],
+  }),
+  Design: (offer) => ({
+    students: [
+      `Build a visual portfolio or case study deck that actually looks hireable.`,
+      `Co-create design systems with classmates instead of juggling trial limitations.`,
+    ],
+    independents: [
+      `Create spec-ready mockups for clients before they sign, without new subscription overhead.`,
+      `Experiment with motion and prototyping features to see if they replace your current stack.`,
+    ],
+  }),
+  Productivity: (offer) => ({
+    students: [
+      `Organize research, deadlines, and lab notes in one workspace so you can focus on output.`,
+      `Automate reminders and recurring checklists for semester-long team projects.`,
+    ],
+    independents: [
+      `Stand up client portals, SOPs, or content calendars without paying for yet another PM tool.`,
+      `Test-drive AI-assisted writing to ship proposals and reports faster.`,
+    ],
+  }),
+  Domains: (offer) => ({
+    students: [
+      `Claim a personal domain for your resume or portfolio while it's still free.`,
+      `Point course or club projects to a branded URL that looks professional on LinkedIn.`,
+    ],
+    independents: [
+      `Validate brand ideas with a live domain before investing in a full build.`,
+      `Protect name variants or campaign URLs without adding recurring costs.`,
+    ],
+  }),
+};
+
+const generateUseCases = (offer: StudentOffer): UseCases => {
+  if (providerUseCases[offer.provider]) {
+    return providerUseCases[offer.provider] as UseCases;
+  }
+  const generator = categoryUseCases[offer.category] || defaultUseCases;
+  return generator(offer);
+};
+
 interface OfferDetailsModalProps {
   offer: StudentOffer;
   isOpen: boolean;
@@ -138,12 +296,12 @@ export default function OfferDetailsModal({
   isOpen,
   onClose,
 }: OfferDetailsModalProps) {
-  console.log("OfferDetailsModal render:", { offer: offer?.provider, isOpen });
-
   if (!offer) return null;
 
   // Add client-side check to ensure DOM is available for createPortal
-  if (typeof window === "undefined") return null;
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  if (typeof window === "undefined" || !mounted) return null;
 
   const categoryColor =
     categoryColors[offer.category as keyof typeof categoryColors] ||
@@ -158,6 +316,7 @@ export default function OfferDetailsModal({
   const offerSummary =
     offerSummaries[offer.provider] ||
     `${offer.provider} is a professional platform offering valuable tools and services for students. This student discount provides significant savings on premium features that would otherwise be costly for individual users.`;
+  const useCases = generateUseCases(offer);
 
   return (
     <AnimatePresence data-oid="1x.3irn">
@@ -181,7 +340,7 @@ export default function OfferDetailsModal({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.8, y: 50 }}
               transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[10000] w-[95vw] sm:w-[90vw] md:w-[85vw] lg:w-[80vw] xl:w-[70vw] max-w-4xl max-h-[90vh] overflow-y-auto p-2 sm:p-4"
+              className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-[10000] w-[95vw] sm:w-[90vw] md:w-[80vw] lg:w-[70vw] xl:w-[60vw] max-w-3xl max-h-[90vh] overflow-y-auto p-2 sm:p-4"
               data-oid="wttg97f"
             >
               <div
@@ -449,6 +608,57 @@ export default function OfferDetailsModal({
                           >
                             {categoryDescription}
                           </p>
+                        </div>
+                      </motion.div>
+
+                      {/* Scenario-based Use Cases */}
+                      <motion.div
+                        className="mb-6 sm:mb-8"
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.75 }}
+                        data-oid="usecases"
+                      >
+                        <h3
+                          className="text-xl sm:text-2xl font-bold text-green-400 mb-4 flex items-center gap-3"
+                          data-oid="usecases-title"
+                        >
+                          <Lightbulb className="w-5 h-5" data-oid="usecases-icon" />
+                          How to squeeze this offer
+                        </h3>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+                          <div className="p-4 sm:p-6 bg-green-500/10 border border-green-500/30 rounded-xl">
+                            <h4 className="text-lg font-bold text-green-300 mb-3">
+                              Students
+                            </h4>
+                            <ul className="space-y-2 text-sm text-gray-200">
+                              {useCases.students.map((entry, index) => (
+                                <li
+                                  key={`student-${index}`}
+                                  className="flex items-start gap-2 leading-relaxed"
+                                >
+                                  <span className="text-green-400 mt-0.5">→</span>
+                                  <span>{entry}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div className="p-4 sm:p-6 bg-indigo-500/10 border border-indigo-500/30 rounded-xl">
+                            <h4 className="text-lg font-bold text-indigo-200 mb-3">
+                              Independents & alumni
+                            </h4>
+                            <ul className="space-y-2 text-sm text-gray-200">
+                              {useCases.independents.map((entry, index) => (
+                                <li
+                                  key={`independent-${index}`}
+                                  className="flex items-start gap-2 leading-relaxed"
+                                >
+                                  <span className="text-indigo-300 mt-0.5">→</span>
+                                  <span>{entry}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
                         </div>
                       </motion.div>
 

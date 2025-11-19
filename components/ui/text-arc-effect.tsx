@@ -1,23 +1,29 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import Image from "next/image";
 
 /**
  * Renders the central logo using an image.
  * Now larger and with a hover effect applied in the main component.
  */
-const CentralLogo = () => (
-  <img
-    src="/terrorist_logo.png"
-    alt="Logo"
-    className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover shadow-lg border-2 border-green-500/50"
-    onError={(e) => {
-      const target = e.target as HTMLImageElement;
-      target.onerror = null;
-      target.src = "https://placehold.co/96x96/16a34a/ffffff?text=FT";
-    }}
-    data-oid="jekhn.0"
-  />
-);
+const CentralLogo = () => {
+  const [logoSrc, setLogoSrc] = useState("/terrorist_logo.png");
+
+  return (
+    <Image
+      src={logoSrc}
+      alt="Freebie Terrorist logo"
+      width={96}
+      height={96}
+      sizes="96px"
+      className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover shadow-lg border-2 border-green-500/50"
+      onError={() =>
+        setLogoSrc("https://placehold.co/96x96/16a34a/ffffff?text=FT")
+      }
+      data-oid="jekhn.0"
+    />
+  );
+};
 
 /**
  * Main Text Arc Effect Component

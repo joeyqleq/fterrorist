@@ -12,7 +12,7 @@ export default function HackerTitle({
   text,
   className = "",
 }: HackerTitleProps) {
-  const textRefs = useRef<(HTMLHeadingElement | null)[]>([]);
+  const textRefs = useRef<(HTMLSpanElement | null)[]>([]);
   const svgRef = useRef<SVGSVGElement>(null);
   const [isClient, setIsClient] = useState(false);
 
@@ -75,17 +75,16 @@ export default function HackerTitle({
 
   if (!isClient) {
     return (
-      <div className={className} data-oid="roe5r:d">
+      <h1
+        className={`${className} text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black font-mono leading-none text-transparent bg-clip-text bg-gradient-to-br from-green-400 via-green-500 to-green-600`}
+        data-oid="roe5r:d"
+      >
         {text.map((line, i) => (
-          <h1
-            key={i}
-            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black font-mono leading-none text-transparent bg-clip-text bg-gradient-to-br from-green-400 via-green-500 to-green-600"
-            data-oid="25ms287"
-          >
+          <span key={i} className="block" data-oid="25ms287">
             {line}
-          </h1>
+          </span>
         ))}
-      </div>
+      </h1>
     );
   }
 
@@ -96,22 +95,21 @@ export default function HackerTitle({
         data-oid="bvzeghc"
       >
         <div className="relative w-full" data-oid="qu125:-">
-          {text.map((line, i) => (
-            <h1
-              key={i}
-              ref={(el) => (textRefs.current[i] = el)}
-              className="text-transparent bg-clip-text bg-gradient-to-br from-green-400 via-green-500 to-green-600 relative z-10 w-full"
-              style={{
-                filter: "drop-shadow(0 0 8px rgba(34, 197, 94, 0.5))",
-                display: 'block',
-                whiteSpace: 'nowrap',
-                overflow: 'visible',
-              }}
-              data-oid="q92pqj."
-            >
-              {line}
-            </h1>
-          ))}
+          <h1
+            className="relative z-10 w-full text-transparent bg-clip-text bg-gradient-to-br from-green-400 via-green-500 to-green-600"
+            style={{ filter: "drop-shadow(0 0 8px rgba(34, 197, 94, 0.5))" }}
+            data-oid="q92pqj."
+          >
+            {text.map((line, i) => (
+              <span
+                key={i}
+                ref={(el) => (textRefs.current[i] = el)}
+                className="block whitespace-nowrap"
+              >
+                {line}
+              </span>
+            ))}
+          </h1>
 
           {/* SVG Outline Tracing - Much more subtle */}
           <svg

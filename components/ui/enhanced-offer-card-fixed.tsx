@@ -8,8 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Clock, MapPin, Shield, ExternalLink, ArrowRight } from "lucide-react";
 import OfferLogo3D from "@/components/OfferLogo3D";
 import { GlowingEffect } from "@/components/ui/glowing-effect";
-import OfferDetailsModal from "@/components/ui/offer-details-modal";
-import { StudentOffer } from "@/lib/studentOffers";
+import type { StudentOffer } from "@/lib/studentOffers";
 
 // Category colors and gradients
 const categoryColors = {
@@ -80,6 +79,7 @@ interface EnhancedOfferCardProps {
   index: number;
   isFlipped: boolean;
   onFlip: () => void;
+  onOpenUseCases: (offer: StudentOffer) => void;
 }
 
 export default function EnhancedOfferCardFixed({
@@ -87,9 +87,9 @@ export default function EnhancedOfferCardFixed({
   index,
   isFlipped,
   onFlip,
+  onOpenUseCases,
 }: EnhancedOfferCardProps) {
   const [isHovered, setIsHovered] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const categoryColor =
     categoryColors[offer.category as keyof typeof categoryColors] ||
@@ -423,19 +423,17 @@ export default function EnhancedOfferCardFixed({
 
                   <Button
                     size="sm"
-                    variant="outline"
+                    type="button"
+                    aria-haspopup="dialog"
                     onClick={(e) => {
                       e.preventDefault();
                       e.stopPropagation();
-                      console.log("Full Details clicked for:", offer.provider);
-                      console.log("Current modal state:", isModalOpen);
-                      setIsModalOpen(true);
-                      console.log("Modal state after setting:", true);
+                      onOpenUseCases(offer);
                     }}
-                    className="w-full border-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white rounded-lg h-8 cursor-pointer"
+                    className="w-full h-9 text-black font-bold rounded-lg bg-gradient-to-r from-emerald-400 via-green-500 to-emerald-500 hover:from-emerald-300 hover:to-green-400 shadow-md shadow-green-500/30 transition-all duration-300"
                     data-oid="m9-ub5n"
                   >
-                    <span data-oid="eulv-hr">Full Details</span>
+                    <span data-oid="eulv-hr">Use Cases</span>
                   </Button>
                 </div>
               </CardContent>
@@ -444,16 +442,6 @@ export default function EnhancedOfferCardFixed({
         </motion.div>
       </div>
 
-      {/* Offer Details Modal */}
-      <OfferDetailsModal
-        offer={offer}
-        isOpen={isModalOpen}
-        onClose={() => {
-          console.log("Closing modal");
-          setIsModalOpen(false);
-        }}
-        data-oid="4sn0lm5"
-      />
     </motion.div>
   );
 }

@@ -3,17 +3,17 @@ import Script from "next/script";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { GlobalLoader } from "@/components/ui/global-loader";
-import { initToolbar } from "@21st-extension/toolbar";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
-import { Pointer } from "@/components/ui/pointer";
+import { Space_Mono } from "next/font/google";
 
 // Load Space Mono locally
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://terrorist.me"),
   title: "FREEBIE TERRORIST - Digital Anarchist Platform",
   description:
-    "Breaking educational barriers through digital rebellion. Curated, up to date free shit for students. No discounts. Only freebie terrorism on this ship.",
+    "Freebie Terrorist is a living index of verified student freebies and edu-ready perks built by digital anarchists, for anyone who hates paywalls.",
   keywords: [
     "student discounts",
     "free software",
@@ -25,8 +25,35 @@ export const metadata: Metadata = {
     title: "FREEBIE TERRORIST - Digital Anarchist Platform",
     description: "Breaking educational barriers through digital rebellion",
     type: "website",
+    images: [
+      {
+        url: "https://terrorist.me/terrorist_logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Freebie Terrorist ASCII emblem",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    site: "@freebieterrorist",
+    creator: "@freebieterrorist",
+    title: "FREEBIE TERRORIST - Digital Anarchist Platform",
+    description: "Breaking educational barriers through digital rebellion",
+    images: ["https://terrorist.me/terrorist_logo.png"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-space-mono",
+  display: "swap",
+});
 export default function RootLayout({
   children,
 }: {
@@ -60,15 +87,33 @@ export default function RootLayout({
           data-oid="73hfgl8"
         />
 
-        {/* Matomo */}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: matomoScript,
-          }}
+        <Script
+          id="matomo"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{ __html: matomoScript }}
         />
-        
-        {/* Tianji analytics */}
-       <script async defer src="https://tianji.p5n.lol/tracker.js" data-website-id="cmhgrm18c0001k053lht419w0"
+
+        <Script
+          id="tianji"
+          strategy="afterInteractive"
+          src="https://tianji.p5n.lol/tracker.js"
+          data-website-id="cmhgrm18c0001k053lht419w0"
+        />
+
+        <Script
+          id="plerdy"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+    var _protocol="https:"==document.location.protocol?"https://":"http://";
+    _site_hash_code = "dd6c23661e4aac13321ed353243d32fc",_suid=69118, plerdyScript=document.createElement("script");
+    plerdyScript.setAttribute("defer",""),plerdyScript.dataset.plerdymainscript="plerdymainscript",
+    plerdyScript.src="https://a.plerdy.com/public/js/click/main.js?v="+Math.random();
+    var plerdymainscript=document.querySelector("[data-plerdymainscript='plerdymainscript']");
+    plerdymainscript&&plerdymainscript.parentNode.removeChild(plerdymainscript);
+    try{document.head.appendChild(plerdyScript)}catch(t){console.log(t,"unable add script tag")}
+          `,
+          }}
         />
         {/* Font Awesome */}
         <link
@@ -76,8 +121,9 @@ export default function RootLayout({
           rel="stylesheet"
           data-oid="71pf_zm"
         />
-        {/* Brevo Conversations */}
-        <script
+        <Script
+          id="brevo-conversations"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function(d, w, c) {
@@ -94,12 +140,15 @@ export default function RootLayout({
           }}
           data-oid="sqqw27r"
         />
-        <script
+        <Script
+          id="brevo-sdk"
+          strategy="afterInteractive"
           src="https://cdn.brevo.com/js/sdk-loader.js"
-          async
           data-oid="6y_jdri"
-        ></script>
-        <script
+        />
+        <Script
+          id="brevo-init"
+          strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.Brevo = window.Brevo || [];
@@ -112,7 +161,7 @@ export default function RootLayout({
           data-oid="hz.wkw:"
         />
       </head>
-      <body className="" data-oid="g6a92cy">
+      <body className={spaceMono.className} data-oid="g6a92cy">
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
@@ -120,7 +169,6 @@ export default function RootLayout({
           disableTransitionOnChange
           data-oid="rv8f274"
         >
-          <Pointer />
           <GlobalLoader data-oid="sin3pd8" />
           {children}
           <SpeedInsights data-oid="xfy38ys" />
