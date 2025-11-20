@@ -94,6 +94,24 @@ export default function RootLayout({
         />
 
         <Script
+          id="google-analytics-src"
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-52TVB7993H"
+        />
+        <Script
+          id="google-analytics-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-52TVB7993H');
+            `,
+          }}
+        />
+
+        <Script
           id="tianji"
           strategy="afterInteractive"
           src="https://tianji.p5n.lol/tracker.js"
