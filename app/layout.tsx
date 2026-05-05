@@ -10,7 +10,7 @@ import { Space_Mono } from "next/font/google";
 // Load Space Mono locally
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://terrorist.me"),
+  metadataBase: new URL("https://fterrorist.vercel.app"),
   title: "FREEBIE TERRORIST - Digital Anarchist Platform",
   description:
     "Freebie Terrorist is a living index of verified student freebies and edu-ready perks built by digital anarchists, for anyone who hates paywalls.",
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://terrorist.me/terrorist_logo.png",
+        url: "https://fterrorist.vercel.app/terrorist_logo.png",
         width: 1200,
         height: 630,
         alt: "Freebie Terrorist ASCII emblem",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     creator: "@freebieterrorist",
     title: "FREEBIE TERRORIST - Digital Anarchist Platform",
     description: "Breaking educational barriers through digital rebellion",
-    images: ["https://terrorist.me/terrorist_logo.png"],
+    images: ["https://fterrorist.vercel.app/terrorist_logo.png"],
   },
   robots: {
     index: true,
@@ -63,14 +63,14 @@ export default function RootLayout({
     var _paq = window._paq = window._paq || [];
     /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
     ${process.env.NODE_ENV === 'production' ? `
-    _paq.push(["setCookieDomain", "*.terrorist.me"]);
-    _paq.push(["setDomains", ["*.terrorist.me","*.www.terrorist.me"]]);
+    _paq.push(["setCookieDomain", "*.fterrorist.vercel.app"]);
+    _paq.push(["setDomains", ["*.fterrorist.vercel.app","*.www.fterrorist.vercel.app"]]);
     _paq.push(["enableCrossDomainLinking"]);
     ` : ''}
     _paq.push(['trackPageView']);
     _paq.push(['enableLinkTracking']);
     (function() {
-      var u="//matomo.p5n.lol/";
+      var u="//matomo.myhayat.app/";
       _paq.push(['setTrackerUrl', u+'matomo.php']);
       _paq.push(['setSiteId', '2']);
       var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
@@ -114,7 +114,7 @@ export default function RootLayout({
         <Script
           id="tianji"
           strategy="afterInteractive"
-          src="https://tianji.p5n.lol/tracker.js"
+          src="https://tianji.myhayat.app/tracker.js"
           data-website-id="cmhgrm18c0001k053lht419w0"
         />
 
